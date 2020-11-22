@@ -11,12 +11,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.qwert2603.eten.domain.model.Product
 import com.qwert2603.eten.stub.Stub
 
 @Composable
-fun AddProduct(navController: NavController) {
+fun AddProduct(navigateUp: () -> Unit) {
     val name = mutableStateOf("")
     val caloriesPer100g = mutableStateOf(0)
     Scaffold(
@@ -30,7 +29,7 @@ fun AddProduct(navController: NavController) {
                                 calorie = caloriesPer100g.value / 100.0
                             )
                         )
-                        navController.navigateUp()
+                        navigateUp()
                     },
                     enabled = name.value.isNotBlank() && caloriesPer100g.value != 0
                 ) {

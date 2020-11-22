@@ -5,15 +5,9 @@ import java.util.*
 data class Meal(
     val uuid: String = UUID.randomUUID().toString(),
     val time: Date,
-    val products: List<WeightedProduct>,
+    val parts: List<MealPart>,
 ) {
-    val totalCalories = products.sumByDouble { it.calories }
-
-    data class WeightedProduct(
-        val product: Product,
-        val weight: Double,
-    ) {
-        val calories = product.calorie * weight
-    }
+    val totalWeight = parts.sumByDouble { it.weight }
+    val totalCalories = parts.sumByDouble { it.totalCalories }
 }
 

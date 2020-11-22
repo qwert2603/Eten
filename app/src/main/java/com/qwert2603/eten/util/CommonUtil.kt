@@ -1,3 +1,7 @@
 package com.qwert2603.eten.util
 
-fun Double.format() = String.format("%.2f", this)
+import kotlin.math.roundToInt
+
+fun Double.format(): String = roundToInt().toString() //String.format("%.2f", this)
+
+val <T> T.allCases get() = this
