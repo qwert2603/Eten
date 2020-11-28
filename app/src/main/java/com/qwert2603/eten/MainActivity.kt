@@ -20,12 +20,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
-import androidx.ui.tooling.preview.Preview
 import com.qwert2603.eten.domain.model.Meal
 import com.qwert2603.eten.domain.model.MealDish
 import com.qwert2603.eten.domain.model.MealProduct
 import com.qwert2603.eten.domain.model.Product
-import com.qwert2603.eten.stub.Stub
 import com.qwert2603.eten.ui.EtenTheme
 import com.qwert2603.eten.util.allCases
 import com.qwert2603.eten.util.format
@@ -144,7 +142,7 @@ fun MealsList(meals: List<Meal>) {
     }
 }
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     EtenApp()

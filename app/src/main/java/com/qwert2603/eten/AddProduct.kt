@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.qwert2603.eten.domain.model.Product
-import com.qwert2603.eten.stub.Stub
 
 @Composable
 fun AddProduct(navigateUp: () -> Unit) {
