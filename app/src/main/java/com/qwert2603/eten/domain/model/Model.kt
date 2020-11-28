@@ -9,14 +9,14 @@ sealed class MealPart {
 }
 
 data class WeightedMealPart(
-    val measPart: MealPart,
+    val mealPart: MealPart,
     val weight: Double, // in grams.
 ) {
     init {
         check(weight > 0.0)
     }
 
-    val calories get() = measPart.calorie * weight
+    val calories get() = mealPart.calorie * weight
 }
 
 data class Product(

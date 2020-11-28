@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.map
 import java.util.*
 
 @ExperimentalCoroutinesApi
-class EtenRepoStub : EtenRepo {
+object EtenRepoStub : EtenRepo {
 
     override fun productsUpdates(): Flow<List<Product>> =
         products.map { it.values.sortedBy { product -> product.name } }
@@ -44,18 +44,18 @@ class EtenRepoStub : EtenRepo {
         meals.value = meals.value - uuid
     }
 
-    val productFish = Product(name = "Fish", calorie = 145.0)
-    val productApple = Product(name = "Apple", calorie = 68.0)
-    val productCheese = Product(name = "Cheese", calorie = 217.5)
-    val productPorridge = Product(name = "Porridge", calorie = 88.4)
-    val productPotato = Product(name = "Potato", calorie = 61.0)
-    val productTomato = Product(name = "Tomato", calorie = 58.3)
-    val productWater = Product(name = "Water", calorie = 0.2)
-    val productChicken = Product(name = "Chicken", calorie = 170.7)
-    val productDough = Product(name = "Dough", calorie = 134.2)
-    val productBread = Product(name = "Bread", calorie = 128.5)
+    private val productFish = Product(name = "Fish", calorie = 1.45)
+    private val productApple = Product(name = "Apple", calorie = 0.68)
+    private val productCheese = Product(name = "Cheese", calorie = 2.175)
+    private val productPorridge = Product(name = "Porridge", calorie = 0.884)
+    private val productPotato = Product(name = "Potato", calorie = 0.61)
+    private val productTomato = Product(name = "Tomato", calorie = 0.583)
+    private val productWater = Product(name = "Water", calorie = 000.2)
+    private val productChicken = Product(name = "Chicken", calorie = 1.70)
+    private val productDough = Product(name = "Dough", calorie = 1.342)
+    private val productBread = Product(name = "Bread", calorie = 1.285)
 
-    val dishSoup = Dish(
+    private val dishSoup = Dish(
         name = "Soup",
         time = Date().minusMinutes(123),
         partsList = PartsList(
@@ -66,7 +66,7 @@ class EtenRepoStub : EtenRepo {
         )
     )
 
-    val dishPizza = Dish(
+    private val dishPizza = Dish(
         name = "Pizza",
         time = Date().minusMinutes(584),
         partsList = PartsList(

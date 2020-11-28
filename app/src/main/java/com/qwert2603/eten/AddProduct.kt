@@ -8,29 +8,35 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.qwert2603.eten.data.repo_impl.EtenRepoStub
 import com.qwert2603.eten.domain.model.Product
+import kotlinx.coroutines.launch
 
 @Composable
 fun AddProduct(navigateUp: () -> Unit) {
     val name = mutableStateOf("")
     val caloriesPer100g = mutableStateOf(0)
+    val scope = rememberCoroutineScope()
     Scaffold(
         topBar = {
             TopAppBar(title = { Text("Add Product") }, actions = {
                 IconButton(
                     onClick = {
-                        Stub.addProduct(
-                            Product(
-                                name = name.value,
-                                calorie = caloriesPer100g.value / 100.0
+                        scope.launch {
+                            EtenRepoStub.saveProduct(
+                                Product(
+                                    name = name.value,
+                                    calorie = caloriesPer100g.value / 100.0
+                                )
                             )
-                        )
+                        }
                         navigateUp()
                     },
-                    enabled = name.value.isNotBlank() && caloriesPer100g.value != 0
+                    enabled = name.value.isNotBlank() && caloriesPer100g.value >= 0
                 ) {
                     Icon(Icons.Default.Done)
                 }
