@@ -47,7 +47,7 @@ fun ScreenMain(
     val navController = rememberNavController()
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("Eten") })
+            TopAppBar(title = { Text(stringResource(R.string.app_name)) })
         },
         floatingActionButton = {
             FloatingActionButton(
@@ -57,7 +57,6 @@ fun ScreenMain(
         },
         bottomBar = {
             BottomNavigation {
-                stringResource(R.string.app_name)
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentRoute = navBackStackEntry?.arguments?.getString(KEY_ROUTE)
                 BottomMenuItem.values().forEach {

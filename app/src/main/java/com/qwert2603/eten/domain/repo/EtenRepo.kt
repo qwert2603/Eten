@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface EtenRepo {
     fun productsUpdates(): Flow<List<Product>>
+    suspend fun getProduct(uuid: String): Product?
     suspend fun saveProduct(product: Product)
     suspend fun removeProduct(uuid: String)
 

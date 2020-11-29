@@ -6,6 +6,17 @@
     <string name="bottom_menu_products">Products</string>
 
     <string name="screen_title_add_product">Add Product</string>
+    <string name="screen_title_add_dish">Add Dish</string>
+    <string name="screen_title_add_meal">Add Meal</string>
 
     <string name="symbol_calorie">🔥</string>
+
+    <string name="common_name">Name</string>
+    <string name="common_total">Total</string>
+
+    <string name="edit_product_field_calorie">Calories per 100g</string>
+
+    <string name="edit_dish_button_add_product">Add product</string>
+    <string name="edit_dish_button_add_dish">Add dish</string>
+
 </resources>

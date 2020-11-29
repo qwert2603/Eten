@@ -2,17 +2,17 @@ package com.qwert2603.eten.data.repo_impl
 
 import com.qwert2603.eten.domain.model.*
 import com.qwert2603.eten.domain.repo.EtenRepo
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 import java.util.*
 
-@ExperimentalCoroutinesApi
 object EtenRepoStub : EtenRepo {
 
     override fun productsUpdates(): Flow<List<Product>> =
         products.map { it.values.sortedBy { product -> product.name } }
+
+    override suspend fun getProduct(uuid: String): Product? = products.value[uuid]
 
     override suspend fun saveProduct(product: Product) {
         products.value = products.value + (product.uuid to product)

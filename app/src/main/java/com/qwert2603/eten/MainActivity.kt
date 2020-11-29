@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
+import com.qwert2603.eten.presentation.screen.ScreenEditProduct
 import com.qwert2603.eten.presentation.screen.ScreenMain
 import com.qwert2603.eten.ui.EtenTheme
 
@@ -31,7 +32,10 @@ fun EtenApp() {
                 })
             }
             composable(Route.AddProduct.name) {
-                AddProduct(navigateUp = { navController.navigateUp() })
+                ScreenEditProduct(
+                    productUuid = null,
+                    navigateUp = { navController.navigateUp() }
+                )
             }
         }
     }

@@ -17,3 +17,5 @@ fun Double.formatWeight() = "${roundToInt()}g"
 fun Double.formatCalorie() = "${roundToInt()}${stringResource(R.string.symbol_calorie)}"
 
 fun Double.formatTotalCalories() = "${roundToInt()}cal"
+
+fun randomUUID() = UUID.randomUUID().toString()
