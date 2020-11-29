@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.qwert2603.eten.data.repo_impl.EtenRepoStub
@@ -23,24 +24,26 @@ fun AddProduct(navigateUp: () -> Unit) {
     val scope = rememberCoroutineScope()
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("Add Product") }, actions = {
-                IconButton(
-                    onClick = {
-                        scope.launch {
-                            EtenRepoStub.saveProduct(
-                                Product(
-                                    name = name.value,
-                                    calorie = caloriesPer100g.value / 100.0
+            TopAppBar(
+                title = { Text(stringResource(R.string.screen_title_add_product)) },
+                actions = {
+                    IconButton(
+                        onClick = {
+                            scope.launch {
+                                EtenRepoStub.saveProduct(
+                                    Product(
+                                        name = name.value,
+                                        calorie = caloriesPer100g.value / 100.0
+                                    )
                                 )
-                            )
-                        }
-                        navigateUp()
-                    },
-                    enabled = name.value.isNotBlank() && caloriesPer100g.value >= 0
-                ) {
-                    Icon(Icons.Default.Done)
-                }
-            })
+                            }
+                            navigateUp()
+                        },
+                        enabled = name.value.isNotBlank() && caloriesPer100g.value >= 0
+                    ) {
+                        Icon(Icons.Default.Done)
+                    }
+                })
         }
     ) {
         Column {

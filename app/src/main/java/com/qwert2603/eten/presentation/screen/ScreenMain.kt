@@ -1,5 +1,6 @@
 package com.qwert2603.eten.presentation.screen
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.Text
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -10,30 +11,32 @@ import androidx.compose.material.icons.filled.Place
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.vector.VectorAsset
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.*
+import com.qwert2603.eten.R
 import com.qwert2603.eten.Route
 
 private enum class BottomMenuItem(
     val route: Route,
-    val label: String,
+    @StringRes val labelRes: Int,
     val icon: VectorAsset,
     val content: @Composable () -> Unit
 ) {
     Meals(
         route = Route.Meals,
-        label = "Meals",
+        labelRes = R.string.bottom_menu_meals,
         icon = Icons.Default.List,
         content = { ScreenMealsList() }
     ),
     Dishes(
         route = Route.Dishes,
-        label = "Dishes",
+        labelRes = R.string.bottom_menu_dishes,
         icon = Icons.Default.Menu,
         content = { ScreenDishesList() }
     ),
     Products(
         route = Route.Products,
-        label = "Products",
+        labelRes = R.string.bottom_menu_products,
         icon = Icons.Default.Place,
         content = { ScreenProductsList() }
     ),
@@ -56,12 +59,13 @@ fun ScreenMain(
         },
         bottomBar = {
             BottomNavigation {
+                stringResource(R.string.app_name)
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentRoute = navBackStackEntry?.arguments?.getString(KEY_ROUTE)
                 BottomMenuItem.values().forEach {
                     BottomNavigationItem(
                         icon = { Icon(it.icon) },
-                        label = { Text(it.label) },
+                        label = { Text(stringResource(it.labelRes)) },
                         selected = currentRoute == it.route.name,
                         onClick = {
                             navController.popBackStack(navController.graph.startDestination, false)

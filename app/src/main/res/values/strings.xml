@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Eten</string>
+
+    <string name="bottom_menu_meals">Meals</string>
+    <string name="bottom_menu_dishes">Dishes</string>
+    <string name="bottom_menu_products">Products</string>
+
+    <string name="screen_title_add_product">Add Product</string>
+
+    <string name="symbol_calorie">🔥</string>
 </resources>
