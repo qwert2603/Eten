@@ -8,8 +8,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.navigation.compose.*
 import com.qwert2603.eten.R
 import com.qwert2603.eten.Route
@@ -62,7 +62,7 @@ fun ScreenMain(
                 val currentRoute = navBackStackEntry?.arguments?.getString(KEY_ROUTE)
                 BottomMenuItem.values().forEach {
                     BottomNavigationItem(
-                        icon = { Icon(imageResource(it.iconRes)) },
+                        icon = { Icon(vectorResource(it.iconRes)) },
                         label = { Text(stringResource(it.labelRes)) },
                         selected = currentRoute == it.route.name,
                         onClick = {
