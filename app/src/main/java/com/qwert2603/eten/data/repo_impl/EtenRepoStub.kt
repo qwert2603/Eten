@@ -22,6 +22,8 @@ object EtenRepoStub : EtenRepo {
         products.value = products.value - uuid
     }
 
+    override suspend fun getDish(uuid: String): Dish? = dishes.value[uuid]
+
     override fun dishesUpdates(): Flow<List<Dish>> =
         dishes.map { it.values.sortedByDescending { dish -> dish.time } }
 
@@ -35,6 +37,8 @@ object EtenRepoStub : EtenRepo {
 
     override fun mealsUpdates(): Flow<List<Meal>> =
         meals.map { it.values.sortedByDescending { meal -> meal.time } }
+
+    override suspend fun getMeal(uuid: String): Meal? = meals.value[uuid]
 
     override suspend fun saveMeal(meal: Meal) {
         meals.value = meals.value + (meal.uuid to meal)

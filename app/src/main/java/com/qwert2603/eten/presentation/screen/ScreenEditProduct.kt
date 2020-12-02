@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedTask
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -14,20 +16,27 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.viewModel
 import com.qwert2603.eten.R
-import com.qwert2603.eten.data.repo_impl.EtenRepoStub
 import com.qwert2603.eten.domain.model.Product
-import com.qwert2603.eten.presentation.EtenViewModel
-import com.qwert2603.eten.util.randomUUID
-import kotlinx.coroutines.launch
+import timber.log.Timber
+
+data class CreatingProduct(
+    val uuid: String,
+    val name: String,
+    val caloriesPer100g: Int,
+) {
+    fun isValid() = name.isNotBlank() && caloriesPer100g >= 0
+
+    fun toProduct() = Product(uuid, name, caloriesPer100g.toDouble())
+}
 
 @Composable
 fun ScreenEditProduct(productUuid: String?, navigateUp: () -> Unit) {
-    val scope = rememberCoroutineScope()
-    val vm: EtenViewModel = viewModel()
+    val vm = viewModel<EditProductViewModel>()
+    LaunchedTask { vm.loadProduct(productUuid) } // fixme: recalled after rotate device.
+    val productState = vm.creatingProduct.collectAsState()
+    Timber.d("productUuid=$productUuid product=${productState.value}")
+    val product = productState.value ?: return
 
-    val product by produceState<Product?>(null) { productUuid?.let { vm.getProduct(it) } }
-    val name = mutableStateOf(product?.name ?: "")
-    val caloriesPer100g = mutableStateOf(product?.caloriePer100g?.toInt() ?: 0)
     Scaffold(
         topBar = {
             TopAppBar(
@@ -40,18 +49,10 @@ fun ScreenEditProduct(productUuid: String?, navigateUp: () -> Unit) {
                 actions = {
                     IconButton(
                         onClick = {
-                            scope.launch {
-                                EtenRepoStub.saveProduct(
-                                    Product(
-                                        uuid = product?.uuid ?: randomUUID(),
-                                        name = name.value,
-                                        calorie = caloriesPer100g.value / 100.0,
-                                    )
-                                )
-                            }
+                            vm.saveProduct()
                             navigateUp()
                         },
-                        enabled = name.value.isNotBlank() && caloriesPer100g.value >= 0
+                        enabled = product.isValid(),
                     ) {
                         Icon(vectorResource(R.drawable.ic_save))
                     }
@@ -60,14 +61,20 @@ fun ScreenEditProduct(productUuid: String?, navigateUp: () -> Unit) {
     ) {
         Column {
             TextField(
-                value = name.value,
-                onValueChange = { name.value = it.take(100).trim() },
+                value = product.name,
+                onValueChange = {
+                    val name = it.take(100).trim()
+                    vm.onProductChange(product.copy(name = name))
+                },
                 placeholder = { Text(stringResource(R.string.common_name)) },
                 modifier = Modifier.padding(12.dp),
             )
             TextField(
-                value = caloriesPer100g.value.takeIf { it != 0 }?.toString() ?: "",
-                onValueChange = { caloriesPer100g.value = it.take(4).toIntOrNull() ?: 0 },
+                value = product.caloriesPer100g.takeIf { it != 0 }?.toString() ?: "",
+                onValueChange = {
+                    val caloriesPer100g = it.take(4).toIntOrNull() ?: 0
+                    vm.onProductChange(product.copy(caloriesPer100g = caloriesPer100g))
+                },
                 placeholder = { Text(stringResource(R.string.edit_product_field_calorie)) },
                 keyboardType = KeyboardType.Number,
                 modifier = Modifier.padding(12.dp),

@@ -11,14 +11,17 @@ import com.qwert2603.eten.presentation.EtenViewModel
 import com.qwert2603.eten.presentation.list_item.ItemProduct
 
 @Composable
-fun ScreenProductsList() {
+fun ScreenProductsList(
+    navigateToEditProduct: (uuid: String) -> Unit,
+) {
     val vm = viewModel<EtenViewModel>()
     val products = vm.productsUpdates.collectAsState(initial = emptyList())
+    // todo: scrollbars
     LazyColumnFor(
         items = products.value,
         contentPadding = PaddingValues(bottom = 96.dp)
     ) {
-        ItemProduct(product = it, onClick = {/*todo*/ })
+        ItemProduct(product = it, onClick = { navigateToEditProduct(it.uuid) })
         Divider()
     }
 }

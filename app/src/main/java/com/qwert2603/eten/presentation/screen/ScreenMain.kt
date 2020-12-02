@@ -18,33 +18,31 @@ private enum class BottomMenuItem(
     val route: Route,
     @StringRes val labelRes: Int,
     @DrawableRes val iconRes: Int,
-    val content: @Composable () -> Unit
 ) {
     Meals(
         route = Route.Meals,
         labelRes = R.string.bottom_menu_meals,
         iconRes = R.drawable.ic_meal,
-        content = { ScreenMealsList() }
     ),
     Dishes(
         route = Route.Dishes,
         labelRes = R.string.bottom_menu_dishes,
         iconRes = R.drawable.ic_dish,
-        content = { ScreenDishesList() }
     ),
     Products(
         route = Route.Products,
         labelRes = R.string.bottom_menu_products,
         iconRes = R.drawable.ic_product,
-        content = { ScreenProductsList() }
     ),
 }
 
 @Composable
 fun ScreenMain(
     navigateToAddProduct: () -> Unit,
+    navigateToEditProduct: (uuid: String) -> Unit,
 ) {
     val navController = rememberNavController()
+    // fixme: bodyContent is under bottomBar
     Scaffold(
         topBar = {
             TopAppBar(title = { Text(stringResource(R.string.app_name)) })
@@ -76,8 +74,10 @@ fun ScreenMain(
         },
         bodyContent = {
             NavHost(navController, startDestination = BottomMenuItem.values().first().route.name) {
-                BottomMenuItem.values().forEach { bottomMenuItem ->
-                    composable(bottomMenuItem.route.name) { bottomMenuItem.content() }
+                composable(BottomMenuItem.Meals.route.name) { ScreenMealsList() }
+                composable(BottomMenuItem.Dishes.route.name) { ScreenDishesList() }
+                composable(BottomMenuItem.Products.route.name) {
+                    ScreenProductsList(navigateToEditProduct)
                 }
             }
         },

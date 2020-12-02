@@ -14,7 +14,7 @@ fun Date.format(): String = SimpleDateFormat.getDateTimeInstance().format(this)
 fun Double.formatWeight() = "${roundToInt()}g"
 
 @Composable
-fun Double.formatCalorie() = "${roundToInt()}${stringResource(R.string.symbol_calorie)}"
+fun Double.formatCalorie() = "${roundToInt()} ${stringResource(R.string.symbol_calorie)}"
 
 fun Double.formatTotalCalories() = "${roundToInt()}cal"
 

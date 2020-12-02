@@ -4,10 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.setContent
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigate
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation.NavType
+import androidx.navigation.compose.*
 import com.qwert2603.eten.presentation.screen.ScreenEditProduct
 import com.qwert2603.eten.presentation.screen.ScreenMain
 import com.qwert2603.eten.ui.EtenTheme
@@ -27,13 +25,20 @@ fun EtenApp() {
         val navController = rememberNavController()
         NavHost(navController, startDestination = Route.Main.name) {
             composable(Route.Main.name) {
-                ScreenMain(navigateToAddProduct = {
-                    navController.navigate(Route.AddProduct.name)
-                })
+                ScreenMain(
+                    navigateToAddProduct = { navController.navigate("edit_product") },
+                    navigateToEditProduct = { uuid -> navController.navigate("edit_product?uuid=$uuid") }
+                )
             }
-            composable(Route.AddProduct.name) {
+            composable(
+                route = "edit_product?uuid={uuid}",
+                arguments = listOf(navArgument("uuid") {
+                    type = NavType.StringType
+                    nullable = true
+                })
+            ) {
                 ScreenEditProduct(
-                    productUuid = null,
+                    productUuid = it.arguments?.getString("uuid"),
                     navigateUp = { navController.navigateUp() }
                 )
             }
