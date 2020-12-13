@@ -51,7 +51,7 @@ fun ScreenEditDish(dishUuid: String?, navigateUp: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.screen_title_add_dish)) },
+                title = { Text(stringResource(R.string.screen_title_new_dish)) },//fixme
                 navigationIcon = {
                     IconButton(onClick = navigateUp) {
                         Icon(Icons.Default.ArrowBack)

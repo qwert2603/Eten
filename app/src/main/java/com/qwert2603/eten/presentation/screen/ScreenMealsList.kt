@@ -16,6 +16,8 @@ import com.qwert2603.eten.presentation.list_item.ItemMeal
 @Composable
 fun ScreenMealsList() {
     val meals = EtenRepoStub.mealsUpdates().collectAsState(initial = emptyList())
+
+    // todo: show calories sum by day
     LazyColumnFor(items = meals.value) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,

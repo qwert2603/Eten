@@ -5,9 +5,12 @@
     <string name="bottom_menu_dishes">Dishes</string>
     <string name="bottom_menu_products">Products</string>
 
-    <string name="screen_title_add_product">Add Product</string>
-    <string name="screen_title_add_dish">Add Dish</string>
-    <string name="screen_title_add_meal">Add Meal</string>
+    <string name="screen_title_new_product">New Product</string>
+    <string name="screen_title_new_dish">New Dish</string>
+    <string name="screen_title_new_meal">New Meal</string>
+    <string name="screen_title_edit_product">Edit Product</string>
+    <string name="screen_title_edit_dish">Edit Dish</string>
+    <string name="screen_title_edit_meal">Edit Meal</string>
 
     <string name="symbol_calorie">🔥</string>
     <string name="symbol_grams">g</string>
@@ -24,7 +27,6 @@
 
     <string name="edit_dish_button_add_product">Add product</string>
     <string name="edit_dish_button_add_dish">Add dish</string>
-    <string name="edit_dish_button_add_meal">Add meal</string>
 
     <string name="delete_product_title">Delete product?</string>
     <string name="delete_dish_title">Delete dish?</string>

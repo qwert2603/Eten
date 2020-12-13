@@ -46,7 +46,7 @@ fun ScreenEditProduct(productUuid: String?, navigateUp: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.screen_title_add_product)) },
+                title = { Text(stringResource(R.string.screen_title_new_product)) },//fixme
                 navigationIcon = {
                     IconButton(onClick = navigateUp) {
                         Icon(Icons.Default.ArrowBack)

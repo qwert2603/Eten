@@ -47,6 +47,7 @@ fun ItemDish(
                 fontWeight = FontWeight.Bold,
             )
         }
+        // todo: "save as product" button.
         IconButton(
             onClick = onDeleteClick,
             modifier = Modifier.padding(start = 12.dp),
