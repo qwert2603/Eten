@@ -43,7 +43,9 @@ data class Dish(
     override val calorie = partsList.calories / partsList.weight
 }
 
-class PartsList(vararg parts: WeightedMealPart) : List<WeightedMealPart> by listOf(*parts) {
+class PartsList(parts: List<WeightedMealPart>) : List<WeightedMealPart> by parts {
+    constructor(vararg parts: WeightedMealPart) : this(listOf(*parts))
+
     val weight = sumByDouble { it.weight }
     val calories = sumByDouble { it.calories }
 

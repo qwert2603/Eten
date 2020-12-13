@@ -54,7 +54,7 @@ object EtenRepoStub : EtenRepo {
     private val productPorridge = Product(name = "Porridge", calorie = 0.884)
     private val productPotato = Product(name = "Potato", calorie = 0.61)
     private val productTomato = Product(name = "Tomato", calorie = 0.583)
-    private val productWater = Product(name = "Water", calorie = 000.2)
+    private val productWater = Product(name = "Water", calorie = 0.002)
     private val productChicken = Product(name = "Chicken", calorie = 1.70)
     private val productDough = Product(name = "Dough", calorie = 1.342)
     private val productBread = Product(name = "Bread", calorie = 1.285)

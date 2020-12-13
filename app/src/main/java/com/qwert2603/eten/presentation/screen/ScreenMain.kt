@@ -40,29 +40,39 @@ private enum class BottomMenuItem(
 fun ScreenMain(
     navigateToAddProduct: () -> Unit,
     navigateToEditProduct: (uuid: String) -> Unit,
+    navigateToAddDish: () -> Unit,
+    navigateToEditDish: (uuid: String) -> Unit,
 ) {
     val navController = rememberNavController()
     // fixme: bodyContent is under bottomBar
+
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.arguments?.getString(KEY_ROUTE)
+
     Scaffold(
         topBar = {
             TopAppBar(title = { Text(stringResource(R.string.app_name)) })
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { navigateToAddProduct() },
+                onClick = {
+                    when (currentRoute) {
+                        BottomMenuItem.Dishes.route.name -> navigateToAddDish()
+                        BottomMenuItem.Products.route.name -> navigateToAddProduct()
+                    }
+                },
                 icon = { Icon(Icons.Default.Add) }
             )
         },
         bottomBar = {
             BottomNavigation {
-                val navBackStackEntry by navController.currentBackStackEntryAsState()
-                val currentRoute = navBackStackEntry?.arguments?.getString(KEY_ROUTE)
                 BottomMenuItem.values().forEach {
                     BottomNavigationItem(
                         icon = { Icon(vectorResource(it.iconRes)) },
                         label = { Text(stringResource(it.labelRes)) },
                         selected = currentRoute == it.route.name,
                         onClick = {
+                            // todo: check how it works
                             navController.popBackStack(navController.graph.startDestination, false)
                             if (currentRoute != it.route.name) {
                                 navController.navigate(it.route.name)
@@ -75,7 +85,9 @@ fun ScreenMain(
         bodyContent = {
             NavHost(navController, startDestination = BottomMenuItem.values().first().route.name) {
                 composable(BottomMenuItem.Meals.route.name) { ScreenMealsList() }
-                composable(BottomMenuItem.Dishes.route.name) { ScreenDishesList() }
+                composable(BottomMenuItem.Dishes.route.name) {
+                    ScreenDishesList(navigateToEditDish)
+                }
                 composable(BottomMenuItem.Products.route.name) {
                     ScreenProductsList(navigateToEditProduct)
                 }

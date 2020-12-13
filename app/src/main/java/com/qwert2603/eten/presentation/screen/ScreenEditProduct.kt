@@ -17,6 +17,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.viewModel
 import com.qwert2603.eten.R
 import com.qwert2603.eten.domain.model.Product
+import com.qwert2603.eten.util.toEditingInt
+import com.qwert2603.eten.util.toEditingString
 import timber.log.Timber
 
 data class CreatingProduct(
@@ -26,13 +28,17 @@ data class CreatingProduct(
 ) {
     fun isValid() = name.isNotBlank() && caloriesPer100g >= 0
 
-    fun toProduct() = Product(uuid, name, caloriesPer100g.toDouble())
+    fun toProduct() = Product(
+        uuid = uuid,
+        name = name,
+        calorie = caloriesPer100g.toDouble()
+    )
 }
 
 @Composable
 fun ScreenEditProduct(productUuid: String?, navigateUp: () -> Unit) {
     val vm = viewModel<EditProductViewModel>()
-    LaunchedTask { vm.loadProduct(productUuid) } // fixme: recalled after rotate device.
+    LaunchedTask { vm.loadProduct(productUuid) } // fixme: recalled after rotate device in all screens.
     val productState = vm.creatingProduct.collectAsState()
     Timber.d("productUuid=$productUuid product=${productState.value}")
     val product = productState.value ?: return
@@ -70,9 +76,9 @@ fun ScreenEditProduct(productUuid: String?, navigateUp: () -> Unit) {
                 modifier = Modifier.padding(12.dp),
             )
             TextField(
-                value = product.caloriesPer100g.takeIf { it != 0 }?.toString() ?: "",
+                value = product.caloriesPer100g.toEditingString(),
                 onValueChange = {
-                    val caloriesPer100g = it.take(4).toIntOrNull() ?: 0
+                    val caloriesPer100g = it.toEditingInt()
                     vm.onProductChange(product.copy(caloriesPer100g = caloriesPer100g))
                 },
                 placeholder = { Text(stringResource(R.string.edit_product_field_calorie)) },

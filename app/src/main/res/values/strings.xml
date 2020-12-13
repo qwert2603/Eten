@@ -10,9 +10,13 @@
     <string name="screen_title_add_meal">Add Meal</string>
 
     <string name="symbol_calorie">🔥</string>
+    <string name="symbol_grams">g</string>
 
     <string name="common_name">Name</string>
+    <string name="common_weight">Weight</string>
     <string name="common_total">Total</string>
+
+    <string name="dish_title_format" formatted="true">%s at %s</string>
 
     <string name="edit_product_field_calorie">Calories per 100g</string>
 

@@ -13,12 +13,15 @@ class EditProductViewModel(
     private val etenRepo: EtenRepo = EtenRepoStub,
 ) : ViewModel() {
 
+    val creatingProduct = MutableStateFlow<CreatingProduct?>(null)
+
     init {
         Timber.d("EditProductViewModel created")
     }
 
-    // todo: inject uuid to constructor
+    // todo: inject uuid to constructor in all viewModels
     fun loadProduct(uuid: String?) {
+        if (creatingProduct.value != null) return
         Timber.d("loadProduct $uuid")
         viewModelScope.launch {
             creatingProduct.value = uuid
@@ -27,8 +30,6 @@ class EditProductViewModel(
                 ?: CreatingProduct(randomUUID(), "", 0)
         }
     }
-
-    val creatingProduct = MutableStateFlow<CreatingProduct?>(null)
 
     fun onProductChange(creatingProduct: CreatingProduct) {
         this.creatingProduct.value = creatingProduct

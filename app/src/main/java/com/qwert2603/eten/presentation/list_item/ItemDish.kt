@@ -1,7 +1,9 @@
 package com.qwert2603.eten.presentation.list_item
 
 import androidx.compose.foundation.Text
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -11,11 +13,14 @@ import com.qwert2603.eten.domain.model.Dish
 import com.qwert2603.eten.util.*
 
 @Composable
-fun ItemDish(dish: Dish) {
+fun ItemDish(dish: Dish, onClick: () -> Unit) {
     Column(
-        modifier = Modifier.padding(12.dp),
+        modifier = Modifier
+            .clickable(onClick = onClick)
+            .padding(16.dp)
+            .fillMaxWidth(),
     ) {
-        Text("${dish.name} at ${dish.time.format()}")
+        Text(dish.formatTitle())
         dish.partsList.forEachIndexed { index, weightedPart ->
             Text(
                 "${index + 1}. ${weightedPart.mealPart.name}: ${weightedPart.weight.formatWeight()}, ${weightedPart.calories.formatTotalCalories()}",

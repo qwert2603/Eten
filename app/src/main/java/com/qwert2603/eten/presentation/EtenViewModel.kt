@@ -17,4 +17,11 @@ class EtenViewModel(
             replay = 1,
             started = SharingStarted.WhileSubscribed(),
         )
+
+    val dishesUpdates = etenRepo.dishesUpdates()
+        .shareIn(
+            scope = viewModelScope,
+            replay = 1,
+            started = SharingStarted.WhileSubscribed(),
+        )
 }
