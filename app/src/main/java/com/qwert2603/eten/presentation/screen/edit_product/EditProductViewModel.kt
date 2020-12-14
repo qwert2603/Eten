@@ -1,4 +1,4 @@
-package com.qwert2603.eten.presentation.screen
+package com.qwert2603.eten.presentation.screen.edit_product
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

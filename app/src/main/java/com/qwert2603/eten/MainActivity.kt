@@ -7,8 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.platform.setContent
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
-import androidx.ui.tooling.preview.Preview
-import com.qwert2603.eten.presentation.screen.ScreenEditProduct
+import com.qwert2603.eten.presentation.screen.edit_product.ScreenEditProduct
 import com.qwert2603.eten.presentation.screen.ScreenMain
 import com.qwert2603.eten.presentation.screen.edit_dish.ScreenEditDish
 import com.qwert2603.eten.ui.EtenTheme

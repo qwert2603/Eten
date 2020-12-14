@@ -1,4 +1,4 @@
-package com.qwert2603.eten.presentation.screen
+package com.qwert2603.eten.presentation.screen.edit_product
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Text
@@ -17,24 +17,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.viewModel
 import com.qwert2603.eten.R
-import com.qwert2603.eten.domain.model.Product
 import com.qwert2603.eten.util.toEditingInt
 import com.qwert2603.eten.util.toEditingString
 import timber.log.Timber
-
-data class CreatingProduct(
-    val uuid: String,
-    val name: String,
-    val caloriesPer100g: Int,
-) {
-    fun isValid() = name.isNotBlank() && caloriesPer100g >= 0.0
-
-    fun toProduct() = Product(
-        uuid = uuid,
-        name = name,
-        calorie = caloriesPer100g.toDouble() / 100.0
-    )
-}
 
 @Composable
 fun ScreenEditProduct(productUuid: String?, navigateUp: () -> Unit) {
