@@ -9,6 +9,7 @@ import androidx.compose.ui.viewinterop.viewModel
 import com.qwert2603.eten.domain.model.Dish
 import com.qwert2603.eten.presentation.EtenViewModel
 import com.qwert2603.eten.presentation.list_item.ItemDish
+import com.qwert2603.eten.presentation.screen.delete.DialogDeleteDish
 
 @Composable
 fun ScreenDishesList(

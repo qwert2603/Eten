@@ -1,4 +1,4 @@
-package com.qwert2603.eten.presentation.screen
+package com.qwert2603.eten.presentation.screen.delete
 
 import androidx.compose.foundation.Text
 import androidx.compose.material.AlertDialog

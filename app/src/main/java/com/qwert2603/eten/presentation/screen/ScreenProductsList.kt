@@ -9,6 +9,7 @@ import androidx.compose.ui.viewinterop.viewModel
 import com.qwert2603.eten.domain.model.Product
 import com.qwert2603.eten.presentation.EtenViewModel
 import com.qwert2603.eten.presentation.list_item.ItemProduct
+import com.qwert2603.eten.presentation.screen.delete.DialogDeleteProduct
 
 @Composable
 fun ScreenProductsList(
