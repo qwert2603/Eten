@@ -1,5 +1,6 @@
 package com.qwert2603.eten.presentation.screen.edit_dish
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.Text
@@ -51,7 +52,14 @@ fun ScreenEditDish(dishUuid: String?, navigateUp: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.screen_title_new_dish)) },//fixme
+                title = {
+                    @StringRes val titleId = if (dishUuid != null) {
+                        R.string.screen_title_edit_dish
+                    } else {
+                        R.string.screen_title_new_dish
+                    }
+                    Text(stringResource(titleId))
+                },
                 navigationIcon = {
                     IconButton(onClick = navigateUp) {
                         Icon(Icons.Default.ArrowBack)

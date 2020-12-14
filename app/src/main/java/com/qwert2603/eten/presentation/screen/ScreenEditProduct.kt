@@ -1,5 +1,6 @@
 package com.qwert2603.eten.presentation.screen
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -46,7 +47,14 @@ fun ScreenEditProduct(productUuid: String?, navigateUp: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.screen_title_new_product)) },//fixme
+                title = {
+                    @StringRes val titleId = if (productUuid != null) {
+                        R.string.screen_title_edit_product
+                    } else {
+                        R.string.screen_title_new_product
+                    }
+                    Text(stringResource(titleId))
+                },
                 navigationIcon = {
                     IconButton(onClick = navigateUp) {
                         Icon(Icons.Default.ArrowBack)
