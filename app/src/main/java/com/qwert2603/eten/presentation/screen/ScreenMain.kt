@@ -13,6 +13,9 @@ import androidx.compose.ui.res.vectorResource
 import androidx.navigation.compose.*
 import com.qwert2603.eten.R
 import com.qwert2603.eten.Route
+import com.qwert2603.eten.presentation.screen.lists.ScreenDishesList
+import com.qwert2603.eten.presentation.screen.lists.ScreenMealsList
+import com.qwert2603.eten.presentation.screen.lists.ScreenProductsList
 
 private enum class BottomMenuItem(
     val route: Route,

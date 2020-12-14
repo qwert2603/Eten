@@ -1,4 +1,4 @@
-package com.qwert2603.eten.presentation.screen
+package com.qwert2603.eten.presentation.screen.lists
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
