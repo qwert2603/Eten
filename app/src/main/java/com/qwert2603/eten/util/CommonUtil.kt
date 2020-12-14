@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.qwert2603.eten.R
 import com.qwert2603.eten.domain.model.Dish
+import com.qwert2603.eten.domain.model.Meal
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
@@ -18,6 +19,9 @@ fun Double.formatWeight() = "${roundToInt()}g"
 fun Double.formatCalorie() = "${roundToInt()} ${stringResource(R.string.symbol_calorie)}"
 
 fun Double.formatTotalCalories() = "${roundToInt()}cal"
+
+@Composable
+fun Meal.formatTitle() = stringResource(R.string.meal_title_format, time.format())
 
 @Composable
 fun Dish.formatTitle() = stringResource(R.string.dish_title_format, name, time.format())

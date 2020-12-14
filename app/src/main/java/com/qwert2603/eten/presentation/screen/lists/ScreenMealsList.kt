@@ -1,32 +1,43 @@
 package com.qwert2603.eten.presentation.screen.lists
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumnFor
 import androidx.compose.material.Divider
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.*
 import androidx.compose.ui.unit.dp
-import com.qwert2603.eten.data.repo_impl.EtenRepoStub
+import androidx.compose.ui.viewinterop.viewModel
+import com.qwert2603.eten.domain.model.Meal
+import com.qwert2603.eten.presentation.EtenViewModel
 import com.qwert2603.eten.presentation.list_item.ItemMeal
+import com.qwert2603.eten.presentation.screen.delete.DialogDeleteMeal
 
 @Composable
 fun ScreenMealsList() {
-    val meals = EtenRepoStub.mealsUpdates().collectAsState(initial = emptyList())
+    val vm = viewModel<EtenViewModel>()
+    val meals = vm.mealsUpdates.collectAsState(initial = emptyList())
+    var mealToDelete by remember { mutableStateOf<Meal?>(null) }
 
     // todo: show calories sum by day
-    LazyColumnFor(items = meals.value) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier
-                .padding(12.dp)
-                .fillMaxWidth(),
-        ) {
-            ItemMeal(meal = it)
-        }
+    LazyColumnFor(
+        items = meals.value,
+        contentPadding = PaddingValues(bottom = 112.dp),
+    ) {
+        ItemMeal(
+            meal = it,
+            onClick = {},
+            onDeleteClick = { mealToDelete = it },
+        )
         Divider()
+    }
+
+    mealToDelete?.also {
+        DialogDeleteMeal(
+            meal = it,
+            onDelete = {
+                mealToDelete = null
+                vm.deleteMeal(it.uuid)
+            },
+            onCancel = { mealToDelete = null },
+        )
     }
 }

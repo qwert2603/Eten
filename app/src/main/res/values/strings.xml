@@ -21,6 +21,7 @@
     <string name="common_delete">Delete</string>
     <string name="common_cancel">Cancel</string>
 
+    <string name="meal_title_format" formatted="true">Meal at %s</string>
     <string name="dish_title_format" formatted="true">%s at %s</string>
 
     <string name="edit_product_field_calorie">Calories per 100g</string>

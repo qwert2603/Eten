@@ -12,8 +12,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.qwert2603.eten.R
 import com.qwert2603.eten.domain.model.Dish
 import com.qwert2603.eten.util.formatTitle
 import com.qwert2603.eten.util.formatTotalCalories
@@ -42,8 +44,10 @@ fun ItemDish(
                     modifier = Modifier.padding(start = 4.dp),
                 )
             }
+            val totalWeight = dish.partsList.weight.formatWeight()
+            val totalCalories = dish.partsList.calories.formatTotalCalories()
             Text(
-                "Total: ${dish.partsList.weight.formatWeight()}, ${dish.partsList.calories.formatTotalCalories()}",
+                "${stringResource(R.string.common_total)}: $totalWeight, $totalCalories",
                 fontWeight = FontWeight.Bold,
             )
         }

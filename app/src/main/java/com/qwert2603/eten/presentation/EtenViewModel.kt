@@ -26,6 +26,13 @@ class EtenViewModel(
             started = SharingStarted.WhileSubscribed(),
         )
 
+    val mealsUpdates = etenRepo.mealsUpdates()
+        .shareIn(
+            scope = viewModelScope,
+            replay = 1,
+            started = SharingStarted.WhileSubscribed(),
+        )
+
     fun deleteProduct(uuid: String) {
         viewModelScope.launch {
             etenRepo.removeProduct(uuid)
