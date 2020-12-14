@@ -6,6 +6,7 @@ import com.qwert2603.eten.data.repo_impl.EtenRepoStub
 import com.qwert2603.eten.domain.model.Dish
 import com.qwert2603.eten.domain.model.Product
 import com.qwert2603.eten.domain.repo.EtenRepo
+import com.qwert2603.eten.presentation.edit_meal_parts.toCreatingMealPart
 import com.qwert2603.eten.util.randomUUID
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
