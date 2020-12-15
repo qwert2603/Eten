@@ -23,7 +23,6 @@ import com.qwert2603.eten.domain.model.Product
 import com.qwert2603.eten.util.*
 import com.qwert2603.eten.view.AutocompleteTextField
 
-
 @Composable
 fun EditMealPart(
     creatingMealPart: CreatingMealPart,
@@ -31,9 +30,10 @@ fun EditMealPart(
     onDeleteClick: () -> Unit,
     searchProducts: suspend (String) -> List<Product>,
     searchDishes: suspend (String) -> List<Dish>,
+    modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = Modifier.padding(top = 12.dp),
+        modifier = modifier,
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

@@ -23,9 +23,12 @@ fun EditMealPartsList(
     onPartsChange: (List<CreatingMealPart>) -> Unit,
     searchProducts: suspend (String) -> List<Product>,
     searchDishes: suspend (String) -> List<Dish>,
+    modifier: Modifier = Modifier,
 ) {
-    Column {
-        parts.forEach { creatingMealPart ->
+    Column(
+        modifier = modifier
+    ) {
+        parts.forEachIndexed { index, creatingMealPart ->
             EditMealPart(
                 creatingMealPart = creatingMealPart,
                 onPartChange = { newMealPart ->
@@ -39,6 +42,7 @@ fun EditMealPartsList(
                 onDeleteClick = { onPartsChange(parts.filter { it.uuid != creatingMealPart.uuid }) },
                 searchProducts = searchProducts,
                 searchDishes = searchDishes,
+                modifier = Modifier.padding(top = if (index > 0) 12.dp else 0.dp)
             )
         }
 

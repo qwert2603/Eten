@@ -1,17 +1,18 @@
-package com.qwert2603.eten.presentation.screen.edit_dish
+package com.qwert2603.eten.presentation.screen.edit_meal
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Scaffold
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedTask
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
@@ -20,20 +21,20 @@ import com.qwert2603.eten.R
 import com.qwert2603.eten.presentation.edit_meal_parts.EditMealPartsList
 
 @Composable
-fun ScreenEditDish(dishUuid: String?, navigateUp: () -> Unit) {
-    val vm = viewModel<EditDishViewModel>()
-    LaunchedTask { vm.loadDish(dishUuid) }
-    val dishState = vm.creatingDish.collectAsState()
-    val dish = dishState.value ?: return
+fun ScreenEditMeal(mealUuid: String?, navigateUp: () -> Unit) {
+    val vm = viewModel<EditMealViewModel>()
+    LaunchedTask { vm.loadMeal(mealUuid) }
+    val mealState = vm.creatingMeal.collectAsState()
+    val meal = mealState.value ?: return
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
-                    @StringRes val titleId = if (dishUuid != null) {
-                        R.string.screen_title_edit_dish
+                    @StringRes val titleId = if (mealUuid != null) {
+                        R.string.screen_title_edit_meal
                     } else {
-                        R.string.screen_title_new_dish
+                        R.string.screen_title_new_meal
                     }
                     Text(stringResource(titleId))
                 },
@@ -45,10 +46,10 @@ fun ScreenEditDish(dishUuid: String?, navigateUp: () -> Unit) {
                 actions = {
                     IconButton(
                         onClick = {
-                            vm.saveDish()
+                            vm.saveMeal()
                             navigateUp()
                         },
-                        enabled = dish.isValid(),
+                        enabled = meal.isValid(),
                     ) {
                         Icon(vectorResource(R.drawable.ic_save))
                     }
@@ -59,21 +60,11 @@ fun ScreenEditDish(dishUuid: String?, navigateUp: () -> Unit) {
         ScrollableColumn(
             contentPadding = PaddingValues(12.dp),
         ) {
-            TextField(
-                value = dish.name,
-                onValueChange = {
-                    val name = it.take(100).trim()
-                    vm.onDishChange(dish.copy(name = name))
-                },
-                placeholder = { Text(stringResource(R.string.common_name)) },
-            )
-
             EditMealPartsList(
-                parts = dish.parts,
-                onPartsChange = { vm.onDishChange(dish.copy(parts = it)) },
+                parts = meal.parts,
+                onPartsChange = { vm.onMealChange(meal.copy(parts = it)) },
                 searchProducts = vm::searchProducts,
                 searchDishes = vm::searchDishes,
-                modifier = Modifier.padding(top = 12.dp),
             )
         }
     }

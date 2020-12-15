@@ -45,6 +45,8 @@ fun ScreenMain(
     navigateToEditProduct: (uuid: String) -> Unit,
     navigateToAddDish: () -> Unit,
     navigateToEditDish: (uuid: String) -> Unit,
+    navigateToAddMeal: () -> Unit,
+    navigateToEditMeal: (uuid: String) -> Unit,
 ) {
     val navController = rememberNavController()
     // fixme: bodyContent is under bottomBar
@@ -57,9 +59,11 @@ fun ScreenMain(
             TopAppBar(title = { Text(stringResource(R.string.app_name)) })
         },
         floatingActionButton = {
+            // todo: FAB as part of list screen.
             FloatingActionButton(
                 onClick = {
                     when (currentRoute) {
+                        BottomMenuItem.Meals.route.name -> navigateToAddMeal()
                         BottomMenuItem.Dishes.route.name -> navigateToAddDish()
                         BottomMenuItem.Products.route.name -> navigateToAddProduct()
                     }
@@ -87,7 +91,9 @@ fun ScreenMain(
         },
         bodyContent = {
             NavHost(navController, startDestination = BottomMenuItem.values().first().route.name) {
-                composable(BottomMenuItem.Meals.route.name) { ScreenMealsList() }
+                composable(BottomMenuItem.Meals.route.name) {
+                    ScreenMealsList(navigateToEditMeal)
+                }
                 composable(BottomMenuItem.Dishes.route.name) {
                     ScreenDishesList(navigateToEditDish)
                 }

@@ -12,7 +12,9 @@ import com.qwert2603.eten.presentation.list_item.ItemMeal
 import com.qwert2603.eten.presentation.screen.delete.DialogDeleteMeal
 
 @Composable
-fun ScreenMealsList() {
+fun ScreenMealsList(
+    navigateToEditMeal: (uuid: String) -> Unit,
+) {
     val vm = viewModel<EtenViewModel>()
     val meals = vm.mealsUpdates.collectAsState(initial = emptyList())
     var mealToDelete by remember { mutableStateOf<Meal?>(null) }
@@ -24,7 +26,7 @@ fun ScreenMealsList() {
     ) {
         ItemMeal(
             meal = it,
-            onClick = {},
+            onClick = { navigateToEditMeal(it.uuid) },
             onDeleteClick = { mealToDelete = it },
         )
         Divider()

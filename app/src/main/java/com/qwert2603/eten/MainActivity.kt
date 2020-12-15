@@ -7,9 +7,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.platform.setContent
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
-import com.qwert2603.eten.presentation.screen.edit_product.ScreenEditProduct
 import com.qwert2603.eten.presentation.screen.ScreenMain
 import com.qwert2603.eten.presentation.screen.edit_dish.ScreenEditDish
+import com.qwert2603.eten.presentation.screen.edit_meal.ScreenEditMeal
+import com.qwert2603.eten.presentation.screen.edit_product.ScreenEditProduct
 import com.qwert2603.eten.ui.EtenTheme
 import com.qwert2603.eten.view.SelectDropDown
 
@@ -32,7 +33,9 @@ fun EtenApp() {
                     navigateToAddProduct = { navController.navigate("edit_product") },
                     navigateToEditProduct = { uuid -> navController.navigate("edit_product?uuid=$uuid") },
                     navigateToAddDish = { navController.navigate("edit_dish") },
-                    navigateToEditDish = { uuid -> navController.navigate("edit_dish?uuid=$uuid") }
+                    navigateToEditDish = { uuid -> navController.navigate("edit_dish?uuid=$uuid") },
+                    navigateToAddMeal = { navController.navigate("edit_meal") },
+                    navigateToEditMeal = { uuid -> navController.navigate("edit_meal?uuid=uuid") }
                 )
             }
             composable(
@@ -56,6 +59,18 @@ fun EtenApp() {
             ) {
                 ScreenEditDish(
                     dishUuid = it.arguments?.getString("uuid"),
+                    navigateUp = { navController.navigateUp() }
+                )
+            }
+            composable(
+                route = "edit_meal?uuid={uuid}",
+                arguments = listOf(navArgument("uuid") {
+                    type = NavType.StringType
+                    nullable = true
+                })
+            ) {
+                ScreenEditMeal(
+                    mealUuid = it.arguments?.getString("uuid"),
                     navigateUp = { navController.navigateUp() }
                 )
             }
