@@ -35,7 +35,7 @@ fun EtenApp() {
                     navigateToAddDish = { navController.navigate("edit_dish") },
                     navigateToEditDish = { uuid -> navController.navigate("edit_dish?uuid=$uuid") },
                     navigateToAddMeal = { navController.navigate("edit_meal") },
-                    navigateToEditMeal = { uuid -> navController.navigate("edit_meal?uuid=uuid") }
+                    navigateToEditMeal = { uuid -> navController.navigate("edit_meal?uuid=$uuid") }
                 )
             }
             composable(
