@@ -13,12 +13,14 @@ val <T> T.allCases get() = this
 
 fun Date.format(): String = SimpleDateFormat.getDateTimeInstance().format(this)
 
-fun Double.formatWeight() = "${roundToInt()}g"
+@Composable
+fun Double.formatWeight() = "${roundToInt()}${stringResource(R.string.symbol_grams)}"
 
 @Composable
 fun Double.formatCalorie() = "${roundToInt()} ${stringResource(R.string.symbol_calorie)}"
 
-fun Double.formatTotalCalories() = "${roundToInt()}cal"
+@Composable
+fun Double.formatTotalCalories() = "${roundToInt()}${stringResource(R.string.symbol_total_calories)}"
 
 @Composable
 fun Meal.formatTitle() = stringResource(R.string.meal_title_format, time.format())

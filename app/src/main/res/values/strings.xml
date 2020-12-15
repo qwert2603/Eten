@@ -14,6 +14,7 @@
 
     <string name="symbol_calorie">🔥</string>
     <string name="symbol_grams">g</string>
+    <string name="symbol_total_calories">cal</string>
 
     <string name="common_name">Name</string>
     <string name="common_weight">Weight</string>
