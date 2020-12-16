@@ -7,5 +7,5 @@ enum class Route {
     Dishes,
     Products,
     AddProduct,
-    Settings, // todo: with setting calories per day.
+    Settings,
 }

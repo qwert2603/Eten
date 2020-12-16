@@ -34,9 +34,9 @@ fun ScreenEditProduct(productUuid: String?, navigateUp: () -> Unit) {
             TopAppBar(
                 title = {
                     @StringRes val titleId = if (productUuid != null) {
-                        R.string.screen_title_edit_product
+                        R.string.edit_product_screen_title
                     } else {
-                        R.string.screen_title_new_product
+                        R.string.new_product_screen_title
                     }
                     Text(stringResource(titleId))
                 },

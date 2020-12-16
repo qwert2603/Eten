@@ -5,13 +5,12 @@
     <string name="bottom_menu_dishes">Dishes</string>
     <string name="bottom_menu_products">Products</string>
 
-    <!--todo: new_product_screen_title -->
-    <string name="screen_title_new_product">New Product</string>
-    <string name="screen_title_new_dish">New Dish</string>
-    <string name="screen_title_new_meal">New Meal</string>
-    <string name="screen_title_edit_product">Edit Product</string>
-    <string name="screen_title_edit_dish">Edit Dish</string>
-    <string name="screen_title_edit_meal">Edit Meal</string>
+    <string name="new_product_screen_title">New Product</string>
+    <string name="new_dish_screen_title">New Dish</string>
+    <string name="new_meal_screen_title">New Meal</string>
+    <string name="edit_product_screen_title">Edit Product</string>
+    <string name="edit_dish_screen_title">Edit Dish</string>
+    <string name="edit_meal_screen_title">Edit Meal</string>
 
     <string name="symbol_calorie">🔥</string>
     <string name="symbol_grams">g</string>

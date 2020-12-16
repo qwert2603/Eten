@@ -32,9 +32,9 @@ fun ScreenEditMeal(mealUuid: String?, navigateUp: () -> Unit) {
             TopAppBar(
                 title = {
                     @StringRes val titleId = if (mealUuid != null) {
-                        R.string.screen_title_edit_meal
+                        R.string.edit_meal_screen_title
                     } else {
-                        R.string.screen_title_new_meal
+                        R.string.new_meal_screen_title
                     }
                     Text(stringResource(titleId))
                 },
