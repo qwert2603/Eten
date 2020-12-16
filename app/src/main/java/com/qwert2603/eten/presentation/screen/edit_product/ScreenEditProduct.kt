@@ -1,8 +1,8 @@
 package com.qwert2603.eten.presentation.screen.edit_product
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.Text
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -58,7 +58,7 @@ fun ScreenEditProduct(productUuid: String?, navigateUp: () -> Unit) {
                 })
         }
     ) {
-        Column {
+        ScrollableColumn {
             TextField(
                 value = product.name,
                 onValueChange = {

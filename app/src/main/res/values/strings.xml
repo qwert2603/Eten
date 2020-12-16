@@ -5,6 +5,7 @@
     <string name="bottom_menu_dishes">Dishes</string>
     <string name="bottom_menu_products">Products</string>
 
+    <!--todo: new_product_screen_title -->
     <string name="screen_title_new_product">New Product</string>
     <string name="screen_title_new_dish">New Dish</string>
     <string name="screen_title_new_meal">New Meal</string>
@@ -33,5 +34,9 @@
     <string name="delete_product_title">Delete product?</string>
     <string name="delete_dish_title">Delete dish?</string>
     <string name="delete_meal_title">Delete meal?</string>
+
+    <string name="settings_screen_title">Settings</string>
+    <string name="settings_daily_calories_limit">Daily calories limit</string>
+
 
 </resources>

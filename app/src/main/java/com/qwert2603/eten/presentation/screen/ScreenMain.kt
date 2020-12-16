@@ -6,6 +6,7 @@ import androidx.compose.foundation.Text
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
@@ -47,6 +48,7 @@ fun ScreenMain(
     navigateToEditDish: (uuid: String) -> Unit,
     navigateToAddMeal: () -> Unit,
     navigateToEditMeal: (uuid: String) -> Unit,
+    navigateToSettings: () -> Unit,
 ) {
     val navController = rememberNavController()
     // fixme: bodyContent is under bottomBar
@@ -56,7 +58,14 @@ fun ScreenMain(
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text(stringResource(R.string.app_name)) })
+            TopAppBar(
+                title = { Text(stringResource(R.string.app_name)) },
+                actions = {
+                    IconButton(onClick = navigateToSettings) {
+                        Icon(asset = Icons.Default.Settings)
+                    }
+                },
+            )
         },
         floatingActionButton = {
             // todo: FAB as part of list screen.

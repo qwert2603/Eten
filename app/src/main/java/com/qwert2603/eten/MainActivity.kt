@@ -11,6 +11,7 @@ import com.qwert2603.eten.presentation.screen.ScreenMain
 import com.qwert2603.eten.presentation.screen.edit_dish.ScreenEditDish
 import com.qwert2603.eten.presentation.screen.edit_meal.ScreenEditMeal
 import com.qwert2603.eten.presentation.screen.edit_product.ScreenEditProduct
+import com.qwert2603.eten.presentation.screen.settings.ScreenSettings
 import com.qwert2603.eten.ui.EtenTheme
 import com.qwert2603.eten.view.SelectDropDown
 
@@ -35,7 +36,8 @@ fun EtenApp() {
                     navigateToAddDish = { navController.navigate("edit_dish") },
                     navigateToEditDish = { uuid -> navController.navigate("edit_dish?uuid=$uuid") },
                     navigateToAddMeal = { navController.navigate("edit_meal") },
-                    navigateToEditMeal = { uuid -> navController.navigate("edit_meal?uuid=$uuid") }
+                    navigateToEditMeal = { uuid -> navController.navigate("edit_meal?uuid=$uuid") },
+                    navigateToSettings = { navController.navigate("settings") },
                 )
             }
             composable(
@@ -73,6 +75,11 @@ fun EtenApp() {
                     mealUuid = it.arguments?.getString("uuid"),
                     navigateUp = { navController.navigateUp() }
                 )
+            }
+            composable(
+                route = "settings",
+            ) {
+                ScreenSettings()
             }
         }
     }
