@@ -9,6 +9,7 @@ import androidx.compose.runtime.savedinstancestate.SaverScope
 import androidx.compose.runtime.savedinstancestate.savedInstanceState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -20,7 +21,7 @@ fun <T : Any> AutocompleteTextField(
     searchItems: suspend (String) -> List<T>,
     renderItem: @Composable (T) -> Unit,
     itemToString: (T) -> String,
-    onItemSelected: (T) -> Unit,
+    onItemSelected: (T?) -> Unit,
     toggleModifier: Modifier = Modifier,
 ) {
     var textFieldValue by savedInstanceState(
@@ -39,7 +40,14 @@ fun <T : Any> AutocompleteTextField(
         toggle = {
             TextField(
                 value = textFieldValue,
-                onValueChange = { textFieldValue = it },
+                onValueChange = {
+                    textFieldValue = it
+                    onItemSelected(null)
+                },
+                textStyle = TextStyle(
+                    color = MaterialTheme.colors.onPrimary
+                        .copy(alpha = if (selectedItem != null) 1f else 0.5f)
+                ),
                 trailingIcon = {
                     IconButton(onClick = {
                         currentJob?.cancel()
@@ -50,7 +58,7 @@ fun <T : Any> AutocompleteTextField(
                     }) {
                         Icon(Icons.Default.Search)
                     }
-                }
+                },
             )
         },
         expanded = expanded,
@@ -58,7 +66,6 @@ fun <T : Any> AutocompleteTextField(
         toggleModifier = toggleModifier,
     ) {
         items.forEach {
-            val text = itemToString(it)
             DropdownMenuItem(onClick = {
                 expanded = false
                 onItemSelected(it)

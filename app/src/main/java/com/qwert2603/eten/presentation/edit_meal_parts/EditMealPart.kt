@@ -51,7 +51,6 @@ fun EditMealPart(
                 .padding(start = 8.dp)
                 .weight(2f)
             when (creatingMealPart) {
-                // todo: bold, if item selected.
                 is CreatingWeightedProduct -> AutocompleteTextField(
                     selectedItem = creatingMealPart.product,
                     searchItems = searchProducts,
