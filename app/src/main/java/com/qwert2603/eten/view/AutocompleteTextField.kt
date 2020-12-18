@@ -82,7 +82,7 @@ class TextFieldValueSaver : Saver<TextFieldValue, TextFieldValueSaver.Serializab
         val text: String,
         val selection: Long,
         val composition: Long?,
-    ) : Serializable
+    ) : Serializable // todo: remove import java.io.Serializable
 
     override fun SaverScope.save(value: TextFieldValue) = SerializableTextFieldValue(
         text = value.text,

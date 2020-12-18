@@ -2,11 +2,13 @@ package com.qwert2603.eten.data.repo_impl
 
 import com.qwert2603.eten.domain.model.*
 import com.qwert2603.eten.domain.repo.EtenRepo
+import com.qwert2603.eten.util.timeNow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
-import java.util.*
+import kotlinx.datetime.*
 
+// todo: remove stub repos from constructors
 object EtenRepoStub : EtenRepo {
 
     override fun productsUpdates(): Flow<List<Product>> =
@@ -61,7 +63,7 @@ object EtenRepoStub : EtenRepo {
 
     private val dishSoup = Dish(
         name = "Soup",
-        time = Date().minusMinutes(123),
+        time = minusMinutes(123),
         partsList = PartsList(
             WeightedMealPart(productChicken, 200.0),
             WeightedMealPart(productPotato, 150.0),
@@ -72,7 +74,7 @@ object EtenRepoStub : EtenRepo {
 
     private val dishPizza = Dish(
         name = "Pizza",
-        time = Date().minusMinutes(584),
+        time = minusMinutes(584),
         partsList = PartsList(
             WeightedMealPart(productChicken, 120.0),
             WeightedMealPart(productDough, 150.0),
@@ -101,41 +103,44 @@ object EtenRepoStub : EtenRepo {
 
     private val meals = MutableStateFlow(listOf(
         Meal(
-            time = Date().minusMinutes(2), partsList = PartsList(
+            time = minusMinutes(2), partsList = PartsList(
                 WeightedMealPart(dishPizza, 140.0),
             )
         ),
         Meal(
-            time = Date().minusMinutes(8), partsList = PartsList(
+            time = minusMinutes(8), partsList = PartsList(
                 WeightedMealPart(productBread, 50.0),
                 WeightedMealPart(dishSoup, 150.0),
             )
         ),
         Meal(
-            time = Date().minusMinutes(22), partsList = PartsList(
+            time = minusMinutes(22), partsList = PartsList(
                 WeightedMealPart(productFish, 100.0),
                 WeightedMealPart(productCheese, 122.8),
             )
         ),
         Meal(
-            time = Date().minusMinutes(200), partsList = PartsList(
+            time = minusMinutes(200), partsList = PartsList(
                 WeightedMealPart(productApple, 203.2),
                 WeightedMealPart(productCheese, 42.0),
             )
         ),
         Meal(
-            time = Date().minusMinutes(522), partsList = PartsList(
+            time = minusMinutes(522), partsList = PartsList(
                 WeightedMealPart(productPorridge, 126.1),
                 WeightedMealPart(productApple, 188.3),
             )
         ),
         Meal(
-            time = Date().minusMinutes(1527), partsList = PartsList(
+            time = minusMinutes(1527), partsList = PartsList(
                 WeightedMealPart(productFish, 55.0),
                 WeightedMealPart(productPorridge, 102.4),
             )
         ),
     ).associateBy { it.uuid })
 
-    private fun Date.minusMinutes(minutes: Int) = Date(time - minutes * 60 * 1000L)
+    // todo: make better
+    private fun minusMinutes(minutes: Int) = timeNow().toInstant(TimeZone.currentSystemDefault())
+        .plus(minutes, DateTimeUnit.MINUTE)
+        .toLocalDateTime(TimeZone.currentSystemDefault())
 }

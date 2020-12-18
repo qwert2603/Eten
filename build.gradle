@@ -3,7 +3,7 @@ buildscript {
     ext {
         compose_version = '1.0.0-alpha06'
     }
-    ext.kotlin_version = "1.4.10"
+    ext.kotlin_version = "1.4.21"
     repositories {
         google()
         jcenter()
@@ -21,6 +21,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url = "https://kotlin.bintray.com/kotlinx/" }
     }
 }
 

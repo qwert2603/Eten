@@ -1,6 +1,7 @@
 package com.qwert2603.eten.domain.model
 
-import java.util.*
+import com.qwert2603.eten.util.randomUUID
+import kotlinx.datetime.LocalDateTime
 
 sealed class MealPart {
     abstract val name: String
@@ -20,7 +21,7 @@ data class WeightedMealPart(
 }
 
 data class Product(
-    val uuid: String = UUID.randomUUID().toString(),
+    val uuid: String = randomUUID(),
     override val name: String,
     override val calorie: Double,
 ) : MealPart() {
@@ -31,9 +32,9 @@ data class Product(
 }
 
 data class Dish(
-    val uuid: String = UUID.randomUUID().toString(),
+    val uuid: String = randomUUID(),
     override val name: String,
-    val time: Date,
+    val time: LocalDateTime,
     val partsList: PartsList,
 ) : MealPart() {
     init {
@@ -55,7 +56,7 @@ class PartsList(parts: List<WeightedMealPart>) : List<WeightedMealPart> by parts
 }
 
 data class Meal(
-    val uuid: String = UUID.randomUUID().toString(),
-    val time: Date,
+    val uuid: String = randomUUID(),
+    val time: LocalDateTime,
     val partsList: PartsList,
 )
