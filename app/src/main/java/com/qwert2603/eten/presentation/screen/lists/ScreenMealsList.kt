@@ -8,7 +8,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.viewModel
 import com.qwert2603.eten.domain.model.Meal
 import com.qwert2603.eten.presentation.EtenViewModel
-import com.qwert2603.eten.presentation.list_item.ItemMeal
+import com.qwert2603.eten.presentation.list_item.ItemEtenDay
 import com.qwert2603.eten.presentation.screen.delete.DialogDeleteMeal
 
 @Composable
@@ -16,18 +16,17 @@ fun ScreenMealsList(
     navigateToEditMeal: (uuid: String) -> Unit,
 ) {
     val vm = viewModel<EtenViewModel>()
-    val meals = vm.mealsUpdates.collectAsState(initial = emptyList())
+    val meals = vm.etenDaysUpdates.collectAsState(initial = emptyList())
     var mealToDelete by remember { mutableStateOf<Meal?>(null) }
 
-    // todo: show calories sum by day
     LazyColumnFor(
         items = meals.value,
         contentPadding = PaddingValues(bottom = 112.dp),
-    ) {
-        ItemMeal(
-            meal = it,
-            onClick = { navigateToEditMeal(it.uuid) },
-            onDeleteClick = { mealToDelete = it },
+    ) { etenDay ->
+        ItemEtenDay(
+            etenDay = etenDay,
+            onMealClick = { navigateToEditMeal(it.uuid) },
+            onDeleteMealClick = { mealToDelete = it },
         )
         Divider()
     }

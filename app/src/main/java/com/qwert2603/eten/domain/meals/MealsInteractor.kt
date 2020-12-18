@@ -9,6 +9,7 @@ import com.qwert2603.eten.domain.repo.SettingsRepo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 
+// todo: remove from constructors by default
 class MealsInteractor(
     private val etenRepo: EtenRepo = EtenRepoStub,
     private val settingsRepo: SettingsRepo = SettingsRepoStub,

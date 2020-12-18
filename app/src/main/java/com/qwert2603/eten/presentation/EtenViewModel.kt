@@ -3,13 +3,15 @@ package com.qwert2603.eten.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.qwert2603.eten.data.repo_impl.EtenRepoStub
+import com.qwert2603.eten.domain.meals.MealsInteractor
 import com.qwert2603.eten.domain.repo.EtenRepo
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 
 class EtenViewModel(
-    private val etenRepo: EtenRepo = EtenRepoStub
+    private val etenRepo: EtenRepo = EtenRepoStub,
+    private val mealsInteractor: MealsInteractor = MealsInteractor(),
 ) : ViewModel() {
 
     val productsUpdates = etenRepo.productsUpdates()
@@ -27,6 +29,13 @@ class EtenViewModel(
         )
 
     val mealsUpdates = etenRepo.mealsUpdates()
+        .shareIn(
+            scope = viewModelScope,
+            replay = 1,
+            started = SharingStarted.WhileSubscribed(),
+        )
+
+    val etenDaysUpdates = mealsInteractor.etenDaysUpdates()
         .shareIn(
             scope = viewModelScope,
             replay = 1,

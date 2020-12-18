@@ -16,6 +16,8 @@ fun LocalDate.format(): String = this.toString() // todo
 
 fun LocalDateTime.format(): String = this.toString() // todo
 
+fun LocalDateTime.formatTime(): String = this.toString() + "_t" // todo
+
 @Composable
 fun Double.formatWeight() = "${roundToInt()}${stringResource(R.string.symbol_grams)}"
 
@@ -27,7 +29,7 @@ fun Double.formatTotalCalories() =
     "${roundToInt()}${stringResource(R.string.symbol_total_calories)}"
 
 @Composable
-fun Meal.formatTitle() = stringResource(R.string.meal_title_format, time.format())
+fun Meal.formatTitle() = stringResource(R.string.meal_title_format, time.formatTime())
 
 @Composable
 fun Dish.formatTitle() = stringResource(R.string.dish_title_format, name, time.format())

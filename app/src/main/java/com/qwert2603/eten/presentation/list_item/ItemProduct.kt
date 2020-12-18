@@ -35,7 +35,7 @@ fun ItemProduct(
         Text(
             product.name,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
         Text(
             product.caloriePer100g.formatCalorie(),
