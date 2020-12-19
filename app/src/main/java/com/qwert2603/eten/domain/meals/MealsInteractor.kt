@@ -15,7 +15,9 @@ class MealsInteractor(
     private val settingsRepo: SettingsRepo = SettingsRepoStub,
 ) {
     fun etenDaysUpdates(): Flow<List<EtenDay>> = etenRepo.mealsUpdates()
-        .combine(settingsRepo.dailyLimitCaloriesUpdates(), this::toMealListItems)
+        .combine(settingsRepo.dailyLimitCaloriesUpdates()) { meals, dailyLimitCalories ->
+            toMealListItems(meals, dailyLimitCalories)
+        }
 
     private fun toMealListItems(
         meals: List<Meal>,

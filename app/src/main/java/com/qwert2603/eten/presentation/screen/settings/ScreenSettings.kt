@@ -26,9 +26,11 @@ fun ScreenSettings() {
 
     Scaffold(
         topBar = {
+            //todo: navigate up
             TopAppBar(
                 title = { Text(stringResource(R.string.settings_screen_title)) }
             )
+            //todo: "save" button
         }
     ) {
         ScrollableColumn(
