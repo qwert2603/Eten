@@ -3,7 +3,6 @@ package com.qwert2603.eten.presentation.edit_meal_parts
 import com.qwert2603.eten.domain.model.Dish
 import com.qwert2603.eten.domain.model.Product
 import com.qwert2603.eten.domain.model.WeightedMealPart
-import com.qwert2603.eten.util.mapIfTyped
 import com.qwert2603.eten.util.randomUUID
 
 sealed class CreatingMealPart {

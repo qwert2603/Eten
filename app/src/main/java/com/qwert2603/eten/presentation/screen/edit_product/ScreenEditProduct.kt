@@ -2,13 +2,14 @@ package com.qwert2603.eten.presentation.screen.edit_product
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.ScrollableColumn
-import androidx.compose.foundation.Text
+
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedTask
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -24,7 +25,7 @@ import timber.log.Timber
 @Composable
 fun ScreenEditProduct(productUuid: String?, navigateUp: () -> Unit) {
     val vm = viewModel<EditProductViewModel>()
-    LaunchedTask { vm.loadProduct(productUuid) } // fixme: recalled after rotate device in all screens.
+    LaunchedEffect(productUuid) { vm.loadProduct(productUuid) } // fixme: check: recalled after rotate device in all screens.
     val productState = vm.creatingProduct.collectAsState()
     Timber.d("productUuid=$productUuid product=${productState.value}")
     val product = productState.value ?: return
@@ -75,7 +76,7 @@ fun ScreenEditProduct(productUuid: String?, navigateUp: () -> Unit) {
                     vm.onProductChange(product.copy(caloriesPer100g = caloriesPer100g))
                 },
                 placeholder = { Text(stringResource(R.string.edit_product_field_calorie)) },
-                keyboardType = KeyboardType.Number,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier.padding(12.dp),
                 trailingIcon = { Text(stringResource(R.string.symbol_calorie)) },
             )

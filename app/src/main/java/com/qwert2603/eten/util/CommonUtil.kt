@@ -38,5 +38,5 @@ fun randomUUID() = UUID.randomUUID().toString() // todo: remove import java.util
 
 fun timeNow() = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()) // todo: ?
 
-fun Int.toEditingString() = takeIf { it != 0 }?.toString() ?: ""
+fun Int.toEditingString(): String = takeIf { it != 0 }?.toString() ?: ""
 fun String.toEditingInt(maxNumbers: Int = 4) = take(maxNumbers).toIntOrNull() ?: 0

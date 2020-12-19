@@ -4,10 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.qwert2603.eten.data.repo_impl.SettingsRepoStub
 import com.qwert2603.eten.domain.repo.SettingsRepo
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
 
 class SettingsViewModel(
-    private val settingsRepo: SettingsRepo = SettingsRepoStub
+    private val settingsRepo: SettingsRepo = SettingsRepoStub,
 ) : ViewModel() {
 
     val dailyLimitCaloriesUpdates = settingsRepo.dailyLimitCaloriesUpdates()

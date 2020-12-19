@@ -1,7 +1,7 @@
 package com.qwert2603.eten.presentation.screen.lists
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.lazy.LazyColumnFor
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Divider
 import androidx.compose.runtime.*
 import androidx.compose.ui.unit.dp
@@ -20,16 +20,17 @@ fun ScreenProductsList(
     var productToDelete by remember { mutableStateOf<Product?>(null) }
 
     // todo: scrollbars
-    LazyColumnFor(
-        items = products.value,
+    LazyColumn(
         contentPadding = PaddingValues(bottom = 112.dp),
     ) {
-        ItemProduct(
-            product = it,
-            onClick = { navigateToEditProduct(it.uuid) },
-            onDeleteClick = { productToDelete = it },
-        )
-        Divider()
+        items(products.value) {
+            ItemProduct(
+                product = it,
+                onClick = { navigateToEditProduct(it.uuid) },
+                onDeleteClick = { productToDelete = it },
+            )
+            Divider()
+        }
     }
 
     productToDelete?.also {

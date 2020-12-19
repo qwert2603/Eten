@@ -1,12 +1,13 @@
 package com.qwert2603.eten.presentation.edit_meal_parts
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -59,7 +60,7 @@ fun EditMealPart(
                     onItemSelected = { selectedProduct ->
                         onPartChange(creatingMealPart.copy(product = selectedProduct))
                     },
-                    toggleModifier = toggleModifier
+//                    toggleModifier = toggleModifier
                 )
                 is CreatingWeightedDish -> AutocompleteTextField(
                     selectedItem = creatingMealPart.dish,
@@ -69,7 +70,7 @@ fun EditMealPart(
                     onItemSelected = { selectedDish ->
                         onPartChange(creatingMealPart.copy(dish = selectedDish))
                     },
-                    toggleModifier = toggleModifier
+//                    toggleModifier = toggleModifier
                 )
             }.allCases
         }
@@ -95,7 +96,7 @@ fun EditMealPart(
                     )
                 },
                 placeholder = { Text(stringResource(R.string.common_weight)) },
-                keyboardType = KeyboardType.Number,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier
                     .weight(1f)
                     .padding(start = 8.dp),

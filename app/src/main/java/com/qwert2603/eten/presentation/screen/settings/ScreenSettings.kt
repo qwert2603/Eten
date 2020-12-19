@@ -1,9 +1,10 @@
 package com.qwert2603.eten.presentation.screen.settings
 
 import androidx.compose.foundation.ScrollableColumn
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
@@ -40,7 +41,7 @@ fun ScreenSettings() {
                     vm.onLimitChanged(limit)
                 },
                 placeholder = { Text(stringResource(R.string.settings_daily_calories_limit)) },
-                keyboardType = KeyboardType.Number,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 trailingIcon = { Text(stringResource(R.string.symbol_calorie)) },
             )
         }

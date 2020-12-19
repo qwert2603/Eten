@@ -2,8 +2,7 @@ package com.qwert2603.eten
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.setContent
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
@@ -13,7 +12,6 @@ import com.qwert2603.eten.presentation.screen.edit_meal.ScreenEditMeal
 import com.qwert2603.eten.presentation.screen.edit_product.ScreenEditProduct
 import com.qwert2603.eten.presentation.screen.settings.ScreenSettings
 import com.qwert2603.eten.ui.EtenTheme
-import com.qwert2603.eten.view.SelectDropDown
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,11 +89,4 @@ fun DefaultPreview() {
 //    EtenApp()
 
     val list = listOf("een", "twee", "drie", "vier", "vijf", "zes")
-    var selected by remember { mutableStateOf<String?>(null) }
-    SelectDropDown(
-        items = list,
-        selectedItem = selected,
-        renderItem = { Text(it) },
-        onItemSelected = { selected = it },
-    )
 }

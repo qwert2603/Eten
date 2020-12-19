@@ -2,7 +2,6 @@ package com.qwert2603.eten.presentation.screen
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.foundation.Text
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -62,7 +61,7 @@ fun ScreenMain(
                 title = { Text(stringResource(R.string.app_name)) },
                 actions = {
                     IconButton(onClick = navigateToSettings) {
-                        Icon(asset = Icons.Default.Settings)
+                        Icon(Icons.Default.Settings)
                     }
                 },
             )
@@ -77,7 +76,7 @@ fun ScreenMain(
                         BottomMenuItem.Products.route.name -> navigateToAddProduct()
                     }
                 },
-                icon = { Icon(Icons.Default.Add) }
+                content = { Icon(Icons.Default.Add) }
             )
         },
         bottomBar = {

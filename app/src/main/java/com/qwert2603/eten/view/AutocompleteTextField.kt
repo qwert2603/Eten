@@ -22,7 +22,7 @@ fun <T : Any> AutocompleteTextField(
     renderItem: @Composable (T) -> Unit,
     itemToString: (T) -> String,
     onItemSelected: (T?) -> Unit,
-    toggleModifier: Modifier = Modifier,
+//    toggleModifier: Modifier = Modifier,todo
 ) {
     var textFieldValue by savedInstanceState(
         selectedItem,
@@ -63,7 +63,7 @@ fun <T : Any> AutocompleteTextField(
         },
         expanded = expanded,
         onDismissRequest = { expanded = false },
-        toggleModifier = toggleModifier,
+//        toggleModifier = toggleModifier,
     ) {
         items.forEach {
             DropdownMenuItem(onClick = {
@@ -81,18 +81,15 @@ class TextFieldValueSaver : Saver<TextFieldValue, TextFieldValueSaver.Serializab
     class SerializableTextFieldValue(
         val text: String,
         val selection: Long,
-        val composition: Long?,
     ) : Serializable // todo: remove import java.io.Serializable
 
     override fun SaverScope.save(value: TextFieldValue) = SerializableTextFieldValue(
         text = value.text,
         selection = value.selection.packedValue,
-        composition = value.composition?.packedValue,
     )
 
     override fun restore(value: SerializableTextFieldValue) = TextFieldValue(
         text = value.text,
         selection = TextRange(value.selection),
-        composition = value.composition?.let { TextRange(it) },
     )
 }

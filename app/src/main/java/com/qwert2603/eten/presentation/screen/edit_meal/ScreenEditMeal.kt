@@ -2,16 +2,12 @@ package com.qwert2603.eten.presentation.screen.edit_meal
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.ScrollableColumn
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Scaffold
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedTask
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -23,7 +19,7 @@ import com.qwert2603.eten.presentation.edit_meal_parts.EditMealPartsList
 @Composable
 fun ScreenEditMeal(mealUuid: String?, navigateUp: () -> Unit) {
     val vm = viewModel<EditMealViewModel>()
-    LaunchedTask { vm.loadMeal(mealUuid) }
+    LaunchedEffect(mealUuid) { vm.loadMeal(mealUuid) }
     val mealState = vm.creatingMeal.collectAsState()
     val meal = mealState.value ?: return
 
