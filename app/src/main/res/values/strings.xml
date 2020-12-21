@@ -37,5 +37,6 @@
     <string name="settings_screen_title">Settings</string>
     <string name="settings_daily_calories_limit">Daily calories limit</string>
 
+    <string name="autocomplete_text_field_nothing_found">Nothing found</string>
 
 </resources>

@@ -53,6 +53,7 @@ fun EditMealPart(
                 .weight(2f)
             when (creatingMealPart) {
                 is CreatingWeightedProduct -> AutocompleteTextField(
+                    fieldId = creatingMealPart.uuid,
                     selectedItem = creatingMealPart.product,
                     searchItems = searchProducts,
                     renderItem = { Text(it.name) },
@@ -63,6 +64,7 @@ fun EditMealPart(
                     toggleModifier = toggleModifier
                 )
                 is CreatingWeightedDish -> AutocompleteTextField(
+                    fieldId = creatingMealPart.uuid,
                     selectedItem = creatingMealPart.dish,
                     searchItems = searchDishes,
                     renderItem = { Text(it.name) },

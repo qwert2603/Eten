@@ -8,15 +8,19 @@ import androidx.compose.runtime.savedinstancestate.Saver
 import androidx.compose.runtime.savedinstancestate.SaverScope
 import androidx.compose.runtime.savedinstancestate.savedInstanceState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
+import com.qwert2603.eten.R
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.io.Serializable
 
 @Composable
 fun <T : Any> AutocompleteTextField(
+    fieldId: Any,
     selectedItem: T?,
     searchItems: suspend (String) -> List<T>,
     renderItem: @Composable (T) -> Unit,
@@ -25,7 +29,7 @@ fun <T : Any> AutocompleteTextField(
     toggleModifier: Modifier = Modifier,
 ) {
     var textFieldValue by savedInstanceState(
-        selectedItem,
+        fieldId,
         saver = TextFieldValueSaver()
     ) {
         val text = selectedItem?.let(itemToString) ?: ""
@@ -41,12 +45,15 @@ fun <T : Any> AutocompleteTextField(
             TextField(
                 value = textFieldValue,
                 onValueChange = {
+                    Timber.d("onValueChange ${it.text}")
+                    if (it.text != textFieldValue.text) {
+                        onItemSelected(null)
+                    }
                     textFieldValue = it
-                    onItemSelected(null)
                 },
                 textStyle = TextStyle(
                     color = MaterialTheme.colors.onSurface
-                        .copy(alpha = if (selectedItem != null) 1f else 0.5f)
+                        .copy(alpha = if (selectedItem != null) 1f else 0.6f),
                 ),
                 trailingIcon = {
                     IconButton(onClick = {
@@ -65,9 +72,21 @@ fun <T : Any> AutocompleteTextField(
         onDismissRequest = { expanded = false },
         toggleModifier = toggleModifier,
     ) {
+        if (items.isEmpty()) {
+            DropdownMenuItem(onClick = {
+                expanded = false
+            }) {
+                Text(stringResource(R.string.autocomplete_text_field_nothing_found))
+            }
+        }
         items.forEach {
             DropdownMenuItem(onClick = {
                 expanded = false
+                val text = itemToString(it)
+                textFieldValue = textFieldValue.copy(
+                    text = text,
+                    selection = TextRange(text.length),
+                )
                 onItemSelected(it)
             }) {
                 renderItem(it)
