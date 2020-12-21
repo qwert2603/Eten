@@ -45,7 +45,7 @@ fun <T : Any> AutocompleteTextField(
                     onItemSelected(null)
                 },
                 textStyle = TextStyle(
-                    color = MaterialTheme.colors.primary
+                    color = MaterialTheme.colors.onSurface
                         .copy(alpha = if (selectedItem != null) 1f else 0.5f)
                 ),
                 trailingIcon = {
