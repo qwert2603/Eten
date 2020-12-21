@@ -2,14 +2,14 @@ package com.qwert2603.eten.presentation.screen.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.qwert2603.eten.data.repo_impl.SettingsRepoStub
+import com.qwert2603.eten.data.repo_impl.SettingsRepoImpl
 import com.qwert2603.eten.domain.repo.SettingsRepo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class SettingsViewModel(
-    private val settingsRepo: SettingsRepo = SettingsRepoStub,
+    private val settingsRepo: SettingsRepo = SettingsRepoImpl,
 ) : ViewModel() {
 
     val settingsModel = MutableStateFlow(SettingsModel(0))
@@ -31,6 +31,8 @@ class SettingsViewModel(
     fun onSaveClick() {
         val value = settingsModel.value
         if (!value.canSave()) return
-        settingsRepo.saveDailyLimitCalories(value.dailyLimitCalories.toDouble())
+        viewModelScope.launch {
+            settingsRepo.saveDailyLimitCalories(value.dailyLimitCalories.toDouble())
+        }
     }
 }

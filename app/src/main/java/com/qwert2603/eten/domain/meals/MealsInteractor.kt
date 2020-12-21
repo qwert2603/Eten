@@ -1,7 +1,7 @@
 package com.qwert2603.eten.domain.meals
 
 import com.qwert2603.eten.data.repo_impl.EtenRepoStub
-import com.qwert2603.eten.data.repo_impl.SettingsRepoStub
+import com.qwert2603.eten.data.repo_impl.SettingsRepoImpl
 import com.qwert2603.eten.domain.model.EtenDay
 import com.qwert2603.eten.domain.model.Meal
 import com.qwert2603.eten.domain.repo.EtenRepo
@@ -12,8 +12,12 @@ import kotlinx.coroutines.flow.combine
 // todo: remove from constructors by default
 class MealsInteractor(
     private val etenRepo: EtenRepo = EtenRepoStub,
-    private val settingsRepo: SettingsRepo = SettingsRepoStub,
+    private val settingsRepo: SettingsRepo = SettingsRepoImpl,
 ) {
+    companion object {
+        const val DEFAULT_DAILY_LIMIT_CALORIES = 2_500.0
+    }
+
     fun etenDaysUpdates(): Flow<List<EtenDay>> = etenRepo.mealsUpdates()
         .combine(settingsRepo.dailyLimitCaloriesUpdates()) { meals, dailyLimitCalories ->
             toMealListItems(meals, dailyLimitCalories)
