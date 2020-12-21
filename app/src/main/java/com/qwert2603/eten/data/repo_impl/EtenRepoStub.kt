@@ -142,6 +142,6 @@ object EtenRepoStub : EtenRepo {
 
     // todo: make better
     private fun minusMinutes(minutes: Int) = timeNow().toInstant(TimeZone.currentSystemDefault())
-        .plus(minutes, DateTimeUnit.MINUTE)
+        .plus(-minutes, DateTimeUnit.MINUTE)
         .toLocalDateTime(TimeZone.currentSystemDefault())
 }

@@ -28,7 +28,7 @@ class MealsInteractor(
         .map { (day, meals) ->
             EtenDay(
                 day = day,
-                meals = meals.sortedBy { it.time },
+                meals = meals.sortedByDescending { it.time },
                 caloriesLimit = dailyLimitCalories,
             )
         }
