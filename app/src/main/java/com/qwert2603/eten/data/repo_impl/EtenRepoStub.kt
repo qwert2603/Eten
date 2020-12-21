@@ -80,6 +80,7 @@ object EtenRepoStub : EtenRepo {
             WeightedMealPart(productDough, 150.0),
             WeightedMealPart(productCheese, 80.0),
             WeightedMealPart(productTomato, 100.0),
+            WeightedMealPart(dishSoup, 54.0),
         )
     )
 

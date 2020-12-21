@@ -28,7 +28,7 @@ fun ScreenMealsList(
                 onMealClick = { navigateToEditMeal(it.uuid) },
                 onDeleteMealClick = { mealToDelete = it },
             )
-            Divider()
+            Divider(thickness = 2.dp)
         }
     }
 
