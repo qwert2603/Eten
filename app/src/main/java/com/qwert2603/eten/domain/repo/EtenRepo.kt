@@ -9,12 +9,12 @@ interface EtenRepo {
     fun productsUpdates(): Flow<List<Product>>
     suspend fun getProduct(uuid: String): Product?
     suspend fun saveProduct(product: Product)
-    suspend fun removeProduct(uuid: String)
+    suspend fun removeProduct(uuid: String) // todo: deny delete, if it is used.
 
     fun dishesUpdates(): Flow<List<Dish>>
     suspend fun getDish(uuid: String): Dish?
     suspend fun saveDish(dish: Dish)
-    suspend fun removeDish(uuid: String)
+    suspend fun removeDish(uuid: String) // todo: deny delete, if it is used.
 
     fun mealsUpdates(): Flow<List<Meal>>
     suspend fun getMeal(uuid: String): Meal?
