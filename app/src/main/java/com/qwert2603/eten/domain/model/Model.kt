@@ -21,7 +21,7 @@ data class WeightedMealPart(
 }
 
 data class Product(
-    val uuid: String = randomUUID(),
+    val uuid: String = randomUUID(), // todo: remove " = randomUUID()" from constructors.
     override val name: String,
     override val calorie: Double,
 ) : MealPart() {
