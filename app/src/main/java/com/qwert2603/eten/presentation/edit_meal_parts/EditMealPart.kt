@@ -60,7 +60,7 @@ fun EditMealPart(
                     onItemSelected = { selectedProduct ->
                         onPartChange(creatingMealPart.copy(product = selectedProduct))
                     },
-//                    toggleModifier = toggleModifier
+                    toggleModifier = toggleModifier
                 )
                 is CreatingWeightedDish -> AutocompleteTextField(
                     selectedItem = creatingMealPart.dish,
@@ -70,7 +70,7 @@ fun EditMealPart(
                     onItemSelected = { selectedDish ->
                         onPartChange(creatingMealPart.copy(dish = selectedDish))
                     },
-//                    toggleModifier = toggleModifier
+                    toggleModifier = toggleModifier
                 )
             }.allCases
         }

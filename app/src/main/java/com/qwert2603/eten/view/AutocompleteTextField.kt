@@ -22,7 +22,7 @@ fun <T : Any> AutocompleteTextField(
     renderItem: @Composable (T) -> Unit,
     itemToString: (T) -> String,
     onItemSelected: (T?) -> Unit,
-//    toggleModifier: Modifier = Modifier,todo
+    toggleModifier: Modifier = Modifier,
 ) {
     var textFieldValue by savedInstanceState(
         selectedItem,
@@ -63,7 +63,7 @@ fun <T : Any> AutocompleteTextField(
         },
         expanded = expanded,
         onDismissRequest = { expanded = false },
-//        toggleModifier = toggleModifier,
+        toggleModifier = toggleModifier,
     ) {
         items.forEach {
             DropdownMenuItem(onClick = {
