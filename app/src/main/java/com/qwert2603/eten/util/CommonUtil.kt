@@ -8,15 +8,30 @@ import com.qwert2603.eten.domain.model.Meal
 import kotlinx.datetime.*
 import kotlinx.datetime.TimeZone
 import java.util.*
+import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 
 val <T> T.allCases get() = this
 
-fun LocalDate.format(): String = this.toString() // todo
+fun LocalDate.format(): String = this.toString()
 
-fun LocalDateTime.format(): String = this.toString() // todo
+fun LocalDateTime.format(): String = "${this.date.format()} ${this.formatTime()}"
 
-fun LocalDateTime.formatTime(): String = this.toString() + "_t" // todo
+fun LocalDateTime.formatTime(): String = this.toString().substring(11, 16)
+
+fun Int.toPointedString() = toLong().toPointedString()
+
+fun Long.toPointedString(): String {
+    val negative = this < 0
+    val absString = this.absoluteValue.toString().reversed()
+    val stringBuilder = StringBuilder()
+    absString.forEachIndexed { index, c ->
+        stringBuilder.append(c)
+        if (index % 3 == 2 && index != absString.lastIndex) stringBuilder.append('.')
+    }
+    if (negative) stringBuilder.append('-')
+    return stringBuilder.reverse().toString()
+}
 
 @Composable
 fun Double.formatWeight() = "${roundToInt()}${stringResource(R.string.symbol_grams)}"

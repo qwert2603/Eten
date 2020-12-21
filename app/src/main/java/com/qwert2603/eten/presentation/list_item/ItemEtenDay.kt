@@ -16,6 +16,8 @@ import com.qwert2603.eten.R
 import com.qwert2603.eten.domain.model.EtenDay
 import com.qwert2603.eten.domain.model.Meal
 import com.qwert2603.eten.util.format
+import com.qwert2603.eten.util.toPointedString
+import kotlin.math.roundToInt
 
 @Composable
 fun ItemEtenDay(
@@ -34,8 +36,10 @@ fun ItemEtenDay(
                 style = TextStyle(fontWeight = FontWeight.Bold),
                 modifier = Modifier.weight(1f),
             )
+            val limit = etenDay.caloriesLimit.roundToInt().toPointedString()
+            val total = etenDay.totalCalories.roundToInt().toPointedString()
             Text(
-                "${etenDay.totalCalories} / ${etenDay.caloriesLimit} ${stringResource(R.string.symbol_total_calories)}",
+                "$total / $limit ${stringResource(R.string.symbol_total_calories)}",
                 style = TextStyle(
                     fontWeight = FontWeight.Bold,
                     color = colorResource(if (etenDay.totalCalories <= etenDay.caloriesLimit) {
