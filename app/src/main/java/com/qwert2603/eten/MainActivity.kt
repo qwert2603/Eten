@@ -77,7 +77,9 @@ fun EtenApp() {
             composable(
                 route = "settings",
             ) {
-                ScreenSettings()
+                ScreenSettings(
+                    navigateUp = { navController.navigateUp() }
+                )
             }
         }
     }

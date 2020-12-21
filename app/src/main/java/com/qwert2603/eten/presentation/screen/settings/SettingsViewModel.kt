@@ -4,17 +4,33 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.qwert2603.eten.data.repo_impl.SettingsRepoStub
 import com.qwert2603.eten.domain.repo.SettingsRepo
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 class SettingsViewModel(
     private val settingsRepo: SettingsRepo = SettingsRepoStub,
 ) : ViewModel() {
 
-    val dailyLimitCaloriesUpdates = settingsRepo.dailyLimitCaloriesUpdates()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), 0.0)
+    val settingsModel = MutableStateFlow(SettingsModel(0))
 
-    fun onLimitChanged(limit: Double) {
-        settingsRepo.saveDailyLimitCalories(limit)
+    init {
+        viewModelScope.launch {
+            settingsModel.value = SettingsModel(
+                dailyLimitCalories = settingsRepo.dailyLimitCaloriesUpdates().first().toInt()
+            )
+        }
+    }
+
+    fun onDailyLimitCaloriesChange(dailyLimitCalories: Int) {
+        settingsModel.value = settingsModel.value.copy(
+            dailyLimitCalories = dailyLimitCalories
+        )
+    }
+
+    fun onSaveClick() {
+        val value = settingsModel.value
+        if (!value.canSave()) return
+        settingsRepo.saveDailyLimitCalories(value.dailyLimitCalories.toDouble())
     }
 }
