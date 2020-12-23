@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.qwert2603.eten.E
 import com.qwert2603.eten.R
 import com.qwert2603.eten.domain.model.Dish
 import com.qwert2603.eten.util.formatTitle
@@ -52,11 +53,13 @@ fun ItemDish(
             )
         }
         // todo: "save as product" button.
-        IconButton(
-            onClick = onDeleteClick,
-            modifier = Modifier.padding(start = 12.dp),
-        ) {
-            Icon(Icons.Default.Delete)
+        if (E.deleteDish) {
+            IconButton(
+                onClick = onDeleteClick,
+                modifier = Modifier.padding(start = 12.dp),
+            ) {
+                Icon(Icons.Default.Delete)
+            }
         }
     }
 }

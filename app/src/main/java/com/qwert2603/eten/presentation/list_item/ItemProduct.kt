@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.qwert2603.eten.E
 import com.qwert2603.eten.domain.model.Product
 import com.qwert2603.eten.util.formatCalorie
 
@@ -41,11 +42,13 @@ fun ItemProduct(
             product.caloriePer100g.formatCalorie(),
             modifier = Modifier.padding(start = 12.dp),
         )
-        IconButton(
-            onClick = onDeleteClick,
-            modifier = Modifier.padding(start = 12.dp),
-        ) {
-            Icon(Icons.Default.Delete)
+        if (E.deleteProduct) {
+            IconButton(
+                onClick = onDeleteClick,
+                modifier = Modifier.padding(start = 12.dp),
+            ) {
+                Icon(Icons.Default.Delete)
+            }
         }
     }
 }
