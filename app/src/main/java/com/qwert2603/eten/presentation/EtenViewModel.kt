@@ -2,7 +2,7 @@ package com.qwert2603.eten.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.qwert2603.eten.data.repo_impl.EtenRepoStub
+import com.qwert2603.eten.data.repo_impl.EtenRepoImpl
 import com.qwert2603.eten.domain.meals.MealsInteractor
 import com.qwert2603.eten.domain.repo.EtenRepo
 import kotlinx.coroutines.flow.SharingStarted
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 
 class EtenViewModel(
-    private val etenRepo: EtenRepo = EtenRepoStub,
+    private val etenRepo: EtenRepo = EtenRepoImpl,
     private val mealsInteractor: MealsInteractor = MealsInteractor(),
 ) : ViewModel() {
 

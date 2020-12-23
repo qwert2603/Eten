@@ -5,6 +5,8 @@ import androidx.compose.ui.res.stringResource
 import com.qwert2603.eten.R
 import com.qwert2603.eten.domain.model.Dish
 import com.qwert2603.eten.domain.model.Meal
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.datetime.*
 import kotlinx.datetime.TimeZone
 import java.util.*
@@ -55,3 +57,5 @@ fun timeNow() = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault
 
 fun Int.toEditingString(): String = takeIf { it != 0 }?.toString() ?: ""
 fun String.toEditingInt(maxNumbers: Int = 4) = take(maxNumbers).toIntOrNull() ?: 0
+
+fun <T, R> Flow<List<T>>.mapList(mapper: (T) -> R): Flow<List<R>> = map { list -> list.map(mapper) }

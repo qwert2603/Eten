@@ -2,7 +2,7 @@ package com.qwert2603.eten.presentation.screen.edit_meal
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.qwert2603.eten.data.repo_impl.EtenRepoStub
+import com.qwert2603.eten.data.repo_impl.EtenRepoImpl
 import com.qwert2603.eten.domain.model.Dish
 import com.qwert2603.eten.domain.model.Product
 import com.qwert2603.eten.domain.repo.EtenRepo
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class EditMealViewModel(
-    private val etenRepo: EtenRepo = EtenRepoStub,
+    private val etenRepo: EtenRepo = EtenRepoImpl,
 ) : ViewModel() {
 
     val creatingMeal = MutableStateFlow<CreatingMeal?>(null)

@@ -1,6 +1,6 @@
 package com.qwert2603.eten.domain.meals
 
-import com.qwert2603.eten.data.repo_impl.EtenRepoStub
+import com.qwert2603.eten.data.repo_impl.EtenRepoImpl
 import com.qwert2603.eten.data.repo_impl.SettingsRepoImpl
 import com.qwert2603.eten.domain.model.EtenDay
 import com.qwert2603.eten.domain.model.Meal
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.combine
 
 // todo: remove from constructors by default
 class MealsInteractor(
-    private val etenRepo: EtenRepo = EtenRepoStub,
+    private val etenRepo: EtenRepo = EtenRepoImpl,
     private val settingsRepo: SettingsRepo = SettingsRepoImpl,
 ) {
     companion object {

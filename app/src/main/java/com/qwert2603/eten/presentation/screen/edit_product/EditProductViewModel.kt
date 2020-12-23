@@ -2,7 +2,7 @@ package com.qwert2603.eten.presentation.screen.edit_product
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.qwert2603.eten.data.repo_impl.EtenRepoStub
+import com.qwert2603.eten.data.repo_impl.EtenRepoImpl
 import com.qwert2603.eten.domain.repo.EtenRepo
 import com.qwert2603.eten.util.randomUUID
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class EditProductViewModel(
-    private val etenRepo: EtenRepo = EtenRepoStub,
+    private val etenRepo: EtenRepo = EtenRepoImpl,
 ) : ViewModel() {
 
     val creatingProduct = MutableStateFlow<CreatingProduct?>(null)
