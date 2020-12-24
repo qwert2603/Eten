@@ -65,10 +65,10 @@ object EtenRepoStub : EtenRepo {
         name = "Soup",
         time = minusMinutes(123),
         partsList = PartsList(
-            WeightedMealPart(productChicken, 200.0),
-            WeightedMealPart(productPotato, 150.0),
-            WeightedMealPart(productTomato, 80.0),
-            WeightedMealPart(productWater, 400.0),
+            WeightedMealPart(mealPart = productChicken, weight = 200.0),
+            WeightedMealPart(mealPart = productPotato, weight = 150.0),
+            WeightedMealPart(mealPart = productTomato, weight = 80.0),
+            WeightedMealPart(mealPart = productWater, weight = 400.0),
         )
     )
 
@@ -76,11 +76,11 @@ object EtenRepoStub : EtenRepo {
         name = "Pizza",
         time = minusMinutes(584),
         partsList = PartsList(
-            WeightedMealPart(productChicken, 120.0),
-            WeightedMealPart(productDough, 150.0),
-            WeightedMealPart(productCheese, 80.0),
-            WeightedMealPart(productTomato, 100.0),
-            WeightedMealPart(dishSoup, 54.0),
+            WeightedMealPart(mealPart = productChicken, weight = 120.0),
+            WeightedMealPart(mealPart = productDough, weight = 150.0),
+            WeightedMealPart(mealPart = productCheese, weight = 80.0),
+            WeightedMealPart(mealPart = productTomato, weight = 100.0),
+            WeightedMealPart(mealPart = dishSoup, weight = 54.0),
         )
     )
 
@@ -105,37 +105,37 @@ object EtenRepoStub : EtenRepo {
     private val meals = MutableStateFlow(listOf(
         Meal(
             time = minusMinutes(2), partsList = PartsList(
-                WeightedMealPart(dishPizza, 140.0),
+                WeightedMealPart(mealPart = dishPizza, weight = 140.0),
             )
         ),
         Meal(
             time = minusMinutes(8), partsList = PartsList(
-                WeightedMealPart(productBread, 50.0),
-                WeightedMealPart(dishSoup, 150.0),
+                WeightedMealPart(mealPart = productBread, weight = 50.0),
+                WeightedMealPart(mealPart = dishSoup, weight = 150.0),
             )
         ),
         Meal(
             time = minusMinutes(22), partsList = PartsList(
-                WeightedMealPart(productFish, 100.0),
-                WeightedMealPart(productCheese, 122.8),
+                WeightedMealPart(mealPart = productFish, weight = 100.0),
+                WeightedMealPart(mealPart = productCheese, weight = 122.8),
             )
         ),
         Meal(
             time = minusMinutes(200), partsList = PartsList(
-                WeightedMealPart(productApple, 203.2),
-                WeightedMealPart(productCheese, 42.0),
+                WeightedMealPart(mealPart = productApple, weight = 203.2),
+                WeightedMealPart(mealPart = productCheese, weight = 42.0),
             )
         ),
         Meal(
             time = minusMinutes(522), partsList = PartsList(
-                WeightedMealPart(productPorridge, 126.1),
-                WeightedMealPart(productApple, 188.3),
+                WeightedMealPart(mealPart = productPorridge, weight = 126.1),
+                WeightedMealPart(mealPart = productApple, weight = 188.3),
             )
         ),
         Meal(
             time = minusMinutes(1527), partsList = PartsList(
-                WeightedMealPart(productFish, 55.0),
-                WeightedMealPart(productPorridge, 102.4),
+                WeightedMealPart(mealPart = productFish, weight = 55.0),
+                WeightedMealPart(mealPart = productPorridge, weight = 102.4),
             )
         ),
     ).associateBy { it.uuid })

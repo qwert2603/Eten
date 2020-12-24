@@ -3,7 +3,6 @@ package com.qwert2603.eten.presentation.edit_meal_parts
 import com.qwert2603.eten.domain.model.Dish
 import com.qwert2603.eten.domain.model.Product
 import com.qwert2603.eten.domain.model.WeightedMealPart
-import com.qwert2603.eten.util.randomUUID
 
 sealed class CreatingMealPart {
     abstract val uuid: String
@@ -19,7 +18,7 @@ data class CreatingWeightedProduct(
 ) : CreatingMealPart() {
     override val calories = (product?.calorie ?: 0.0) * weight
     override fun isValid() = product != null && weight > 0
-    override fun toWeightedMealPart() = WeightedMealPart(product!!, weight.toDouble())
+    override fun toWeightedMealPart() = WeightedMealPart(uuid, product!!, weight.toDouble())
 }
 
 data class CreatingWeightedDish(
@@ -29,12 +28,12 @@ data class CreatingWeightedDish(
 ) : CreatingMealPart() {
     override val calories = (dish?.calorie ?: 0.0) * weight
     override fun isValid() = dish != null && weight > 0
-    override fun toWeightedMealPart() = WeightedMealPart(dish!!, weight.toDouble())
+    override fun toWeightedMealPart() = WeightedMealPart(uuid, dish!!, weight.toDouble())
 }
 
 fun WeightedMealPart.toCreatingMealPart(): CreatingMealPart = when (mealPart) {
-    is Product -> CreatingWeightedProduct(randomUUID(), mealPart, weight.toInt())
-    is Dish -> CreatingWeightedDish(randomUUID(), mealPart, weight.toInt())
+    is Product -> CreatingWeightedProduct(uuid, mealPart, weight.toInt())
+    is Dish -> CreatingWeightedDish(uuid, mealPart, weight.toInt())
 }
 
 val CreatingMealPart.weight: Int

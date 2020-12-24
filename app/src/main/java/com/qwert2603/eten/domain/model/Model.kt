@@ -10,6 +10,7 @@ sealed class MealPart {
 }
 
 data class WeightedMealPart(
+    val uuid: String = randomUUID(),
     val mealPart: MealPart,
     val weight: Double, // in grams.
 ) {
