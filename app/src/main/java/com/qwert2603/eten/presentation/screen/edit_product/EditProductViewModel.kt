@@ -21,15 +21,27 @@ class EditProductViewModel(
         Timber.d("EditProductViewModel created")
     }
 
-    // todo: inject uuid to constructor in all viewModels
-    fun loadProduct(uuid: String?) {
+    // todo: inject param to constructor in all viewModels
+    fun loadProduct(editProductParam: EditProductParam) {
         if (creatingProduct.value != null) return
-        Timber.d("loadProduct $uuid")
+        Timber.d("loadProduct $editProductParam")
         viewModelScope.launch {
-            creatingProduct.value = uuid
-                ?.let { etenRepo.getProduct(it) }
-                ?.let { CreatingProduct(it.uuid, it.name, it.caloriePer100g.toInt()) }
-                ?: CreatingProduct(randomUUID(), "", 0)
+            val newProduct by lazy { CreatingProduct(randomUUID(), "", 0) }
+            creatingProduct.value = when (editProductParam) {
+                EditProductParam.NewProduct -> {
+                    newProduct
+                }
+                is EditProductParam.EditProduct -> {
+                    etenRepo.getProduct(editProductParam.productUuid)
+                        ?.let { CreatingProduct(it.uuid, it.name, it.caloriePer100g.toInt()) }
+                        ?: newProduct
+                }
+                is EditProductParam.FromDish -> {
+                    etenRepo.getDish(editProductParam.dishUuid)
+                        ?.let { CreatingProduct(randomUUID(), it.name, it.caloriePer100g.toInt()) }
+                        ?: newProduct
+                }
+            }
         }
     }
 

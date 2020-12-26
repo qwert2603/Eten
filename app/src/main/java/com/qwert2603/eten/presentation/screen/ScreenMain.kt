@@ -45,6 +45,7 @@ fun ScreenMain(
     navigateToEditProduct: (uuid: String) -> Unit,
     navigateToAddDish: () -> Unit,
     navigateToEditDish: (uuid: String) -> Unit,
+    navigateToProductFromDish: (dishUuid: String) -> Unit,
     navigateToAddMeal: () -> Unit,
     navigateToEditMeal: (uuid: String) -> Unit,
     navigateToSettings: () -> Unit,
@@ -103,7 +104,10 @@ fun ScreenMain(
                     ScreenMealsList(navigateToEditMeal)
                 }
                 composable(BottomMenuItem.Dishes.route.name) {
-                    ScreenDishesList(navigateToEditDish)
+                    ScreenDishesList(
+                        navigateToEditDish = navigateToEditDish,
+                        navigateToProductFromDish = navigateToProductFromDish
+                    )
                 }
                 composable(BottomMenuItem.Products.route.name) {
                     ScreenProductsList(navigateToEditProduct)

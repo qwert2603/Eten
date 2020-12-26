@@ -14,6 +14,7 @@ import com.qwert2603.eten.presentation.screen.delete.DialogDeleteDish
 @Composable
 fun ScreenDishesList(
     navigateToEditDish: (uuid: String) -> Unit,
+    navigateToProductFromDish: (uuid: String) -> Unit,
 ) {
     val vm = viewModel<EtenViewModel>()
     val dishes = vm.dishesUpdates.collectAsState(initial = emptyList())
@@ -26,6 +27,7 @@ fun ScreenDishesList(
             ItemDish(
                 dish = it,
                 onClick = { navigateToEditDish(it.uuid) },
+                onSaveAsProductClick = { navigateToProductFromDish(it.uuid) },
                 onDeleteClick = { dishToDelete = it },
             )
             Divider()

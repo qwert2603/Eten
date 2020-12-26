@@ -13,6 +13,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.qwert2603.eten.E
@@ -26,6 +27,7 @@ import com.qwert2603.eten.util.formatWeight
 fun ItemDish(
     dish: Dish,
     onClick: () -> Unit,
+    onSaveAsProductClick: () -> Unit,
     onDeleteClick: () -> Unit,
 ) {
     Row(
@@ -52,7 +54,14 @@ fun ItemDish(
                 fontWeight = FontWeight.Bold,
             )
         }
-        // todo: "save as product" button.
+
+        IconButton(
+            onClick = onSaveAsProductClick,
+            modifier = Modifier.padding(start = 12.dp),
+        ) {
+            Icon(vectorResource(R.drawable.ic_product))
+        }
+
         if (E.deleteDish) {
             IconButton(
                 onClick = onDeleteClick,

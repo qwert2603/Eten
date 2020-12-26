@@ -23,21 +23,24 @@ import com.qwert2603.eten.util.toEditingString
 import timber.log.Timber
 
 @Composable
-fun ScreenEditProduct(productUuid: String?, navigateUp: () -> Unit) {
+fun ScreenEditProduct(
+    editProductParam: EditProductParam,
+    navigateUp: () -> Unit,
+) {
     val vm = viewModel<EditProductViewModel>()
-    LaunchedEffect(productUuid) { vm.loadProduct(productUuid) } // fixme: check: recalled after rotate device in all screens.
+    LaunchedEffect(editProductParam) { vm.loadProduct(editProductParam) } // fixme: check: recalled after rotate device in all screens.
     val productState = vm.creatingProduct.collectAsState()
-    Timber.d("productUuid=$productUuid product=${productState.value}")
+    Timber.d("editProductParam=$editProductParam product=${productState.value}")
     val product = productState.value ?: return
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
-                    @StringRes val titleId = if (productUuid != null) {
-                        R.string.edit_product_screen_title
-                    } else {
-                        R.string.new_product_screen_title
+                    @StringRes val titleId = when (editProductParam) {
+                        EditProductParam.NewProduct -> R.string.new_product_screen_title
+                        is EditProductParam.EditProduct -> R.string.edit_product_screen_title
+                        is EditProductParam.FromDish -> R.string.new_product_screen_title
                     }
                     Text(stringResource(titleId))
                 },
