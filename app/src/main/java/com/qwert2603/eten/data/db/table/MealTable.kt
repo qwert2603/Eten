@@ -2,10 +2,10 @@ package com.qwert2603.eten.data.db.table
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.datetime.LocalDateTime
 
 @Entity
-class ProductTable(
+class MealTable(
     @PrimaryKey val uuid: String,
-    val name: String,
-    val calorie: Double,
+    val time: LocalDateTime,
 )

@@ -11,8 +11,3 @@ class DishTable(
     val time: LocalDateTime,
 )
 
-@Entity
-class MealPartTable(
-    @PrimaryKey val uuid: String,
-    val weight: Double,
-)

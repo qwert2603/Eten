@@ -8,9 +8,11 @@ import com.qwert2603.eten.domain.model.Product
 import com.qwert2603.eten.domain.repo.EtenRepo
 import com.qwert2603.eten.presentation.edit_meal_parts.toCreatingMealPart
 import com.qwert2603.eten.util.randomUUID
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class EditDishViewModel(
@@ -42,7 +44,9 @@ class EditDishViewModel(
 
     fun saveDish() = viewModelScope.launch {
         val value = creatingDish.value ?: return@launch
-        etenRepo.saveDish(value.toDish())
+        withContext(NonCancellable) {
+            etenRepo.saveDish(value.toDish())
+        }
     }
 
     suspend fun searchProducts(query: String): List<Product> = etenRepo.productsUpdates()

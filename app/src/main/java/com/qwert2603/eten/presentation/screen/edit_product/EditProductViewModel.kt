@@ -5,8 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.qwert2603.eten.data.repo_impl.EtenRepoImpl
 import com.qwert2603.eten.domain.repo.EtenRepo
 import com.qwert2603.eten.util.randomUUID
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class EditProductViewModel(
@@ -37,7 +39,10 @@ class EditProductViewModel(
 
     fun saveProduct() = viewModelScope.launch {
         val value = creatingProduct.value ?: return@launch
-        etenRepo.saveProduct(value.toProduct())
+        // todo: may be better.
+        withContext(NonCancellable) {
+            etenRepo.saveProduct(value.toProduct())
+        }
     }
 
     override fun onCleared() {

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "043dd1088276ea00bc76e7f1f7d82b2e",
+    "identityHash": "447bd3ab136efd7ac704160049d03887",
     "entities": [
       {
         "tableName": "ProductTable",
@@ -33,16 +33,7 @@
           ],
           "autoGenerate": false
         },
-        "indices": [
-          {
-            "name": "index_ProductTable_name",
-            "unique": false,
-            "columnNames": [
-              "name"
-            ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_ProductTable_name` ON `${TABLE_NAME}` (`name`)"
-          }
-        ],
+        "indices": [],
         "foreignKeys": []
       },
       {
@@ -78,9 +69,41 @@
         "foreignKeys": []
       },
       {
-        "tableName": "MealPartTable",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uuid` TEXT NOT NULL, `weight` REAL NOT NULL, PRIMARY KEY(`uuid`))",
+        "tableName": "MealTable",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uuid` TEXT NOT NULL, `time` INTEGER NOT NULL, PRIMARY KEY(`uuid`))",
         "fields": [
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "time",
+            "columnName": "time",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uuid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "MealPartTable",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`containerId` TEXT, `uuid` TEXT NOT NULL, `weight` REAL NOT NULL, `productUuid` TEXT, `dishUuid` TEXT, PRIMARY KEY(`uuid`))",
+        "fields": [
+          {
+            "fieldPath": "containerId",
+            "columnName": "containerId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
           {
             "fieldPath": "uuid",
             "columnName": "uuid",
@@ -92,6 +115,18 @@
             "columnName": "weight",
             "affinity": "REAL",
             "notNull": true
+          },
+          {
+            "fieldPath": "productUuid",
+            "columnName": "productUuid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dishUuid",
+            "columnName": "dishUuid",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -107,7 +142,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '043dd1088276ea00bc76e7f1f7d82b2e')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '447bd3ab136efd7ac704160049d03887')"
     ]
   }
 }
