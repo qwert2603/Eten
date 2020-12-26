@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Eten</string>
 
+    <!-- todo: 'ru' -->
     <string name="bottom_menu_meals">Meals</string>
     <string name="bottom_menu_dishes">Dishes</string>
     <string name="bottom_menu_products">Products</string>
@@ -38,5 +39,7 @@
     <string name="settings_daily_calories_limit">Daily calories limit</string>
 
     <string name="autocomplete_text_field_nothing_found">Nothing found</string>
+
+    <string name="meals_list_is_empty">Meal list is empty</string>
 
 </resources>
