@@ -15,6 +15,17 @@ private class EtenStateMapper(
         .map { it.toProduct() }
         .associateBy { it.uuid }
 
+    val allParts = (etenTables.dishTables.map { it.parts } + etenTables.mealTables.map { it.parts })
+        .flatten()
+    val usedProducts = allParts.mapNotNullTo(HashSet()) { it.productUuid }
+    val usedDishes = allParts.mapNotNullTo(HashSet()) { it.dishUuid }
+
+    // todo: use it for "show/hide delete button"
+    val deletableProducts = etenTables.productTables
+        .filterNot { it.uuid in usedProducts }
+    val deletableDishes = etenTables.dishTables
+        .filterNot { it.dishTable.uuid in usedDishes }
+
     val dishTablesByUuid = etenTables.dishTables
         .associateBy { it.dishTable.uuid }
 
