@@ -26,8 +26,10 @@ fun ScreenMealsList(
     navigateToEditMeal: (uuid: String) -> Unit,
 ) {
     val vm = viewModel<EtenViewModel>()
-    val etenDays by vm.etenDaysUpdates.collectAsState(initial = emptyList())
+    val etenDaysState by vm.etenDaysUpdates.collectAsState(initial = null)
     var mealToDelete by remember { mutableStateOf<Meal?>(null) }
+
+    val etenDays = etenDaysState ?: return
 
     if (etenDays.isEmpty()) {
         Box(
