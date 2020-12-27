@@ -16,16 +16,19 @@ fun ScreenProductsList(
     navigateToEditProduct: (uuid: String) -> Unit,
 ) {
     val vm = viewModel<EtenViewModel>()
-    val products = vm.productsUpdates.collectAsState(initial = emptyList())
+    val productsUpdateState by vm.productsUpdates.collectAsState(initial = null)
     var productToDelete by remember { mutableStateOf<Product?>(null) }
+
+    val productsUpdate = productsUpdateState ?: return
 
     // todo: scrollbars
     LazyColumn(
         contentPadding = PaddingValues(bottom = 112.dp),
     ) {
-        items(products.value) {
+        items(productsUpdate.products) {
             ItemProduct(
                 product = it,
+                isDeletable = it.uuid in productsUpdate.removableProductsUuids,
                 onClick = { navigateToEditProduct(it.uuid) },
                 onDeleteClick = { productToDelete = it },
             )

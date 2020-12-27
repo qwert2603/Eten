@@ -51,10 +51,12 @@ class EditDishViewModel(
 
     suspend fun searchProducts(query: String): List<Product> = etenRepo.productsUpdates()
         .first()
+        .products
         .filter { it.name.contains(query, ignoreCase = true) }
 
     suspend fun searchDishes(query: String): List<Dish> = etenRepo.dishesUpdates()
         .first()
+        .dishes
         .filter {
             it.name.contains(query, ignoreCase = true)
                     && it.uuid != creatingDish.value?.uuid // can't add dish to itself.

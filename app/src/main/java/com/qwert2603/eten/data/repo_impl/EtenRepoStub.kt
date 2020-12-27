@@ -12,22 +12,12 @@ import kotlinx.datetime.*
 // todo: remove stub repos from constructors
 object EtenRepoStub : EtenRepo {
 
-    override fun etenStateUpdates(): Flow<EtenState> = combine(
-        productsUpdates(),
-        dishesUpdates(),
-        mealsUpdates()
-    ) { products, dishes, meals ->
-        EtenState(
-            products = products.associateBy { it.uuid },
-            dishes = dishes.associateBy { it.uuid },
-            meals = meals.associateBy { it.uuid },
+    override fun productsUpdates(): Flow<ProductsUpdate> = products.map {
+        ProductsUpdate(
+            products = it.values.sortedBy { product -> product.name },
             removableProductsUuids = emptySet(),
-            removableDishesUuids = emptySet(),
         )
     }
-
-    override fun productsUpdates(): Flow<List<Product>> =
-        products.map { it.values.sortedBy { product -> product.name } }
 
     override suspend fun getProduct(uuid: String): Product? = products.value[uuid]
 
@@ -41,8 +31,13 @@ object EtenRepoStub : EtenRepo {
 
     override suspend fun getDish(uuid: String): Dish? = dishes.value[uuid]
 
-    override fun dishesUpdates(): Flow<List<Dish>> =
-        dishes.map { it.values.sortedByDescending { dish -> dish.time } }
+    override fun dishesUpdates(): Flow<DishesUpdate> =
+        dishes.map {
+            DishesUpdate(
+                dishes = it.values.sortedByDescending { dish -> dish.time },
+                removableDishesUuids = emptySet(),
+            )
+        }
 
     override suspend fun saveDish(dish: Dish) {
         dishes.value = dishes.value + (dish.uuid to dish)

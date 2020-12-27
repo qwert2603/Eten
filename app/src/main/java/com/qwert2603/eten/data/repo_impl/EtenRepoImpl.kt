@@ -4,14 +4,12 @@ import androidx.room.Room
 import com.qwert2603.eten.E
 import com.qwert2603.eten.EtenApplication
 import com.qwert2603.eten.data.db.EtenDataBase
-import com.qwert2603.eten.domain.model.EtenState
 import com.qwert2603.eten.data.db.mapper.*
-import com.qwert2603.eten.domain.model.Dish
-import com.qwert2603.eten.domain.model.Meal
-import com.qwert2603.eten.domain.model.Product
+import com.qwert2603.eten.domain.model.*
 import com.qwert2603.eten.domain.repo.EtenRepo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
+import timber.log.Timber
 import kotlin.coroutines.EmptyCoroutineContext
 
 // todo: DI.
@@ -32,10 +30,13 @@ object EtenRepoImpl : EtenRepo {
             replay = 1,
         )
 
-    override fun etenStateUpdates(): Flow<EtenState> = etenState
-
-    override fun productsUpdates(): Flow<List<Product>> = etenState
-        .map { state -> state.products.values.sortedBy { it.name } }
+    override fun productsUpdates(): Flow<ProductsUpdate> = etenState
+        .map { state ->
+            ProductsUpdate(
+                products = state.products.values.sortedBy { it.name },
+                removableProductsUuids = state.removableProductsUuids,
+            )
+        }
 
     override suspend fun getProduct(uuid: String): Product? = etenState.first().products[uuid]
 
@@ -44,11 +45,17 @@ object EtenRepoImpl : EtenRepo {
     }
 
     override suspend fun removeProduct(uuid: String) {
-        etenDao.removeProductWithCheck(uuid)
+        val removed = etenDao.removeProductWithCheck(uuid)
+        if (!removed) Timber.d("Product was NOT removed!")
     }
 
-    override fun dishesUpdates(): Flow<List<Dish>> = etenState
-        .map { state -> state.dishes.values.sortedByDescending { it.time } }
+    override fun dishesUpdates(): Flow<DishesUpdate> = etenState
+        .map { state ->
+            DishesUpdate(
+                dishes = state.dishes.values.sortedByDescending { it.time },
+                removableDishesUuids = state.removableDishesUuids,
+            )
+        }
 
     override suspend fun getDish(uuid: String): Dish? = etenState.first().dishes[uuid]
 
@@ -60,7 +67,8 @@ object EtenRepoImpl : EtenRepo {
     }
 
     override suspend fun removeDish(uuid: String) {
-        etenDao.removeDishWithParts(uuid)
+        val removed = etenDao.removeDishWithParts(uuid)
+        if (!removed) Timber.d("Dish was NOT removed!")
     }
 
     override fun mealsUpdates(): Flow<List<Meal>> = etenState

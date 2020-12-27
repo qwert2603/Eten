@@ -5,23 +5,20 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.qwert2603.eten.E
 import com.qwert2603.eten.domain.model.Product
 import com.qwert2603.eten.util.formatCalorie
+import com.qwert2603.eten.view.DeleteButton
 
 @Composable
 fun ItemProduct(
     product: Product,
+    isDeletable: Boolean,
     onClick: () -> Unit,
     onDeleteClick: () -> Unit,
 ) {
@@ -42,13 +39,10 @@ fun ItemProduct(
             product.caloriePer100g.formatCalorie(),
             modifier = Modifier.padding(start = 12.dp),
         )
-        if (E.deleteProduct) {
-            IconButton(
-                onClick = onDeleteClick,
-                modifier = Modifier.padding(start = 12.dp),
-            ) {
-                Icon(Icons.Default.Delete)
-            }
-        }
+        DeleteButton(
+            isEnabled = isDeletable,
+            onDeleteClick = onDeleteClick,
+            modifier = Modifier.padding(start = 12.dp),
+        )
     }
 }

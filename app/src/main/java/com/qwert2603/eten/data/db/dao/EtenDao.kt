@@ -80,7 +80,7 @@ interface EtenDao {
         saveParts(mealPartTables)
     }
 
-    /** @return true, if deleted. */
+    /** @return true, if removed. */
     @Transaction
     suspend fun removeProductWithCheck(uuid: String): Boolean {
         if (getProductUsagesCount(uuid) > 0) return false
@@ -88,7 +88,7 @@ interface EtenDao {
         return true
     }
 
-    /** @return true, if deleted. */
+    /** @return true, if removed. */
     @Transaction
     suspend fun removeDishWithParts(uuid: String): Boolean {
         if (getDishUsagesCount(uuid) > 0) return false

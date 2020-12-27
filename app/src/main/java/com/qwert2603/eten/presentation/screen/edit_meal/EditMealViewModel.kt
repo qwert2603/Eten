@@ -50,9 +50,11 @@ class EditMealViewModel(
 
     suspend fun searchProducts(query: String): List<Product> = etenRepo.productsUpdates()
         .first()
+        .products
         .filter { it.name.contains(query, ignoreCase = true) }
 
     suspend fun searchDishes(query: String): List<Dish> = etenRepo.dishesUpdates()
         .first()
+        .dishes
         .filter { it.name.contains(query, ignoreCase = true) }
 }

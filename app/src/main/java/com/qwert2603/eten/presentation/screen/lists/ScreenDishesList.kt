@@ -17,15 +17,18 @@ fun ScreenDishesList(
     navigateToProductFromDish: (uuid: String) -> Unit,
 ) {
     val vm = viewModel<EtenViewModel>()
-    val dishes = vm.dishesUpdates.collectAsState(initial = emptyList())
+    val dishesUpdateState by vm.dishesUpdates.collectAsState(initial = null)
     var dishToDelete by remember { mutableStateOf<Dish?>(null) }
+
+    val dishesUpdate = dishesUpdateState ?: return
 
     LazyColumn(
         contentPadding = PaddingValues(bottom = 112.dp),
     ) {
-        items(dishes.value) {
+        items(dishesUpdate.dishes) {
             ItemDish(
                 dish = it,
+                isDeletable = it.uuid in dishesUpdate.removableDishesUuids,
                 onClick = { navigateToEditDish(it.uuid) },
                 onSaveAsProductClick = { navigateToProductFromDish(it.uuid) },
                 onDeleteClick = { dishToDelete = it },

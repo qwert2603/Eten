@@ -8,24 +8,23 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.qwert2603.eten.E
 import com.qwert2603.eten.R
 import com.qwert2603.eten.domain.model.Dish
 import com.qwert2603.eten.util.formatTitle
 import com.qwert2603.eten.util.formatTotalCalories
 import com.qwert2603.eten.util.formatWeight
+import com.qwert2603.eten.view.DeleteButton
 
 @Composable
 fun ItemDish(
     dish: Dish,
+    isDeletable: Boolean,
     onClick: () -> Unit,
     onSaveAsProductClick: () -> Unit,
     onDeleteClick: () -> Unit,
@@ -61,14 +60,10 @@ fun ItemDish(
         ) {
             Icon(vectorResource(R.drawable.ic_product))
         }
-
-        if (E.deleteDish) {
-            IconButton(
-                onClick = onDeleteClick,
-                modifier = Modifier.padding(start = 12.dp),
-            ) {
-                Icon(Icons.Default.Delete)
-            }
-        }
+        DeleteButton(
+            isEnabled = isDeletable,
+            onDeleteClick = onDeleteClick,
+            modifier = Modifier.padding(start = 12.dp),
+        )
     }
 }
