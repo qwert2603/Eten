@@ -4,7 +4,7 @@ import androidx.room.Room
 import com.qwert2603.eten.E
 import com.qwert2603.eten.EtenApplication
 import com.qwert2603.eten.data.db.EtenDataBase
-import com.qwert2603.eten.data.db.EtenState
+import com.qwert2603.eten.domain.model.EtenState
 import com.qwert2603.eten.data.db.mapper.*
 import com.qwert2603.eten.domain.model.Dish
 import com.qwert2603.eten.domain.model.Meal

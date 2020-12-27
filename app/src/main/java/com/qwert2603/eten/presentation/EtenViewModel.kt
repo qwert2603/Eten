@@ -28,18 +28,11 @@ class EtenViewModel(
             started = SharingStarted.WhileSubscribed(),
         )
 
-    val mealsUpdates = etenRepo.mealsUpdates()
-        .shareIn(
-            scope = viewModelScope,
-            replay = 1,
-            started = SharingStarted.WhileSubscribed(),
-        )
-
     val etenDaysUpdates = mealsInteractor.etenDaysUpdates()
         .shareIn(
             scope = viewModelScope,
             replay = 1,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.Lazily,
         )
 
     fun deleteProduct(uuid: String) {

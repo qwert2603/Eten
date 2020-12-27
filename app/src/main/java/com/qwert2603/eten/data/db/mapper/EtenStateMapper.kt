@@ -1,6 +1,6 @@
 package com.qwert2603.eten.data.db.mapper
 
-import com.qwert2603.eten.data.db.EtenState
+import com.qwert2603.eten.domain.model.EtenState
 import com.qwert2603.eten.data.db.result.EtenTables
 import com.qwert2603.eten.data.db.table.MealPartTable
 import com.qwert2603.eten.domain.model.Dish
@@ -11,20 +11,21 @@ import com.qwert2603.eten.domain.model.WeightedMealPart
 private class EtenStateMapper(
     etenTables: EtenTables,
 ) {
-    val products = etenTables.productTables
-        .map { it.toProduct() }
-        .associateBy { it.uuid }
-
     val allParts = (etenTables.dishTables.map { it.parts } + etenTables.mealTables.map { it.parts })
         .flatten()
     val usedProducts = allParts.mapNotNullTo(HashSet()) { it.productUuid }
     val usedDishes = allParts.mapNotNullTo(HashSet()) { it.dishUuid }
 
-    // todo: use it for "show/hide delete button"
-    val deletableProducts = etenTables.productTables
+    val removableProductsUuids = etenTables.productTables
         .filterNot { it.uuid in usedProducts }
-    val deletableDishes = etenTables.dishTables
+        .mapTo(HashSet()) { it.uuid }
+    val removableDishesUuids = etenTables.dishTables
         .filterNot { it.dishTable.uuid in usedDishes }
+        .mapTo(HashSet()) { it.dishTable.uuid }
+
+    val products = etenTables.productTables
+        .map { it.toProduct() }
+        .associateBy { it.uuid }
 
     val dishTablesByUuid = etenTables.dishTables
         .associateBy { it.dishTable.uuid }
@@ -61,6 +62,8 @@ private class EtenStateMapper(
         products = products,
         dishes = dishes,
         meals = meals,
+        removableProductsUuids = removableProductsUuids,
+        removableDishesUuids = removableDishesUuids,
     )
 
 }
