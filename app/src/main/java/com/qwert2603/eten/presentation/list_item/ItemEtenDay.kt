@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -27,43 +28,51 @@ fun ItemEtenDay(
     onMealClick: (Meal) -> Unit,
     onDeleteMealClick: (Meal) -> Unit,
 ) {
-    Column {
-        Row(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
-        ) {
-            Text(
-                etenDay.day.format(),
-                style = TextStyle(
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp,
-                ),
-                modifier = Modifier.weight(1f),
-            )
-            val limit = etenDay.caloriesLimit.roundToInt().toPointedString()
-            val total = etenDay.totalCalories.roundToInt().toPointedString()
-            Text(
-                "$total / $limit ${stringResource(R.string.symbol_total_calories)}",
-                style = TextStyle(
-                    fontWeight = FontWeight.Bold,
-                    color = colorResource(if (etenDay.totalCalories <= etenDay.caloriesLimit) {
-                        R.color.limit_ok
-                    } else {
-                        R.color.limit_exceeded
-                    }),
-                    fontSize = 18.sp,
-                ),
-                modifier = Modifier.padding(start = 12.dp),
-            )
-        }
-        etenDay.meals.forEach {
-            ItemMeal(
-                meal = it,
-                onClick = { onMealClick(it) },
-                onDeleteClick = { onDeleteMealClick(it) },
-            )
-            Divider()
+    Card(
+        elevation = 4.dp,
+        modifier = Modifier.padding(
+            horizontal = 12.dp,
+            vertical = 6.dp,
+        ),
+    ) {
+        Column {
+            Row(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth(),
+            ) {
+                Text(
+                    etenDay.day.format(),
+                    style = TextStyle(
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp,
+                    ),
+                    modifier = Modifier.weight(1f),
+                )
+                val limit = etenDay.caloriesLimit.roundToInt().toPointedString()
+                val total = etenDay.totalCalories.roundToInt().toPointedString()
+                Text(
+                    "$total / $limit ${stringResource(R.string.symbol_total_calories)}",
+                    style = TextStyle(
+                        fontWeight = FontWeight.Bold,
+                        color = colorResource(if (etenDay.totalCalories <= etenDay.caloriesLimit) {
+                            R.color.limit_ok
+                        } else {
+                            R.color.limit_exceeded
+                        }),
+                        fontSize = 18.sp,
+                    ),
+                    modifier = Modifier.padding(start = 12.dp),
+                )
+            }
+            etenDay.meals.forEach {
+                ItemMeal(
+                    meal = it,
+                    onClick = { onMealClick(it) },
+                    onDeleteClick = { onDeleteMealClick(it) },
+                )
+                Divider()
+            }
         }
     }
 }

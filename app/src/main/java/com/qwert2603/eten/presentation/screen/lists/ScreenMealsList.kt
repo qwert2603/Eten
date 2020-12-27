@@ -31,7 +31,6 @@ fun ScreenMealsList(
 
     val etenDays = etenDaysState ?: return
 
-    // todo: Card.
     if (etenDays.isEmpty()) {
         Box(
             contentAlignment = Alignment.Center,
@@ -54,7 +53,6 @@ fun ScreenMealsList(
                 onMealClick = { navigateToEditMeal(it.uuid) },
                 onDeleteMealClick = { mealToDelete = it },
             )
-            Divider(thickness = 2.dp)
         }
     }
 
