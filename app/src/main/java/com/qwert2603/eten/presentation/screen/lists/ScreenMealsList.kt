@@ -31,6 +31,7 @@ fun ScreenMealsList(
 
     val etenDays = etenDaysState ?: return
 
+    // todo: Card.
     if (etenDays.isEmpty()) {
         Box(
             contentAlignment = Alignment.Center,
