@@ -32,6 +32,8 @@ object EtenRepoImpl : EtenRepo {
             replay = 1,
         )
 
+    override fun etenStateUpdates(): Flow<EtenState> = etenState
+
     override fun productsUpdates(): Flow<List<Product>> = etenState
         .map { state -> state.products.values.sortedBy { it.name } }
 

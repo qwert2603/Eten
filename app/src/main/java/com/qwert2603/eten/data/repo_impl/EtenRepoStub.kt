@@ -5,11 +5,26 @@ import com.qwert2603.eten.domain.repo.EtenRepo
 import com.qwert2603.eten.util.timeNow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.datetime.*
 
 // todo: remove stub repos from constructors
 object EtenRepoStub : EtenRepo {
+
+    override fun etenStateUpdates(): Flow<EtenState> = combine(
+        productsUpdates(),
+        dishesUpdates(),
+        mealsUpdates()
+    ) { products, dishes, meals ->
+        EtenState(
+            products = products.associateBy { it.uuid },
+            dishes = dishes.associateBy { it.uuid },
+            meals = meals.associateBy { it.uuid },
+            removableProductsUuids = emptySet(),
+            removableDishesUuids = emptySet(),
+        )
+    }
 
     override fun productsUpdates(): Flow<List<Product>> =
         products.map { it.values.sortedBy { product -> product.name } }
