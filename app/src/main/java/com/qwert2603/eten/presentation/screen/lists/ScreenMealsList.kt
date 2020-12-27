@@ -61,6 +61,7 @@ fun ScreenMealsList(
         DialogDeleteMeal(
             meal = it,
             onDelete = {
+                // todo: "undo" snackbar
                 mealToDelete = null
                 vm.deleteMeal(it.uuid)
             },

@@ -9,7 +9,6 @@ import com.qwert2603.eten.data.db.table.MealPartTable
 import com.qwert2603.eten.data.db.table.MealTable
 import com.qwert2603.eten.data.db.table.ProductTable
 import kotlinx.coroutines.flow.Flow
-import timber.log.Timber
 
 @Dao
 interface EtenDao {
@@ -37,11 +36,23 @@ interface EtenDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveMeal(mealTable: MealTable)
 
+    @Query("DELETE FROM ProductTable WHERE uuid=:uuid")
+    suspend fun removeProduct(uuid: String)
+
+    @Query("DELETE FROM DishTable WHERE uuid=:uuid")
+    suspend fun removeDish(uuid: String)
+
     @Query("DELETE FROM MealTable WHERE uuid=:uuid")
     suspend fun removeMeal(uuid: String)
 
     @Query("DELETE FROM MealPartTable WHERE containerId=:containerUuid")
     suspend fun removeParts(containerUuid: String)
+
+    @Query("SELECT COUNT(uuid) FROM MealPartTable WHERE productUuid=:uuid")
+    suspend fun getProductUsagesCount(uuid: String): Int
+
+    @Query("SELECT COUNT(uuid) FROM MealPartTable WHERE dishUuid=:uuid")
+    suspend fun getDishUsagesCount(uuid: String): Int
 
     class Ignored(val ignored: Int)
 
@@ -69,10 +80,27 @@ interface EtenDao {
         saveParts(mealPartTables)
     }
 
+    /** @return true, if deleted. */
+    @Transaction
+    suspend fun removeProductWithCheck(uuid: String): Boolean {
+        if (getProductUsagesCount(uuid) > 0) return false
+        removeProduct(uuid)
+        return true
+    }
+
+    /** @return true, if deleted. */
+    @Transaction
+    suspend fun removeDishWithParts(uuid: String): Boolean {
+        if (getDishUsagesCount(uuid) > 0) return false
+        removeParts(uuid)
+        removeDish(uuid)
+        return true
+    }
+
     @Transaction
     suspend fun removeMealWithParts(uuid: String) {
-        removeMeal(uuid)
         removeParts(uuid)
+        removeMeal(uuid)
     }
 }
 

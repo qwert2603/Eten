@@ -14,7 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import kotlin.coroutines.EmptyCoroutineContext
 
-// todo
+// todo: DI.
 object EtenRepoImpl : EtenRepo {
 
     private val db = Room
@@ -42,7 +42,7 @@ object EtenRepoImpl : EtenRepo {
     }
 
     override suspend fun removeProduct(uuid: String) {
-        throw NotImplementedError()
+        etenDao.removeProductWithCheck(uuid)
     }
 
     override fun dishesUpdates(): Flow<List<Dish>> = etenState
@@ -58,7 +58,7 @@ object EtenRepoImpl : EtenRepo {
     }
 
     override suspend fun removeDish(uuid: String) {
-        throw NotImplementedError()
+        etenDao.removeDishWithParts(uuid)
     }
 
     override fun mealsUpdates(): Flow<List<Meal>> = etenState
