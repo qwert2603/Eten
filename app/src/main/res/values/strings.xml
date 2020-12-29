@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">Eten</string>
 
-    <!-- todo: 'ru' -->
     <string name="bottom_menu_meals">Meals</string>
     <string name="bottom_menu_dishes">Dishes</string>
     <string name="bottom_menu_products">Products</string>
