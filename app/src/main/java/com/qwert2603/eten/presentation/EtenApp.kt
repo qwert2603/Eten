@@ -3,9 +3,11 @@ package com.qwert2603.eten.presentation
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
+import com.qwert2603.eten.E
 import com.qwert2603.eten.EtenCallbacks
 import com.qwert2603.eten.Route
 import com.qwert2603.eten.presentation.screen.ScreenMain
+import com.qwert2603.eten.presentation.screen.debug.ScreenDebug
 import com.qwert2603.eten.presentation.screen.dump.ScreenDump
 import com.qwert2603.eten.presentation.screen.edit_dish.ScreenEditDish
 import com.qwert2603.eten.presentation.screen.edit_meal.ScreenEditMeal
@@ -31,6 +33,7 @@ fun EtenApp(etenCallbacks: EtenCallbacks) {
                     navigateToAddMeal = { navController.navigate("edit_meal") },
                     navigateToEditMeal = { uuid -> navController.navigate("edit_meal?uuid=$uuid") },
                     navigateToSettings = { navController.navigate("settings") },
+                    navigateToDebug = { if (E.env.isDebug) navController.navigate("debug") },
                 )
             }
             composable(
@@ -95,6 +98,13 @@ fun EtenApp(etenCallbacks: EtenCallbacks) {
                 ScreenDump(
                     navigateUp = { navController.navigateUp() },
                     sendDump = etenCallbacks::sendDump,
+                )
+            }
+            composable(
+                route = "debug",
+            ) {
+                ScreenDebug(
+                    navigateUp = { navController.navigateUp() },
                 )
             }
         }
