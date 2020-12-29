@@ -1,10 +1,7 @@
 package com.qwert2603.eten.data.repo_impl
 
-import androidx.room.Room
-import com.qwert2603.eten.E
-import com.qwert2603.eten.EtenApplication
-import com.qwert2603.eten.data.db.EtenDataBase
 import com.qwert2603.eten.data.db.mapper.*
+import com.qwert2603.eten.di.DI
 import com.qwert2603.eten.domain.model.*
 import com.qwert2603.eten.domain.repo.EtenRepo
 import kotlinx.coroutines.CoroutineScope
@@ -15,12 +12,7 @@ import kotlin.coroutines.EmptyCoroutineContext
 // todo: DI.
 object EtenRepoImpl : EtenRepo {
 
-    private val db = Room
-        .databaseBuilder(EtenApplication.APP, EtenDataBase::class.java, "eten.db")
-        .also { if (E.isDebug) it.fallbackToDestructiveMigration() }
-        .build()
-
-    private val etenDao = db.etenDao()
+    private val etenDao = DI.db.etenDao()
 
     private val etenState: Flow<EtenState> = etenDao.observeUpdates()
         .map { etenDao.getEtenTables().toEtenState() }

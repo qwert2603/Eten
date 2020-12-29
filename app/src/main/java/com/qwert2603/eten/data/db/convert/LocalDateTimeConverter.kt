@@ -6,10 +6,10 @@ import kotlinx.datetime.*
 class LocalDateTimeConverter {
 
     @TypeConverter
-    fun q(localDateTime: LocalDateTime): Long =
+    fun convert(localDateTime: LocalDateTime): Long =
         localDateTime.toInstant(TimeZone.UTC).toEpochMilliseconds()
 
     @TypeConverter
-    fun w(millis: Long): LocalDateTime =
+    fun convert(millis: Long): LocalDateTime =
         Instant.fromEpochMilliseconds(millis).toLocalDateTime(TimeZone.UTC)
 }
