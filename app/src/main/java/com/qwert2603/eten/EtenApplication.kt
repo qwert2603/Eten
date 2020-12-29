@@ -2,6 +2,8 @@ package com.qwert2603.eten
 
 import android.app.Application
 import android.content.Context
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.qwert2603.eten.util.Catch
 import timber.log.Timber
 
 class EtenApplication : Application() {
@@ -13,6 +15,13 @@ class EtenApplication : Application() {
         super.onCreate()
 
         APP = this
+
+        Catch.init(
+            log = { t ->
+                FirebaseCrashlytics.getInstance().recordException(t)
+                Timber.e(t)
+            }
+        )
 
         Timber.plant(Timber.DebugTree())
     }

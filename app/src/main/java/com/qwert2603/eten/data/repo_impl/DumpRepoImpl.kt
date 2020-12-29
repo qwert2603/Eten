@@ -5,6 +5,7 @@ import com.qwert2603.eten.data.dump.toDump
 import com.qwert2603.eten.data.dump.toSerializableDump
 import com.qwert2603.eten.di.DI
 import com.qwert2603.eten.domain.repo.DumpRepo
+import com.qwert2603.eten.util.Catch
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -40,7 +41,7 @@ object DumpRepoImpl : DumpRepo {
         }
             .map { true }
             .getOrElse {
-                Timber.e(it)
+                Catch.log(it)
                 false
             }
     }

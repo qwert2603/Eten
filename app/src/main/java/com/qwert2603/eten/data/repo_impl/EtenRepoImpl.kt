@@ -4,9 +4,9 @@ import com.qwert2603.eten.data.db.mapper.*
 import com.qwert2603.eten.di.DI
 import com.qwert2603.eten.domain.model.*
 import com.qwert2603.eten.domain.repo.EtenRepo
+import com.qwert2603.eten.util.Catch
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
-import timber.log.Timber
 import kotlin.coroutines.EmptyCoroutineContext
 
 // todo: DI.
@@ -38,7 +38,7 @@ object EtenRepoImpl : EtenRepo {
 
     override suspend fun removeProduct(uuid: String) {
         val removed = etenDao.removeProductWithCheck(uuid)
-        if (!removed) Timber.e("Product was NOT removed!")
+        if (!removed) Catch.log("Product was NOT removed!")
     }
 
     override fun dishesUpdates(): Flow<DishesUpdate> = etenState
@@ -60,7 +60,7 @@ object EtenRepoImpl : EtenRepo {
 
     override suspend fun removeDish(uuid: String) {
         val removed = etenDao.removeDishWithParts(uuid)
-        if (!removed) Timber.e("Dish was NOT removed!")
+        if (!removed) Catch.log("Dish was NOT removed!")
     }
 
     override fun mealsUpdates(): Flow<List<Meal>> = etenState

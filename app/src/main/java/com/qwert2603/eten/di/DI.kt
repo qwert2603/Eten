@@ -12,7 +12,7 @@ object DI {
     val db by lazy {
         Room
             .databaseBuilder(appContext, EtenDataBase::class.java, "eten.db")
-            .also { if (E.isDebug) it.fallbackToDestructiveMigration() }
+            .also { if (E.env.isDebug) it.fallbackToDestructiveMigration() }
             .build()
     }
 }
