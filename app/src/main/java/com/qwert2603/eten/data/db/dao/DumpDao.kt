@@ -59,6 +59,8 @@ interface DumpDao {
 
     @Transaction
     suspend fun restoreEtenState(dump: Dump) {
+        // todo: check integrity.
+
         deleteAllMeals()
         deleteAllDishes()
         deleteAllMealParts()

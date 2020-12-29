@@ -1,0 +1,7 @@
+<resources>
+    <paths>
+        <cache-path
+            name="dump"
+            path="dump/" />
+    </paths>
+</resources>

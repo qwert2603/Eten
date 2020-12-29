@@ -46,4 +46,9 @@
     <string name="dish_deleted">Dish deleted</string>
     <string name="product_deleted">Product deleted</string>
 
+    <string name="dump_screen_title">Dump</string>
+    <string name="dump_save_button">Save</string>
+    <string name="dump_restore_button">Restore</string>
+    <string name="dump_restored_message">Dump restored successfully</string>
+
 </resources>

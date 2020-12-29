@@ -2,6 +2,8 @@ package com.qwert2603.eten.presentation.screen.settings
 
 import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -9,6 +11,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -21,6 +24,7 @@ import com.qwert2603.eten.util.toEditingString
 @Composable
 fun ScreenSettings(
     navigateUp: () -> Unit,
+    navigateToDump: () -> Unit,
 ) {
     val vm = viewModel<SettingsViewModel>()
     val settingsModel by vm.settingsModel.collectAsState()
@@ -51,6 +55,7 @@ fun ScreenSettings(
         ScrollableColumn(
             contentPadding = PaddingValues(12.dp),
         ) {
+            // todo: show field's name when focused.
             TextField(
                 value = settingsModel.dailyLimitCalories.toEditingString(),
                 onValueChange = {
@@ -61,6 +66,10 @@ fun ScreenSettings(
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 trailingIcon = { Text(stringResource(R.string.symbol_calorie)) },
             )
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(onClick = navigateToDump) {
+                Text(stringResource(R.string.dump_screen_title))
+            }
         }
     }
 }

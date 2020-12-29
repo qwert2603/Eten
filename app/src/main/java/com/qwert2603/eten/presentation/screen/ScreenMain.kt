@@ -111,7 +111,9 @@ fun ScreenMain(
                         label = { Text(stringResource(it.labelRes)) },
                         selected = currentRoute == it.route.name,
                         onClick = {
+                            // fixme: crashes when clicking action from another screen.
                             snackbarHostState.currentSnackbarData?.dismiss()
+
                             // todo: check how it works
                             navController.popBackStack(navController.graph.startDestination, false)
                             if (currentRoute != it.route.name) {
