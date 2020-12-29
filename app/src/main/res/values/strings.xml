@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Eten</string>
+    <string name="app_name" translatable="false">Eten</string>
 
     <!-- todo: 'ru' -->
     <string name="bottom_menu_meals">Meals</string>
@@ -13,9 +13,9 @@
     <string name="edit_dish_screen_title">Edit Dish</string>
     <string name="edit_meal_screen_title">Edit Meal</string>
 
-    <string name="symbol_calorie">🔥</string>
+    <string name="symbol_calorie" translatable="false">🔥</string>
     <string name="symbol_grams">g</string>
-    <string name="symbol_total_calories">cal</string>
+    <string name="symbol_total_calories">kcal</string>
 
     <string name="common_name">Name</string>
     <string name="common_weight">Weight</string>

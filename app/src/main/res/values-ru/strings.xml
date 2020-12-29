@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bottom_menu_dishes">Блюда</string>
+    <string name="bottom_menu_products">Продукты</string>
+    <string name="new_product_screen_title">Новый продукт</string>
+    <string name="new_dish_screen_title">Новое блюдо</string>
+    <string name="edit_product_screen_title">Редактирование продукта</string>
+    <string name="edit_dish_screen_title">Редактирование блюда</string>
+    <string name="symbol_grams">г</string>
+    <string name="symbol_total_calories">ккал</string>
+    <string name="common_name">Название</string>
+    <string name="common_weight">Вес</string>
+    <string name="common_total">Всего</string>
+    <string name="common_delete">Удалить</string>
+    <string name="common_cancel">Отмена</string>
+    <string name="dish_title_format">%s в %s</string>
+    <string name="edit_dish_button_add_product">Добавить продукт</string>
+    <string name="edit_dish_button_add_dish">Добавить блюдо</string>
+    <string name="delete_product_title">Удалить продукт?</string>
+    <string name="delete_dish_title">Удалить блюдо?</string>
+    <string name="settings_screen_title">Настройки</string>
+    <string name="settings_daily_calories_limit">Дневной лимит калорий</string>
+    <string name="autocomplete_text_field_nothing_found">Ничего не найдено</string>
+    <string name="dish_deleted">Блюдо удалено</string>
+    <string name="product_deleted">Продукт удалён</string>
+    <string name="dump_screen_title">Резервная копия</string>
+    <string name="dump_save_button">Сохранить</string>
+    <string name="dump_restore_button">Восстановить</string>
+    <string name="dump_restored_message">Резервная копия восстановлена</string>
+    <string name="edit_product_field_calorie">Калорийность 100 г</string>
+    <string name="bottom_menu_meals">Трапезы</string>
+    <string name="edit_meal_screen_title">Редактирование трапезы</string>
+    <string name="new_meal_screen_title">Новая трапеза</string>
+    <string name="meal_title_format">Трапеза в %s</string>
+    <string name="delete_meal_title">Удалить трапезу?</string>
+    <string name="meal_deleted">Трапеза удалена</string>
+    <string name="meals_list_is_empty">Список трапез пуст</string>
+</resources>
