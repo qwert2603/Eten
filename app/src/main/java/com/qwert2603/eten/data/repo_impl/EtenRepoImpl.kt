@@ -46,7 +46,7 @@ object EtenRepoImpl : EtenRepo {
 
     override suspend fun removeProduct(uuid: String) {
         val removed = etenDao.removeProductWithCheck(uuid)
-        if (!removed) Timber.d("Product was NOT removed!")
+        if (!removed) Timber.e("Product was NOT removed!")
     }
 
     override fun dishesUpdates(): Flow<DishesUpdate> = etenState
@@ -68,7 +68,7 @@ object EtenRepoImpl : EtenRepo {
 
     override suspend fun removeDish(uuid: String) {
         val removed = etenDao.removeDishWithParts(uuid)
-        if (!removed) Timber.d("Dish was NOT removed!")
+        if (!removed) Timber.e("Dish was NOT removed!")
     }
 
     override fun mealsUpdates(): Flow<List<Meal>> = etenState

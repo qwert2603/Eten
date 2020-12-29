@@ -4,17 +4,21 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Divider
 import androidx.compose.runtime.*
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.viewModel
+import com.qwert2603.eten.R
 import com.qwert2603.eten.domain.model.Dish
 import com.qwert2603.eten.presentation.EtenViewModel
 import com.qwert2603.eten.presentation.list_item.ItemDish
 import com.qwert2603.eten.presentation.screen.delete.DialogDeleteDish
+import com.qwert2603.eten.view.SnackbarHandler
 
 @Composable
 fun ScreenDishesList(
     navigateToEditDish: (uuid: String) -> Unit,
     navigateToProductFromDish: (uuid: String) -> Unit,
+    snackbarHandler: SnackbarHandler,
 ) {
     val vm = viewModel<EtenViewModel>()
     val dishesUpdateState by vm.dishesUpdates.collectAsState(initial = null)
@@ -37,12 +41,19 @@ fun ScreenDishesList(
         }
     }
 
-    dishToDelete?.also {
+    dishToDelete?.also { dish ->
+        val snackbarMessage = stringResource(R.string.dish_deleted)
+        val snackbarAction = stringResource(R.string.common_cancel)
         DialogDeleteDish(
-            dish = it,
+            dish = dish,
             onDelete = {
                 dishToDelete = null
-                vm.deleteDish(it.uuid)
+                vm.deleteDish(dish.uuid)
+                snackbarHandler.show(
+                    message = snackbarMessage,
+                    action = snackbarAction,
+                    onClick = { vm.onRestoreDishClick(dish) }
+                )
             },
             onCancel = { dishToDelete = null },
         )

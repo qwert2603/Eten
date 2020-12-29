@@ -42,4 +42,8 @@
 
     <string name="meals_list_is_empty">Meal list is empty</string>
 
+    <string name="meal_deleted">Meal deleted</string>
+    <string name="dish_deleted">Dish deleted</string>
+    <string name="product_deleted">Product deleted</string>
+
 </resources>

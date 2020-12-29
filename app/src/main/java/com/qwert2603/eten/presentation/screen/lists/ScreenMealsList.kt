@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -20,10 +19,12 @@ import com.qwert2603.eten.domain.model.Meal
 import com.qwert2603.eten.presentation.EtenViewModel
 import com.qwert2603.eten.presentation.list_item.ItemEtenDay
 import com.qwert2603.eten.presentation.screen.delete.DialogDeleteMeal
+import com.qwert2603.eten.view.SnackbarHandler
 
 @Composable
 fun ScreenMealsList(
     navigateToEditMeal: (uuid: String) -> Unit,
+    snackbarHandler: SnackbarHandler,
 ) {
     val vm = viewModel<EtenViewModel>()
     val etenDaysState by vm.etenDaysUpdates.collectAsState(initial = null)
@@ -56,13 +57,19 @@ fun ScreenMealsList(
         }
     }
 
-    mealToDelete?.also {
+    mealToDelete?.also { meal ->
+        val snackbarMessage = stringResource(R.string.meal_deleted)
+        val snackbarAction = stringResource(R.string.common_cancel)
         DialogDeleteMeal(
-            meal = it,
+            meal = meal,
             onDelete = {
-                // todo: "undo" snackbar
                 mealToDelete = null
-                vm.deleteMeal(it.uuid)
+                vm.deleteMeal(meal.uuid)
+                snackbarHandler.show(
+                    message = snackbarMessage,
+                    action = snackbarAction,
+                    onClick = { vm.onRestoreMealClick(meal) }
+                )
             },
             onCancel = { mealToDelete = null },
         )

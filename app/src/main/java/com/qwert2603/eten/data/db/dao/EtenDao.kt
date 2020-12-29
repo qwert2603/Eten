@@ -68,6 +68,7 @@ interface EtenDao {
 
     @Transaction
     suspend fun saveDish(dishTable: DishTable, mealPartTables: List<MealPartTable>) {
+        // todo: check, that all parts exist.
         saveDish(dishTable)
         removeParts(dishTable.uuid)
         saveParts(mealPartTables)
@@ -75,6 +76,7 @@ interface EtenDao {
 
     @Transaction
     suspend fun saveMeal(mealTable: MealTable, mealPartTables: List<MealPartTable>) {
+        // todo: check, that all parts exist.
         saveMeal(mealTable)
         removeParts(mealTable.uuid)
         saveParts(mealPartTables)
