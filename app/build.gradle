@@ -41,8 +41,10 @@ android {
 
     buildTypes {
         debug {
-            applicationIdSuffix ".debug"
-            versionNameSuffix "-snapshot"
+//            todo
+//            applicationIdSuffix ".debug"
+//            versionNameSuffix "-snapshot"
+            signingConfig signingConfigs.config
         }
         release {
             minifyEnabled true
