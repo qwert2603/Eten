@@ -58,6 +58,7 @@ fun EtenApp(etenCallbacks: EtenCallbacks) {
                         else -> EditProductParam.NewProduct
                     },
                     navigateUp = { navController.navigateUp() },
+                    searchCalorie = etenCallbacks::searchCalorie,
                 )
             }
             composable(

@@ -1,10 +1,12 @@
 package com.qwert2603.eten.android
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.qwert2603.eten.BuildConfig
 import com.qwert2603.eten.EtenCallbacks
+import com.qwert2603.eten.R
 import java.io.File
 
 class EtenCallbacksAndroid(
@@ -22,5 +24,12 @@ class EtenCallbacksAndroid(
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         intent.putExtra(Intent.EXTRA_STREAM, uri)
         activity.startActivity(Intent.createChooser(intent, ""))
+    }
+
+    override fun searchCalorie(product: String) {
+        val searchQuery = activity.getString(R.string.search_query_calorie, product)
+        val uri = "https://www.google.com/search?q=$searchQuery"
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+        activity.startActivity(intent)
     }
 }

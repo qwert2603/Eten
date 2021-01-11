@@ -52,4 +52,5 @@
     <string name="dump_restore_button">Restore</string>
     <string name="dump_restored_message">Dump restored successfully</string>
 
+    <string name="search_query_calorie" formatted="true">calories in %s</string>
 </resources>

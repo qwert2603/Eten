@@ -2,6 +2,7 @@ package com.qwert2603.eten.presentation.screen.edit_product
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.ScrollableColumn
+import androidx.compose.foundation.layout.Row
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
@@ -26,6 +27,7 @@ import timber.log.Timber
 fun ScreenEditProduct(
     editProductParam: EditProductParam,
     navigateUp: () -> Unit,
+    searchCalorie: (product: String) -> Unit,
 ) {
     val vm = viewModel<EditProductViewModel>()
     LaunchedEffect(editProductParam) { vm.loadProduct(editProductParam) } // fixme: check: recalled after rotate device in all screens.
@@ -72,17 +74,25 @@ fun ScreenEditProduct(
                 placeholder = { Text(stringResource(R.string.common_name)) },
                 modifier = Modifier.padding(12.dp),
             )
-            TextField(
-                value = product.caloriesPer100g.toEditingString(),
-                onValueChange = {
-                    val caloriesPer100g = it.toEditingInt()
-                    vm.onProductChange(product.copy(caloriesPer100g = caloriesPer100g))
-                },
-                placeholder = { Text(stringResource(R.string.edit_product_field_calorie)) },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                modifier = Modifier.padding(12.dp),
-                trailingIcon = { Text(stringResource(R.string.symbol_calorie)) },
-            )
+            Row {
+                TextField(
+                    value = product.caloriesPer100g.toEditingString(),
+                    onValueChange = {
+                        val caloriesPer100g = it.toEditingInt()
+                        vm.onProductChange(product.copy(caloriesPer100g = caloriesPer100g))
+                    },
+                    placeholder = { Text(stringResource(R.string.edit_product_field_calorie)) },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    modifier = Modifier.padding(12.dp),
+                    trailingIcon = { Text(stringResource(R.string.symbol_calorie)) },
+                )
+                IconButton(
+                    onClick = { searchCalorie(product.name) },
+                    enabled = product.name.isNotBlank(),
+                ) {
+                    Icon(vectorResource(R.drawable.ic_google))
+                }
+            }
         }
     }
 }
