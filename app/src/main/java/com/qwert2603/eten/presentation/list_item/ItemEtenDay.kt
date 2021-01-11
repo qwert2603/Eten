@@ -1,9 +1,6 @@
 package com.qwert2603.eten.presentation.list_item
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
@@ -20,6 +17,7 @@ import com.qwert2603.eten.domain.model.EtenDay
 import com.qwert2603.eten.domain.model.Meal
 import com.qwert2603.eten.util.format
 import com.qwert2603.eten.util.toPointedString
+import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 
 @Composable
@@ -35,6 +33,9 @@ fun ItemEtenDay(
             vertical = 6.dp,
         ),
     ) {
+        val limit = etenDay.caloriesLimit.roundToInt()
+        val total = etenDay.totalCalories.roundToInt()
+
         Column {
             Row(
                 modifier = Modifier
@@ -49,10 +50,10 @@ fun ItemEtenDay(
                     ),
                     modifier = Modifier.weight(1f),
                 )
-                val limit = etenDay.caloriesLimit.roundToInt().toPointedString()
-                val total = etenDay.totalCalories.roundToInt().toPointedString()
+                val formattedLimit = limit.toPointedString()
+                val formattedTotal = total.toPointedString()
                 Text(
-                    "$total / $limit ${stringResource(R.string.symbol_total_calories)}",
+                    "$formattedTotal / $formattedLimit ${stringResource(R.string.symbol_total_calories)}",
                     style = TextStyle(
                         fontWeight = FontWeight.Bold,
                         color = colorResource(if (etenDay.totalCalories <= etenDay.caloriesLimit) {
@@ -65,6 +66,21 @@ fun ItemEtenDay(
                     modifier = Modifier.padding(start = 12.dp),
                 )
             }
+
+            Spacer(modifier = Modifier.height(4.dp))
+            val exceeded = total > limit
+            Text(
+                stringResource(
+                    if (exceeded) R.string.eten_day_calories_exceeded else R.string.eten_day_calories_left,
+                    (limit - total).absoluteValue,
+                ),
+                style = TextStyle(
+                    color = colorResource(if (exceeded) R.color.limit_exceeded else R.color.limit_ok),
+                    fontSize = 18.sp,
+                ),
+            )
+
+            Spacer(modifier = Modifier.height(4.dp))
             etenDay.meals.forEach {
                 ItemMeal(
                     meal = it,
