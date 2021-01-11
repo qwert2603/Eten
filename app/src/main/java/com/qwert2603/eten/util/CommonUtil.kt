@@ -36,14 +36,14 @@ fun Long.toPointedString(): String {
 }
 
 @Composable
-fun Double.formatWeight() = "${roundToInt()}${stringResource(R.string.symbol_grams)}"
+fun Double.formatWeight() = "${roundToInt()} ${stringResource(R.string.symbol_grams)}"
 
 @Composable
 fun Double.formatCalorie() = "${roundToInt()} ${stringResource(R.string.symbol_calorie)}"
 
 @Composable
 fun Double.formatTotalCalories() =
-    "${roundToInt()}${stringResource(R.string.symbol_total_calories)}"
+    "${roundToInt()} ${stringResource(R.string.symbol_total_calories)}"
 
 @Composable
 fun Meal.formatTitle() = stringResource(R.string.meal_title_format, time.formatTime())
