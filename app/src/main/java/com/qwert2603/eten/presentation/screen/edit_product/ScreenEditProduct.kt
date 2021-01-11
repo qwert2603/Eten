@@ -66,7 +66,7 @@ fun ScreenEditProduct(
             TextField(
                 value = product.name,
                 onValueChange = {
-                    val name = it.take(100).trim()
+                    val name = it.take(100)
                     vm.onProductChange(product.copy(name = name))
                 },
                 placeholder = { Text(stringResource(R.string.common_name)) },

@@ -11,7 +11,7 @@ data class CreatingProduct(
 
     fun toProduct() = Product(
         uuid = uuid,
-        name = name,
+        name = name.trim(),
         calorie = caloriesPer100g.toDouble() / 100.0
     )
 }

@@ -61,7 +61,7 @@ fun ScreenEditDish(dishUuid: String?, navigateUp: () -> Unit) {
             TextField(
                 value = dish.name,
                 onValueChange = {
-                    val name = it.take(100).trim()
+                    val name = it.take(100)
                     vm.onDishChange(dish.copy(name = name))
                 },
                 placeholder = { Text(stringResource(R.string.common_name)) },

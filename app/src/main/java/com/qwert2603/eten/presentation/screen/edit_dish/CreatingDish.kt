@@ -17,7 +17,7 @@ data class CreatingDish(
 
     fun toDish() = Dish(
         uuid = uuid,
-        name = name,
+        name = name.trim(),
         time = time ?: timeNow(),
         partsList = PartsList(parts.map { it.toWeightedMealPart() }),
     )
