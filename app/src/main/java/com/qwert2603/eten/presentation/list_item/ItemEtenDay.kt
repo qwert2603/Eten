@@ -67,10 +67,10 @@ fun ItemEtenDay(
                 )
             }
 
-            Spacer(modifier = Modifier.height(4.dp))
             val exceeded = total > limit
             Text(
                 stringResource(
+                    // todo: bold digit.
                     if (exceeded) R.string.eten_day_calories_exceeded else R.string.eten_day_calories_left,
                     (limit - total).absoluteValue,
                 ),
@@ -78,9 +78,10 @@ fun ItemEtenDay(
                     color = colorResource(if (exceeded) R.color.limit_exceeded else R.color.limit_ok),
                     fontSize = 18.sp,
                 ),
+                modifier = Modifier
+                    .padding(vertical = 4.dp, horizontal = 16.dp)
             )
 
-            Spacer(modifier = Modifier.height(4.dp))
             etenDay.meals.forEach {
                 ItemMeal(
                     meal = it,
