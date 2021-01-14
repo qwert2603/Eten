@@ -3,8 +3,10 @@ package com.qwert2603.eten.presentation.screen.edit_product
 import androidx.annotation.StringRes
 import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -12,6 +14,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -74,7 +77,9 @@ fun ScreenEditProduct(
                 placeholder = { Text(stringResource(R.string.common_name)) },
                 modifier = Modifier.padding(12.dp),
             )
-            Row {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
                 TextField(
                     value = product.caloriesPer100g.toEditingString(),
                     onValueChange = {
@@ -86,6 +91,7 @@ fun ScreenEditProduct(
                     modifier = Modifier.padding(12.dp),
                     trailingIcon = { Text(stringResource(R.string.symbol_calorie)) },
                 )
+                Spacer(modifier = Modifier.width(8.dp))
                 IconButton(
                     onClick = { searchCalorie(product.name) },
                     enabled = product.name.isNotBlank(),
