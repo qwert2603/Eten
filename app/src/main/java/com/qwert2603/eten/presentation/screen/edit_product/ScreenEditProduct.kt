@@ -68,6 +68,7 @@ fun ScreenEditProduct(
         }
     ) {
         ScrollableColumn {
+            // todo: another style, to show placeholder all time
             TextField(
                 value = product.name,
                 onValueChange = {
