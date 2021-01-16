@@ -17,6 +17,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.qwert2603.eten.R
 import com.qwert2603.eten.domain.model.Meal
+import com.qwert2603.eten.domain.model.calories
+import com.qwert2603.eten.domain.model.name
+import com.qwert2603.eten.domain.model.weight
 import com.qwert2603.eten.util.formatTitle
 import com.qwert2603.eten.util.formatTotalCalories
 import com.qwert2603.eten.util.formatWeight
@@ -39,12 +42,12 @@ fun ItemMeal(
         ) {
             Text(meal.formatTitle())
 
-            meal.partsList.forEachIndexed { index, weightedPart ->
-                val name = weightedPart.mealPart.name
-                val weight = weightedPart.weight.formatWeight()
-                val calories = weightedPart.calories.formatTotalCalories()
+            meal.partsList.forEachIndexed { index, volumedPart ->
+                val name = volumedPart.name
+                val formattedCalories = volumedPart.calories.formatTotalCalories()
+                val formattedWeight = volumedPart.weight?.formatWeight()?.let { "$it, " }
                 Text(
-                    "${index + 1}. $name: $weight, $calories",
+                    "${index + 1}. $name: $formattedWeight$formattedCalories",
                     modifier = Modifier.padding(start = 4.dp),
                 )
             }

@@ -54,7 +54,8 @@ object EtenRepoImpl : EtenRepo {
     override suspend fun saveDish(dish: Dish) {
         etenDao.saveDish(
             dishTable = dish.toDishTable(),
-            mealPartTables = dish.partsList.map { it.toMealPartTable(dish.uuid) }
+            mealPartTables = dish.partsList.map { it.toMealPartTable(dish.uuid) },
+            rawCaloriesTables = emptyList(),
         )
     }
 
@@ -71,7 +72,12 @@ object EtenRepoImpl : EtenRepo {
     override suspend fun saveMeal(meal: Meal) {
         etenDao.saveMeal(
             mealTable = meal.toMealTable(),
-            mealPartTables = meal.partsList.map { it.toMealPartTable(meal.uuid) }
+            mealPartTables = meal.partsList
+                .filterIsInstance<WeightedMealPart>()
+                .map { it.toMealPartTable(meal.uuid) },
+            rawCaloriesTables = meal.partsList
+                .filterIsInstance<RawCalories>()
+                .map { it.toRawCaloriesTable(meal.uuid) },
         )
     }
 

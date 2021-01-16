@@ -30,10 +30,11 @@ class EditMealViewModel(
                 ?.let { meal ->
                     CreatingMeal(
                         uuid = meal.uuid,
+                        name = meal.name ?: "",
                         time = meal.time,
                         parts = meal.partsList.map { it.toCreatingMealPart() })
                 }
-                ?: CreatingMeal(randomUUID(), null, emptyList())
+                ?: CreatingMeal(randomUUID(), "", null, emptyList())
         }
     }
 

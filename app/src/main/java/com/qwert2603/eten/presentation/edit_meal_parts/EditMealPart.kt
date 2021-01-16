@@ -39,19 +39,25 @@ fun EditMealPart(
         Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Image(
-                vectorResource(
-                    when (creatingMealPart) {
-                        is CreatingWeightedProduct -> R.drawable.ic_product
-                        is CreatingWeightedDish -> R.drawable.ic_dish
-                    }
-                )
-            )
+            when (creatingMealPart) {
+                is CreatingCalories -> Text(stringResource(R.string.symbol_calorie))
+                is CreatingWeightedProduct -> Image(vectorResource(R.drawable.ic_product))
+                is CreatingWeightedDish -> Image(vectorResource(R.drawable.ic_dish))
+            }.allCases
 
-            val toggleModifier = Modifier
+            val textFieldModifier = Modifier
                 .padding(start = 8.dp)
                 .weight(2f)
             when (creatingMealPart) {
+                is CreatingCalories -> TextField(
+                    value = creatingMealPart.name,
+                    onValueChange = {
+                        val name = it.take(100)
+                        onPartChange(creatingMealPart.copy(name = name))
+                    },
+                    placeholder = { Text(stringResource(R.string.common_name)) },
+                    modifier = textFieldModifier,
+                )
                 is CreatingWeightedProduct -> AutocompleteTextField(
                     fieldId = creatingMealPart.uuid,
                     selectedItem = creatingMealPart.product,
@@ -61,7 +67,7 @@ fun EditMealPart(
                     onItemSelected = { selectedProduct ->
                         onPartChange(creatingMealPart.copy(product = selectedProduct))
                     },
-                    toggleModifier = toggleModifier
+                    toggleModifier = textFieldModifier
                 )
                 is CreatingWeightedDish -> AutocompleteTextField(
                     fieldId = creatingMealPart.uuid,
@@ -72,7 +78,7 @@ fun EditMealPart(
                     onItemSelected = { selectedDish ->
                         onPartChange(creatingMealPart.copy(dish = selectedDish))
                     },
-                    toggleModifier = toggleModifier
+                    toggleModifier = textFieldModifier
                 )
             }.allCases
         }
@@ -86,24 +92,40 @@ fun EditMealPart(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(top = 4.dp, start = 24.dp)
         ) {
-            TextField(
-                value = creatingMealPart.weight.toEditingString(),
-                onValueChange = { s ->
-                    val weight = s.toEditingInt()
-                    onPartChange(
-                        when (creatingMealPart) {
-                            is CreatingWeightedProduct -> creatingMealPart.copy(weight = weight)
-                            is CreatingWeightedDish -> creatingMealPart.copy(weight = weight)
-                        }
-                    )
-                },
-                placeholder = { Text(stringResource(R.string.common_weight)) },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(start = 8.dp),
-                trailingIcon = { Text(stringResource(R.string.symbol_grams)) },
-            )
+            val textFieldModifier = Modifier
+                .weight(1f)
+                .padding(start = 8.dp)
+            if (creatingMealPart is CreatingCalories) {
+                TextField(
+                    value = creatingMealPart.caloriesInput.toEditingString(),
+                    onValueChange = { s ->
+                        val calories = s.toEditingInt()
+                        onPartChange(creatingMealPart.copy(caloriesInput = calories))
+                    },
+                    placeholder = { Text(stringResource(R.string.common_calories)) },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    modifier = textFieldModifier,
+                    trailingIcon = { Text(stringResource(R.string.symbol_calorie)) },
+                )
+            } else {
+                TextField(
+                    value = creatingMealPart.weight!!.toEditingString(),
+                    onValueChange = { s ->
+                        val weight = s.toEditingInt()
+                        onPartChange(
+                            when (creatingMealPart) {
+                                is CreatingCalories -> null!!
+                                is CreatingWeightedProduct -> creatingMealPart.copy(weight = weight)
+                                is CreatingWeightedDish -> creatingMealPart.copy(weight = weight)
+                            }
+                        )
+                    },
+                    placeholder = { Text(stringResource(R.string.common_weight)) },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    modifier = textFieldModifier,
+                    trailingIcon = { Text(stringResource(R.string.symbol_grams)) },
+                )
+            }
 
             Text(
                 creatingMealPart.calories.formatTotalCalories(),

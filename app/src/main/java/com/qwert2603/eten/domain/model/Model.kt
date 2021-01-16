@@ -1,63 +1,88 @@
 package com.qwert2603.eten.domain.model
 
-import com.qwert2603.eten.util.randomUUID
 import kotlinx.datetime.LocalDateTime
 
-sealed class MealPart {
-    abstract val name: String
-    abstract val calorie: Double // per 1g
+sealed class MealPart
+
+// ProductByWeight
+data class Product(
+    val uuid: String,
+    val name: String,
+    val calorie: Double, // per 1g
+) : MealPart() {
     val caloriePer100g by lazy { calorie * 100.0 }
 }
 
-data class WeightedMealPart(
-    val uuid: String = randomUUID(),
-    val mealPart: MealPart,
-    val weight: Double, // in grams.
-) {
-    init {
-        check(weight > 0.0)
-    }
-
-    val calories get() = mealPart.calorie * weight
-}
-
-data class Product(
-    val uuid: String = randomUUID(), // todo: remove " = randomUUID()" from constructors.
-    override val name: String,
-    override val calorie: Double,
-) : MealPart() {
-    init {
-        check(name.isNotBlank())
-        check(calorie >= 0.0)
-    }
-}
+//data class ProductByCount(
+//    val uuid: String,
+//    val name: String,
+//    val calorie: Double,
+//) : MealPart()
 
 data class Dish(
-    val uuid: String = randomUUID(),
-    override val name: String,
+    val uuid: String,
+    val name: String,
     val time: LocalDateTime,
-    val partsList: PartsList,
+    val partsList: List<WeightedMealPart>,
 ) : MealPart() {
-    init {
-        check(name.isNotBlank())
-    }
+    val calorie = partsList.calories / partsList.weight
 
-    override val calorie = partsList.calories / partsList.weight
+    val caloriePer100g by lazy { calorie * 100.0 }
 }
 
-class PartsList(parts: List<WeightedMealPart>) : List<WeightedMealPart> by parts {
-    constructor(vararg parts: WeightedMealPart) : this(listOf(*parts))
-
-    val weight = sumByDouble { it.weight }
-    val calories = sumByDouble { it.calories }
-
-    init {
-        check(parts.isNotEmpty())
-    }
+sealed class VolumedMealPart {
+    abstract val uuid: String
+    abstract val calories: Double
 }
+
+data class RawCalories(
+    override val uuid: String,
+    val name: String?,
+    override val calories: Double,
+) : VolumedMealPart()
+
+sealed class WeightedMealPart : VolumedMealPart() {
+    abstract val weight: Double // in grams.
+}
+
+data class WeightedProduct(
+    override val uuid: String,
+    val product: Product,
+    override val weight: Double,
+) : WeightedMealPart() {
+    override val calories = product.calorie * weight
+}
+
+data class WeightedDish(
+    override val uuid: String,
+    val dish: Dish,
+    override val weight: Double,
+) : WeightedMealPart() {
+    override val calories = dish.calorie * weight
+}
+
+//data class CountedProduct(
+//    val productByCount: ProductByCount,
+//    val count: Int,
+//) : VolumedMealPart() {
+//    override val calories = productByCount.calorie * count
+//}
 
 data class Meal(
-    val uuid: String = randomUUID(),
+    val uuid: String,
+    val name: String?,
     val time: LocalDateTime,
-    val partsList: PartsList,
+    val partsList: List<VolumedMealPart>,
 )
+
+val VolumedMealPart.name: String?
+    get() = when (this) {
+        is RawCalories -> name
+        is WeightedProduct -> product.name
+        is WeightedDish -> dish.name
+    }
+
+val VolumedMealPart.weight: Double? get() = (this as? WeightedMealPart)?.weight
+
+val List<VolumedMealPart>.calories: Double get() = sumByDouble { it.calories }
+val List<VolumedMealPart>.weight: Double get() = sumByDouble { it.weight ?: 0.0 }

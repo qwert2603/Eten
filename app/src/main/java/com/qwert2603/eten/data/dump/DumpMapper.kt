@@ -2,10 +2,7 @@ package com.qwert2603.eten.data.dump
 
 import com.qwert2603.eten.data.db.convert.LocalDateTimeConverter
 import com.qwert2603.eten.data.db.result.Dump
-import com.qwert2603.eten.data.db.table.DishTable
-import com.qwert2603.eten.data.db.table.MealPartTable
-import com.qwert2603.eten.data.db.table.MealTable
-import com.qwert2603.eten.data.db.table.ProductTable
+import com.qwert2603.eten.data.db.table.*
 
 private val localDateTimeConverter = LocalDateTimeConverter()
 
@@ -26,6 +23,14 @@ fun Dump.toSerializableDump() = SerializableDump(
             dishUuid = it.dishUuid,
         )
     },
+    rawCalories = rawCaloriesTables.map {
+        SerializableRawCalories(
+            containerId = it.containerId,
+            uuid = it.uuid,
+            name = it.name,
+            calories = it.calories,
+        )
+    },
     dishes = dishTables.map {
         SerializableDish(
             uuid = it.uuid,
@@ -36,6 +41,7 @@ fun Dump.toSerializableDump() = SerializableDump(
     meals = mealTables.map {
         SerializableMeal(
             uuid = it.uuid,
+            name = it.name,
             time = localDateTimeConverter.convert(it.time),
         )
     },
@@ -58,6 +64,14 @@ fun SerializableDump.toDump() = Dump(
             dishUuid = it.dishUuid,
         )
     },
+    rawCaloriesTables = rawCalories.map {
+        RawCaloriesTable(
+            containerId = it.containerId,
+            uuid = it.uuid,
+            name = it.name,
+            calories = it.calories,
+        )
+    },
     dishTables = dishes.map {
         DishTable(
             uuid = it.uuid,
@@ -68,6 +82,7 @@ fun SerializableDump.toDump() = Dump(
     mealTables = meals.map {
         MealTable(
             uuid = it.uuid,
+            name = it.name,
             time = localDateTimeConverter.convert(it.time),
         )
     },

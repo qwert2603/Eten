@@ -5,10 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import com.qwert2603.eten.data.db.result.Dump
-import com.qwert2603.eten.data.db.table.DishTable
-import com.qwert2603.eten.data.db.table.MealPartTable
-import com.qwert2603.eten.data.db.table.MealTable
-import com.qwert2603.eten.data.db.table.ProductTable
+import com.qwert2603.eten.data.db.table.*
 
 @Dao
 interface DumpDao {
@@ -18,6 +15,9 @@ interface DumpDao {
 
     @Query("SELECT * FROM MealPartTable")
     suspend fun getAllMealParts(): List<MealPartTable>
+
+    @Query("SELECT * FROM RawCaloriesTable")
+    suspend fun getAllRawCalories(): List<RawCaloriesTable>
 
     @Query("SELECT * FROM DishTable")
     suspend fun getAllDishes(): List<DishTable>
@@ -30,6 +30,9 @@ interface DumpDao {
 
     @Query("DELETE FROM MealPartTable")
     suspend fun deleteAllMealParts()
+
+    @Query("DELETE FROM RawCaloriesTable")
+    suspend fun deleteAllRawCalories()
 
     @Query("DELETE FROM DishTable")
     suspend fun deleteAllDishes()
@@ -44,6 +47,9 @@ interface DumpDao {
     suspend fun saveParts(mealPartTables: List<MealPartTable>)
 
     @Insert
+    suspend fun saveRawCalories(rawCaloriesTables: List<RawCaloriesTable>)
+
+    @Insert
     suspend fun saveDishes(dishTables: List<DishTable>)
 
     @Insert
@@ -53,6 +59,7 @@ interface DumpDao {
     suspend fun getDump() = Dump(
         productTables = getAllProducts(),
         mealPartTables = getAllMealParts(),
+        rawCaloriesTables = getAllRawCalories(),
         dishTables = getAllDishes(),
         mealTables = getAllMeals(),
     )
@@ -64,9 +71,11 @@ interface DumpDao {
         deleteAllMeals()
         deleteAllDishes()
         deleteAllMealParts()
+        deleteAllRawCalories()
         deleteAllProducts()
 
         saveProducts(dump.productTables)
+        saveRawCalories(dump.rawCaloriesTables)
         saveParts(dump.mealPartTables)
         saveDishes(dump.dishTables)
         saveMeals(dump.mealTables)

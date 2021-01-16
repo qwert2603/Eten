@@ -1,21 +1,25 @@
 package com.qwert2603.eten.data.db.mapper
 
 import com.qwert2603.eten.data.db.table.MealPartTable
-import com.qwert2603.eten.domain.model.Dish
-import com.qwert2603.eten.domain.model.MealPart
-import com.qwert2603.eten.domain.model.Product
-import com.qwert2603.eten.domain.model.WeightedMealPart
+import com.qwert2603.eten.domain.model.*
 
 fun WeightedMealPart.toMealPartTable(containerId: String) = MealPartTable(
     containerId = containerId,
     uuid = uuid,
     weight = weight,
-    productUuid = (mealPart as? Product)?.uuid,
-    dishUuid = (mealPart as? Dish)?.uuid,
+    productUuid = (this as? WeightedProduct)?.product?.uuid,
+    dishUuid = (this as? WeightedDish)?.dish?.uuid,
 )
 
-fun MealPartTable.toWeightedMealPart(mealPart: MealPart) = WeightedMealPart(
-    uuid = uuid,
-    weight = weight,
-    mealPart = mealPart,
-)
+fun MealPartTable.toWeightedMealPart(mealPart: MealPart): WeightedMealPart = when (mealPart) {
+    is Product -> WeightedProduct(
+        uuid = uuid,
+        product = mealPart,
+        weight = weight
+    )
+    is Dish -> WeightedDish(
+        uuid = uuid,
+        dish = mealPart,
+        weight = weight
+    )
+}

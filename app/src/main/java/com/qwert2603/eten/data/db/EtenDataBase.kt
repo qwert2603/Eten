@@ -6,10 +6,7 @@ import androidx.room.TypeConverters
 import com.qwert2603.eten.data.db.convert.LocalDateTimeConverter
 import com.qwert2603.eten.data.db.dao.DumpDao
 import com.qwert2603.eten.data.db.dao.EtenDao
-import com.qwert2603.eten.data.db.table.DishTable
-import com.qwert2603.eten.data.db.table.MealPartTable
-import com.qwert2603.eten.data.db.table.MealTable
-import com.qwert2603.eten.data.db.table.ProductTable
+import com.qwert2603.eten.data.db.table.*
 
 @Database(
     entities = [
@@ -17,8 +14,9 @@ import com.qwert2603.eten.data.db.table.ProductTable
         DishTable::class,
         MealTable::class,
         MealPartTable::class,
+        RawCaloriesTable::class,
     ],
-    version = 1,
+    version = 2,
 )
 @TypeConverters(
     LocalDateTimeConverter::class,

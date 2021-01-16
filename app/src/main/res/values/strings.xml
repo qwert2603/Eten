@@ -18,6 +18,7 @@
 
     <string name="common_name">Name</string>
     <string name="common_weight">Weight</string>
+    <string name="common_calories">Calories</string>
     <string name="common_total">Total</string>
     <string name="common_delete">Delete</string>
     <string name="common_cancel">Cancel</string>
@@ -29,6 +30,7 @@
 
     <string name="edit_product_field_calorie">Calories per 100g</string>
 
+    <string name="edit_dish_button_add_calories">Add calories</string>
     <string name="edit_dish_button_add_product">Add product</string>
     <string name="edit_dish_button_add_dish">Add dish</string>
 

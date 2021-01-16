@@ -19,6 +19,7 @@ import com.qwert2603.eten.util.replaceIf
 
 @Composable
 fun EditMealPartsList(
+    canAddCalories: Boolean,
     parts: List<CreatingMealPart>,
     onPartsChange: (List<CreatingMealPart>) -> Unit,
     searchProducts: suspend (String) -> List<Product>,
@@ -46,7 +47,7 @@ fun EditMealPartsList(
             )
         }
 
-        val totalWeightFormatted = parts.sumBy { it.weight }.toDouble().formatWeight()
+        val totalWeightFormatted = parts.sumBy { it.weight ?: 0 }.toDouble().formatWeight()
         val totalCaloriesFormatted = parts.sumByDouble { it.calories }.formatTotalCalories()
         Text(
             "${stringResource(R.string.common_total)}: $totalWeightFormatted, $totalCaloriesFormatted",
@@ -70,6 +71,17 @@ fun EditMealPartsList(
             modifier = Modifier.padding(top = 12.dp),
         ) {
             Text(stringResource(R.string.edit_dish_button_add_dish))
+        }
+        if (canAddCalories) {
+            Button(
+                onClick = {
+                    val creatingCalories = CreatingCalories(randomUUID(), "", 0)
+                    onPartsChange(parts + creatingCalories)
+                },
+                modifier = Modifier.padding(top = 12.dp),
+            ) {
+                Text(stringResource(R.string.edit_dish_button_add_calories))
+            }
         }
     }
 }

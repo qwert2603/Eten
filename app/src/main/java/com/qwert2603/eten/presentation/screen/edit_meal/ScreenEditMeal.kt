@@ -56,7 +56,10 @@ fun ScreenEditMeal(mealUuid: String?, navigateUp: () -> Unit) {
         ScrollableColumn(
             contentPadding = PaddingValues(12.dp),
         ) {
+            // todo: input name with autocomplete
+
             EditMealPartsList(
+                canAddCalories = true,
                 parts = meal.parts,
                 onPartsChange = { vm.onMealChange(meal.copy(parts = it)) },
                 searchProducts = vm::searchProducts,

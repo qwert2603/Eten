@@ -4,10 +4,7 @@ import androidx.room.*
 import com.qwert2603.eten.data.db.result.DishWithParts
 import com.qwert2603.eten.data.db.result.EtenTables
 import com.qwert2603.eten.data.db.result.MealWithParts
-import com.qwert2603.eten.data.db.table.DishTable
-import com.qwert2603.eten.data.db.table.MealPartTable
-import com.qwert2603.eten.data.db.table.MealTable
-import com.qwert2603.eten.data.db.table.ProductTable
+import com.qwert2603.eten.data.db.table.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -31,6 +28,9 @@ interface EtenDao {
     suspend fun saveParts(mealPartTables: List<MealPartTable>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun saveRawCalories(caloriesTables: List<RawCaloriesTable>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveDish(dishTable: DishTable)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -47,6 +47,9 @@ interface EtenDao {
 
     @Query("DELETE FROM MealPartTable WHERE containerId=:containerUuid")
     suspend fun removeParts(containerUuid: String)
+
+    @Query("DELETE FROM RawCaloriesTable WHERE containerId=:containerUuid")
+    suspend fun removeRawCalories(containerUuid: String)
 
     @Query("SELECT COUNT(uuid) FROM MealPartTable WHERE productUuid=:uuid")
     suspend fun getProductUsagesCount(uuid: String): Int
@@ -67,19 +70,35 @@ interface EtenDao {
     )
 
     @Transaction
-    suspend fun saveDish(dishTable: DishTable, mealPartTables: List<MealPartTable>) {
+    suspend fun saveDish(
+        dishTable: DishTable,
+        mealPartTables: List<MealPartTable>,
+        rawCaloriesTables: List<RawCaloriesTable>,
+    ) {
         // todo: check, that all parts exist.
         saveDish(dishTable)
+
         removeParts(dishTable.uuid)
         saveParts(mealPartTables)
+
+        removeRawCalories(dishTable.uuid)
+        saveRawCalories(rawCaloriesTables)
     }
 
     @Transaction
-    suspend fun saveMeal(mealTable: MealTable, mealPartTables: List<MealPartTable>) {
+    suspend fun saveMeal(
+        mealTable: MealTable,
+        mealPartTables: List<MealPartTable>,
+        rawCaloriesTables: List<RawCaloriesTable>,
+    ) {
         // todo: check, that all parts exist.
         saveMeal(mealTable)
+
         removeParts(mealTable.uuid)
         saveParts(mealPartTables)
+
+        removeRawCalories(mealTable.uuid)
+        saveRawCalories(rawCaloriesTables)
     }
 
     /** @return true, if removed. */
@@ -95,6 +114,7 @@ interface EtenDao {
     suspend fun removeDishWithParts(uuid: String): Boolean {
         if (getDishUsagesCount(uuid) > 0) return false
         removeParts(uuid)
+        removeRawCalories(uuid)
         removeDish(uuid)
         return true
     }
@@ -102,6 +122,7 @@ interface EtenDao {
     @Transaction
     suspend fun removeMealWithParts(uuid: String) {
         removeParts(uuid)
+        removeRawCalories(uuid)
         removeMeal(uuid)
     }
 }

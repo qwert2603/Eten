@@ -13,7 +13,7 @@ import java.util.*
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 
-val <T> T.allCases get() = this
+val <T> T.allCases get() = Unit
 
 fun LocalDate.format(): String = this.toString()
 

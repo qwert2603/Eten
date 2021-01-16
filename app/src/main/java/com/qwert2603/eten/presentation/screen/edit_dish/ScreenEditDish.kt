@@ -47,7 +47,7 @@ fun ScreenEditDish(dishUuid: String?, navigateUp: () -> Unit) {
                             vm.saveDish()
                             navigateUp()
                         },
-                        enabled = dish.isValid(),
+                        enabled = dish.isValid(), // todo: show validation error in all "edit" screens.
                     ) {
                         Icon(vectorResource(R.drawable.ic_save))
                     }
@@ -68,6 +68,7 @@ fun ScreenEditDish(dishUuid: String?, navigateUp: () -> Unit) {
             )
 
             EditMealPartsList(
+                canAddCalories = false,
                 parts = dish.parts,
                 onPartsChange = { vm.onDishChange(dish.copy(parts = it)) },
                 searchProducts = vm::searchProducts,

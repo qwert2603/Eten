@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.qwert2603.eten.data.repo_impl.EtenRepoImpl
 import com.qwert2603.eten.domain.model.Dish
 import com.qwert2603.eten.domain.model.Product
+import com.qwert2603.eten.domain.model.WeightedDish
 import com.qwert2603.eten.domain.repo.EtenRepo
 import com.qwert2603.eten.presentation.edit_meal_parts.toCreatingMealPart
 import com.qwert2603.eten.util.randomUUID
@@ -64,8 +65,7 @@ class EditDishViewModel(
         }
 
     private fun Dish.isWithEditingDish(): Boolean = partsList.any {
-        it.mealPart is Dish
-                && it.mealPart.uuid == creatingDish.value?.uuid
-                && !it.mealPart.isWithEditingDish()
+        it is WeightedDish
+                && (it.dish.uuid == creatingDish.value?.uuid || it.dish.isWithEditingDish())
     }
 }
