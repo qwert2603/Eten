@@ -73,7 +73,7 @@ fun EditMealPart(
                     fieldId = creatingMealPart.uuid,
                     selectedItem = creatingMealPart.dish,
                     searchItems = searchDishes,
-                    renderItem = { Text(it.name) },
+                    renderItem = { Text(it.formatTitle()) },
                     itemToString = { it.name },
                     onItemSelected = { selectedDish ->
                         onPartChange(creatingMealPart.copy(dish = selectedDish))
