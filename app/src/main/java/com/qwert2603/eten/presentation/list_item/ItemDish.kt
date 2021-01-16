@@ -19,6 +19,7 @@ import com.qwert2603.eten.domain.model.Dish
 import com.qwert2603.eten.domain.model.calories
 import com.qwert2603.eten.domain.model.name
 import com.qwert2603.eten.domain.model.weight
+import com.qwert2603.eten.util.formatCalorie
 import com.qwert2603.eten.util.formatTitle
 import com.qwert2603.eten.util.formatTotalCalories
 import com.qwert2603.eten.util.formatWeight
@@ -42,7 +43,7 @@ fun ItemDish(
             modifier = Modifier
                 .weight(1f),
         ) {
-            Text(dish.formatTitle())
+            Text("${dish.formatTitle()} (${dish.caloriePer100g.formatCalorie()})")
             dish.partsList.forEachIndexed { index, weightedPart ->
                 Text(
                     "${index + 1}. ${weightedPart.name}: ${weightedPart.weight.formatWeight()}, ${weightedPart.calories.formatTotalCalories()}",
