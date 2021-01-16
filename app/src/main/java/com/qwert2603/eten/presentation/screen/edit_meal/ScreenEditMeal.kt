@@ -3,18 +3,21 @@ package com.qwert2603.eten.presentation.screen.edit_meal
 import androidx.annotation.StringRes
 import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.viewModel
 import com.qwert2603.eten.R
 import com.qwert2603.eten.presentation.edit_meal_parts.EditMealPartsList
+import com.qwert2603.eten.view.AutocompleteTextField
 
 @Composable
 fun ScreenEditMeal(mealUuid: String?, navigateUp: () -> Unit) {
@@ -56,7 +59,20 @@ fun ScreenEditMeal(mealUuid: String?, navigateUp: () -> Unit) {
         ScrollableColumn(
             contentPadding = PaddingValues(12.dp),
         ) {
-            // todo: input name with autocomplete
+            AutocompleteTextField(
+                fieldId = meal.uuid,
+                selectedItem = meal.name,
+                searchItems = vm::searchMealNames,
+                renderItem = { Text(it) },
+                itemToString = { it },
+                onItemSelected = {
+                    if (it != null) {
+                        val name = it.take(100)
+                        vm.onMealChange(meal.copy(name = name))
+                    }
+                },
+                placeholder = { Text(stringResource(R.string.common_name)) },
+            )
 
             EditMealPartsList(
                 canAddCalories = true,
@@ -64,6 +80,7 @@ fun ScreenEditMeal(mealUuid: String?, navigateUp: () -> Unit) {
                 onPartsChange = { vm.onMealChange(meal.copy(parts = it)) },
                 searchProducts = vm::searchProducts,
                 searchDishes = vm::searchDishes,
+                modifier = Modifier.padding(top = 12.dp),
             )
         }
     }

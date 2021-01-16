@@ -40,4 +40,5 @@
     <string name="search_query_calorie" formatted="true">калорийность %s</string>
     <string name="common_calories">Калории</string>
     <string name="edit_dish_button_add_calories">Добавить калории</string>
+    <string name="meal_title_format_with_name">%s в %s</string>
 </resources>

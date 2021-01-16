@@ -46,7 +46,11 @@ fun Double.formatTotalCalories() =
     "${roundToInt()} ${stringResource(R.string.symbol_total_calories)}"
 
 @Composable
-fun Meal.formatTitle() = stringResource(R.string.meal_title_format, time.formatTime())
+fun Meal.formatTitle() = if (name != null) {
+    stringResource(R.string.meal_title_format_with_name, name, time.formatTime())
+} else {
+    stringResource(R.string.meal_title_format, time.formatTime())
+}
 
 @Composable
 fun Dish.formatTitle() = stringResource(R.string.dish_title_format, name, time.format())

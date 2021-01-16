@@ -26,6 +26,7 @@ fun <T : Any> AutocompleteTextField(
     renderItem: @Composable (T) -> Unit,
     itemToString: (T) -> String,
     onItemSelected: (T?) -> Unit,
+    placeholder: @Composable (() -> Unit)? = null,
     toggleModifier: Modifier = Modifier,
 ) {
     var textFieldValue by savedInstanceState(
@@ -66,6 +67,7 @@ fun <T : Any> AutocompleteTextField(
                         Icon(Icons.Default.Search)
                     }
                 },
+                placeholder = placeholder,
             )
         },
         expanded = expanded,

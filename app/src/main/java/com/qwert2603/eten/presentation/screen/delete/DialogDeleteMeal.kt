@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.qwert2603.eten.R
 import com.qwert2603.eten.domain.model.Meal
-import com.qwert2603.eten.util.format
+import com.qwert2603.eten.util.formatTitle
 
 @Composable
 fun DialogDeleteMeal(
@@ -18,7 +18,7 @@ fun DialogDeleteMeal(
     AlertDialog(
         onDismissRequest = onCancel,
         title = { Text(stringResource(R.string.delete_meal_title)) },
-        text = { Text(stringResource(R.string.meal_title_format, meal.time.format())) },
+        text = { Text(meal.formatTitle()) },
         confirmButton = {
             TextButton(onClick = onDelete) {
                 Text(stringResource(R.string.common_delete))

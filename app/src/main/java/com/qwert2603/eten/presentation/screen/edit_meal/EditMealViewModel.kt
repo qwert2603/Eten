@@ -58,4 +58,10 @@ class EditMealViewModel(
         .first()
         .dishes
         .filter { it.name.contains(query, ignoreCase = true) }
+
+    suspend fun searchMealNames(query: String): List<String> = etenRepo.mealsUpdates()
+        .first()
+        .mapNotNull { it.name }
+        .distinct()
+        .filter { it.contains(query, ignoreCase = true) }
 }
