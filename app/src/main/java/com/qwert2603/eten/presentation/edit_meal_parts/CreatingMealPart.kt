@@ -23,11 +23,16 @@ data class CreatingCalories(
     )
 }
 
+sealed class CreatingWeightedMealPart : CreatingMealPart() {
+    abstract val weight: Int
+    abstract override fun toVolumedMealPart(): WeightedMealPart
+}
+
 data class CreatingWeightedProduct(
     override val uuid: String,
     val product: Product?,
-    val weight: Int,
-) : CreatingMealPart() {
+    override val weight: Int,
+) : CreatingWeightedMealPart() {
     override val calories = (product?.calorie ?: 0.0) * weight
     override fun isValid() = product != null && weight > 0
     override fun toVolumedMealPart() = WeightedProduct(uuid, product!!, weight.toDouble())
@@ -36,8 +41,8 @@ data class CreatingWeightedProduct(
 data class CreatingWeightedDish(
     override val uuid: String,
     val dish: Dish?,
-    val weight: Int,
-) : CreatingMealPart() {
+    override val weight: Int,
+) : CreatingWeightedMealPart() {
     override val calories = (dish?.calorie ?: 0.0) * weight
     override fun isValid() = dish != null && weight > 0
     override fun toVolumedMealPart() = WeightedDish(uuid, dish!!, weight.toDouble())
@@ -45,6 +50,10 @@ data class CreatingWeightedDish(
 
 fun VolumedMealPart.toCreatingMealPart(): CreatingMealPart = when (this) {
     is RawCalories -> CreatingCalories(uuid, name ?: "", calories.toInt())
+    is WeightedMealPart -> toCreatingWeightedMealPart()
+}
+
+fun WeightedMealPart.toCreatingWeightedMealPart(): CreatingWeightedMealPart = when (this) {
     is WeightedProduct -> CreatingWeightedProduct(uuid, product, weight.toInt())
     is WeightedDish -> CreatingWeightedDish(uuid, dish, weight.toInt())
 }
@@ -52,6 +61,5 @@ fun VolumedMealPart.toCreatingMealPart(): CreatingMealPart = when (this) {
 val CreatingMealPart.weight: Int?
     get() = when (this) {
         is CreatingCalories -> null
-        is CreatingWeightedProduct -> weight
-        is CreatingWeightedDish -> weight
+        is CreatingWeightedMealPart -> weight
     }

@@ -7,7 +7,7 @@ import com.qwert2603.eten.domain.model.Dish
 import com.qwert2603.eten.domain.model.Product
 import com.qwert2603.eten.domain.model.WeightedDish
 import com.qwert2603.eten.domain.repo.EtenRepo
-import com.qwert2603.eten.presentation.edit_meal_parts.toCreatingMealPart
+import com.qwert2603.eten.presentation.edit_meal_parts.toCreatingWeightedMealPart
 import com.qwert2603.eten.util.randomUUID
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,7 +33,7 @@ class EditDishViewModel(
                         uuid = dish.uuid,
                         name = dish.name,
                         time = dish.time,
-                        parts = dish.partsList.map { it.toCreatingMealPart() })
+                        parts = dish.partsList.map { it.toCreatingWeightedMealPart() })
                 }
                 ?: CreatingDish(randomUUID(), "", null, emptyList())
         }

@@ -17,8 +17,47 @@ import com.qwert2603.eten.util.formatWeight
 import com.qwert2603.eten.util.randomUUID
 import com.qwert2603.eten.util.replaceIf
 
+
 @Composable
-fun EditMealPartsList(
+fun EditVolumedMealPartsList(
+    parts: List<CreatingMealPart>,
+    onPartsChange: (List<CreatingMealPart>) -> Unit,
+    searchProducts: suspend (String) -> List<Product>,
+    searchDishes: suspend (String) -> List<Dish>,
+    modifier: Modifier = Modifier,
+) {
+    EditMealPartsList(
+        canAddCalories = true,
+        parts = parts,
+        onPartsChange = onPartsChange,
+        searchProducts = searchProducts,
+        searchDishes = searchDishes,
+        modifier = modifier,
+    )
+}
+
+
+@Composable
+fun EditWeightedMealPartsList(
+    parts: List<CreatingWeightedMealPart>,
+    onPartsChange: (List<CreatingWeightedMealPart>) -> Unit,
+    searchProducts: suspend (String) -> List<Product>,
+    searchDishes: suspend (String) -> List<Dish>,
+    modifier: Modifier = Modifier,
+) {
+    @Suppress("UNCHECKED_CAST")
+    EditMealPartsList(
+        canAddCalories = false,
+        parts = parts,
+        onPartsChange = { onPartsChange(it as List<CreatingWeightedMealPart>) },
+        searchProducts = searchProducts,
+        searchDishes = searchDishes,
+        modifier = modifier,
+    )
+}
+
+@Composable
+private fun EditMealPartsList(
     canAddCalories: Boolean,
     parts: List<CreatingMealPart>,
     onPartsChange: (List<CreatingMealPart>) -> Unit,

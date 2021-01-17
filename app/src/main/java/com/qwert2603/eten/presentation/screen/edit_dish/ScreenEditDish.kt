@@ -16,7 +16,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.viewModel
 import com.qwert2603.eten.R
-import com.qwert2603.eten.presentation.edit_meal_parts.EditMealPartsList
+import com.qwert2603.eten.presentation.edit_meal_parts.EditWeightedMealPartsList
 
 @Composable
 fun ScreenEditDish(dishUuid: String?, navigateUp: () -> Unit) {
@@ -67,8 +67,7 @@ fun ScreenEditDish(dishUuid: String?, navigateUp: () -> Unit) {
                 label = { Text(stringResource(R.string.common_name)) },
             )
 
-            EditMealPartsList(
-                canAddCalories = false,
+            EditWeightedMealPartsList(
                 parts = dish.parts,
                 onPartsChange = { vm.onDishChange(dish.copy(parts = it)) },
                 searchProducts = vm::searchProducts,

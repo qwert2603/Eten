@@ -95,37 +95,39 @@ fun EditMealPart(
             val textFieldModifier = Modifier
                 .weight(1f)
                 .padding(start = 8.dp)
-            if (creatingMealPart is CreatingCalories) {
-                TextField(
-                    value = creatingMealPart.caloriesInput.toEditingString(),
-                    onValueChange = { s ->
-                        val calories = s.toEditingInt()
-                        onPartChange(creatingMealPart.copy(caloriesInput = calories))
-                    },
-                    label = { Text(stringResource(R.string.common_calories)) },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    modifier = textFieldModifier,
-                    trailingIcon = { Text(stringResource(R.string.symbol_calorie)) },
-                )
-            } else {
-                TextField(
-                    value = creatingMealPart.weight!!.toEditingString(),
-                    onValueChange = { s ->
-                        val weight = s.toEditingInt()
-                        onPartChange(
-                            when (creatingMealPart) {
-                                is CreatingCalories -> null!!
-                                is CreatingWeightedProduct -> creatingMealPart.copy(weight = weight)
-                                is CreatingWeightedDish -> creatingMealPart.copy(weight = weight)
-                            }
-                        )
-                    },
-                    label = { Text(stringResource(R.string.common_weight)) },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    modifier = textFieldModifier,
-                    trailingIcon = { Text(stringResource(R.string.symbol_grams)) },
-                )
-            }
+            when (creatingMealPart) {
+                is CreatingCalories -> {
+                    TextField(
+                        value = creatingMealPart.caloriesInput.toEditingString(),
+                        onValueChange = { s ->
+                            val calories = s.toEditingInt()
+                            onPartChange(creatingMealPart.copy(caloriesInput = calories))
+                        },
+                        label = { Text(stringResource(R.string.common_calories)) },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        modifier = textFieldModifier,
+                        trailingIcon = { Text(stringResource(R.string.symbol_calorie)) },
+                    )
+                }
+                is CreatingWeightedMealPart -> {
+                    TextField(
+                        value = creatingMealPart.weight.toEditingString(),
+                        onValueChange = { s ->
+                            val weight = s.toEditingInt()
+                            onPartChange(
+                                when (creatingMealPart) {
+                                    is CreatingWeightedProduct -> creatingMealPart.copy(weight = weight)
+                                    is CreatingWeightedDish -> creatingMealPart.copy(weight = weight)
+                                }
+                            )
+                        },
+                        label = { Text(stringResource(R.string.common_weight)) },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        modifier = textFieldModifier,
+                        trailingIcon = { Text(stringResource(R.string.symbol_grams)) },
+                    )
+                }
+            }.allCases
 
             Text(
                 creatingMealPart.calories.formatTotalCalories(),
