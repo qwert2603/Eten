@@ -68,14 +68,13 @@ fun ScreenEditProduct(
         }
     ) {
         ScrollableColumn {
-            // todo: another style, to show placeholder all time
             TextField(
                 value = product.name,
                 onValueChange = {
                     val name = it.take(100)
                     vm.onProductChange(product.copy(name = name))
                 },
-                placeholder = { Text(stringResource(R.string.common_name)) },
+                label = { Text(stringResource(R.string.common_name)) },
                 modifier = Modifier.padding(12.dp),
             )
             Row(
@@ -87,7 +86,7 @@ fun ScreenEditProduct(
                         val caloriesPer100g = it.toEditingInt()
                         vm.onProductChange(product.copy(caloriesPer100g = caloriesPer100g))
                     },
-                    placeholder = { Text(stringResource(R.string.edit_product_field_calorie)) },
+                    label = { Text(stringResource(R.string.edit_product_field_calorie)) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     modifier = Modifier.padding(12.dp),
                     trailingIcon = { Text(stringResource(R.string.symbol_calorie)) },

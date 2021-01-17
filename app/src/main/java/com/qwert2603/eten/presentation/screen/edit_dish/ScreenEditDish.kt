@@ -64,7 +64,7 @@ fun ScreenEditDish(dishUuid: String?, navigateUp: () -> Unit) {
                     val name = it.take(100)
                     vm.onDishChange(dish.copy(name = name))
                 },
-                placeholder = { Text(stringResource(R.string.common_name)) },
+                label = { Text(stringResource(R.string.common_name)) },
             )
 
             EditMealPartsList(

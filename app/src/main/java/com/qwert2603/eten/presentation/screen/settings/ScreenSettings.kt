@@ -55,14 +55,13 @@ fun ScreenSettings(
         ScrollableColumn(
             contentPadding = PaddingValues(12.dp),
         ) {
-            // todo: show field's name when focused.
             TextField(
                 value = settingsModel.dailyLimitCalories.toEditingString(),
                 onValueChange = {
                     val limit = it.toEditingInt(maxNumbers = 5)
                     vm.onDailyLimitCaloriesChange(limit)
                 },
-                placeholder = { Text(stringResource(R.string.settings_daily_calories_limit)) },
+                label = { Text(stringResource(R.string.settings_daily_calories_limit)) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 trailingIcon = { Text(stringResource(R.string.symbol_calorie)) },
             )

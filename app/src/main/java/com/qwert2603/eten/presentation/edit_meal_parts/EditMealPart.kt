@@ -55,7 +55,7 @@ fun EditMealPart(
                         val name = it.take(100)
                         onPartChange(creatingMealPart.copy(name = name))
                     },
-                    placeholder = { Text(stringResource(R.string.common_name)) },
+                    label = { Text(stringResource(R.string.common_name)) },
                     modifier = textFieldModifier,
                 )
                 is CreatingWeightedProduct -> AutocompleteTextField(
@@ -102,7 +102,7 @@ fun EditMealPart(
                         val calories = s.toEditingInt()
                         onPartChange(creatingMealPart.copy(caloriesInput = calories))
                     },
-                    placeholder = { Text(stringResource(R.string.common_calories)) },
+                    label = { Text(stringResource(R.string.common_calories)) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     modifier = textFieldModifier,
                     trailingIcon = { Text(stringResource(R.string.symbol_calorie)) },
@@ -120,7 +120,7 @@ fun EditMealPart(
                             }
                         )
                     },
-                    placeholder = { Text(stringResource(R.string.common_weight)) },
+                    label = { Text(stringResource(R.string.common_weight)) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     modifier = textFieldModifier,
                     trailingIcon = { Text(stringResource(R.string.symbol_grams)) },

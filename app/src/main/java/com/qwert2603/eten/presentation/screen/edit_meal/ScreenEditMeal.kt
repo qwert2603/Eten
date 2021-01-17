@@ -71,7 +71,7 @@ fun ScreenEditMeal(mealUuid: String?, navigateUp: () -> Unit) {
                         vm.onMealChange(meal.copy(name = name))
                     }
                 },
-                placeholder = { Text(stringResource(R.string.common_name)) },
+                label = { Text(stringResource(R.string.common_name)) },
             )
 
             EditMealPartsList(
