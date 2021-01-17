@@ -78,6 +78,11 @@ data class Meal(
 val VolumedMealPart.name: String?
     get() = when (this) {
         is RawCalories -> name
+        is WeightedMealPart -> name
+    }
+
+val WeightedMealPart.name: String
+    get() = when (this) {
         is WeightedProduct -> product.name
         is WeightedDish -> dish.name
     }

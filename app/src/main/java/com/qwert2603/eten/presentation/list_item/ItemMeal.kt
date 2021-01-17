@@ -43,11 +43,11 @@ fun ItemMeal(
             Text(meal.formatTitle())
 
             meal.partsList.forEachIndexed { index, volumedPart ->
-                val name = volumedPart.name
+                val formattedName = volumedPart.name?.let { "$it: " } ?: ""
                 val formattedCalories = volumedPart.calories.formatTotalCalories()
-                val formattedWeight = volumedPart.weight?.formatWeight()?.let { "$it, " }
+                val formattedWeight = volumedPart.weight?.let { "${it.formatWeight()}, " } ?: ""
                 Text(
-                    "${index + 1}. $name: $formattedWeight$formattedCalories",
+                    "${index + 1}. $formattedName$formattedWeight$formattedCalories",
                     modifier = Modifier.padding(start = 4.dp),
                 )
             }
