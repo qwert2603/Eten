@@ -26,6 +26,7 @@ fun <T : Any> AutocompleteTextField(
     renderItem: @Composable (T) -> Unit,
     itemToString: (T) -> String,
     onItemSelected: (T?) -> Unit,
+    onQueryChanged: ((String) -> Unit)? = null,
     label: @Composable (() -> Unit)? = null,
     toggleModifier: Modifier = Modifier,
 ) {
@@ -50,6 +51,7 @@ fun <T : Any> AutocompleteTextField(
                     if (it.text != textFieldValue.text) {
                         onItemSelected(null)
                     }
+                    onQueryChanged?.invoke(it.text)
                     textFieldValue = it
                 },
                 textStyle = TextStyle(
@@ -90,6 +92,7 @@ fun <T : Any> AutocompleteTextField(
                     selection = TextRange(text.length),
                 )
                 onItemSelected(it)
+                onQueryChanged?.invoke(text)
             }) {
                 renderItem(it)
             }

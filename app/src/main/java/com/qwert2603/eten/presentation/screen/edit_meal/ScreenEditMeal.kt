@@ -65,11 +65,10 @@ fun ScreenEditMeal(mealUuid: String?, navigateUp: () -> Unit) {
                 searchItems = vm::searchMealNames,
                 renderItem = { Text(it) },
                 itemToString = { it },
-                onItemSelected = {
-                    if (it != null) {
-                        val name = it.take(100)
-                        vm.onMealChange(meal.copy(name = name))
-                    }
+                onItemSelected = {},
+                onQueryChanged = {
+                    val name = it.take(100)
+                    vm.onMealChange(meal.copy(name = name))
                 },
                 label = { Text(stringResource(R.string.common_name)) },
             )
