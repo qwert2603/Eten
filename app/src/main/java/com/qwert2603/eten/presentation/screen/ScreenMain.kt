@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.navigation.compose.*
+import com.qwert2603.eten.E
 import com.qwert2603.eten.R
 import com.qwert2603.eten.Route
 import com.qwert2603.eten.presentation.screen.lists.ScreenDishesList
@@ -71,11 +72,13 @@ fun ScreenMain(
     val snackbarHandler = remember {
         object : SnackbarHandler {
             override fun show(message: String, action: String?, onClick: (() -> Unit)?) {
-                scope.launch {
-                    snackbarHostState.currentSnackbarData?.dismiss()
-                    val snackbarResult = snackbarHostState.showSnackbar(message, action)
-                    if (snackbarResult == SnackbarResult.ActionPerformed) {
-                        onClick?.invoke()
+                if (E.env.showUndoDeleteSnackbar) {
+                    scope.launch {
+                        snackbarHostState.currentSnackbarData?.dismiss()
+                        val snackbarResult = snackbarHostState.showSnackbar(message, action)
+                        if (snackbarResult == SnackbarResult.ActionPerformed) {
+                            onClick?.invoke()
+                        }
                     }
                 }
             }
