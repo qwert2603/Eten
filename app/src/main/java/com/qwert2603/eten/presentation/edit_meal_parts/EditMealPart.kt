@@ -129,11 +129,14 @@ fun EditMealPart(
                 }
             }.allCases
 
-            Text(
-                creatingMealPart.calories.formatTotalCalories(),
-                modifier = Modifier
-                    .padding(start = 8.dp),
-            )
+            when (creatingMealPart) {
+                is CreatingCalories -> null
+                is CreatingWeightedMealPart -> Text(
+                    creatingMealPart.calories.formatTotalCalories(),
+                    modifier = Modifier
+                        .padding(start = 8.dp),
+                )
+            }.allCases
             IconButton(
                 onClick = onDeleteClick,
                 modifier = Modifier.padding(start = 8.dp),
