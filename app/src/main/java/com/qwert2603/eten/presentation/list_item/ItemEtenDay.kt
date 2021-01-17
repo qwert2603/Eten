@@ -70,7 +70,6 @@ fun ItemEtenDay(
             val exceeded = total > limit
             Text(
                 stringResource(
-                    // todo: bold digit.
                     if (exceeded) R.string.eten_day_calories_exceeded else R.string.eten_day_calories_left,
                     (limit - total).absoluteValue,
                 ),
