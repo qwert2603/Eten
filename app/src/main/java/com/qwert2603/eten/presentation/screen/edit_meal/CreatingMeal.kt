@@ -6,8 +6,8 @@ import com.qwert2603.eten.util.timeNow
 import kotlinx.datetime.LocalDateTime
 
 data class CreatingMeal(
-    val name: String,
     val uuid: String,
+    val name: String,
     val time: LocalDateTime?,
     val parts: List<CreatingMealPart>,
 ) {
