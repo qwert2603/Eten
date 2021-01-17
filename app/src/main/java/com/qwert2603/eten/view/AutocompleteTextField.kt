@@ -8,6 +8,7 @@ import androidx.compose.runtime.savedinstancestate.Saver
 import androidx.compose.runtime.savedinstancestate.SaverScope
 import androidx.compose.runtime.savedinstancestate.savedInstanceState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
@@ -55,8 +56,7 @@ fun <T : Any> AutocompleteTextField(
                     textFieldValue = it
                 },
                 textStyle = TextStyle(
-                    color = MaterialTheme.colors.onSurface
-                        .copy(alpha = if (selectedItem != null) 1f else 0.6f),
+                    color = if (selectedItem != null) Color.Black else Color.Gray,
                 ),
                 trailingIcon = {
                     IconButton(onClick = {
