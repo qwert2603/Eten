@@ -41,7 +41,7 @@ fun Long.toPointedString(): String {
 fun Double.formatWeight() = "${roundToInt()} ${stringResource(R.string.symbol_grams)}"
 
 @Composable
-fun Double.formatCalorie() = "${roundToInt()} ${stringResource(R.string.symbol_calorie)}"
+fun Double.formatCalorie() = "${roundToInt()} ${stringResource(R.string.symbol_calorie)}"//todo: nbsp in all "formatX()"
 
 @Composable
 fun Double.formatTotalCalories() =
