@@ -41,9 +41,8 @@ android {
 
     buildTypes {
         debug {
-//            todo
-//            applicationIdSuffix ".debug"
-//            versionNameSuffix "-snapshot"
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-snapshot"
             signingConfig signingConfigs.config
         }
         release {
