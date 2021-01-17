@@ -42,6 +42,7 @@ fun ScreenDump(
         vm.dumpRestoredEvents
             .onEach {
                 dumpInput = ""
+                scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
                 scaffoldState.snackbarHostState.showSnackbar(dumpRestoredMessage)
             }
             .launchIn(this)

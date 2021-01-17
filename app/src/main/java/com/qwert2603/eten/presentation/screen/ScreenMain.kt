@@ -72,6 +72,7 @@ fun ScreenMain(
         object : SnackbarHandler {
             override fun show(message: String, action: String?, onClick: (() -> Unit)?) {
                 scope.launch {
+                    snackbarHostState.currentSnackbarData?.dismiss()
                     val snackbarResult = snackbarHostState.showSnackbar(message, action)
                     if (snackbarResult == SnackbarResult.ActionPerformed) {
                         onClick?.invoke()
