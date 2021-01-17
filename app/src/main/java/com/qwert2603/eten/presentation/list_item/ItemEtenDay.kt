@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -15,6 +16,7 @@ import androidx.compose.ui.unit.sp
 import com.qwert2603.eten.R
 import com.qwert2603.eten.domain.model.EtenDay
 import com.qwert2603.eten.domain.model.Meal
+import com.qwert2603.eten.util.addSpans
 import com.qwert2603.eten.util.format
 import com.qwert2603.eten.util.toPointedString
 import kotlin.math.absoluteValue
@@ -72,7 +74,7 @@ fun ItemEtenDay(
                 stringResource(
                     if (exceeded) R.string.eten_day_calories_exceeded else R.string.eten_day_calories_left,
                     (limit - total).absoluteValue,
-                ),
+                ).addSpans(SpanStyle(fontWeight = FontWeight.Bold)) { it.isDigit() },
                 style = TextStyle(
                     color = colorResource(if (exceeded) R.color.limit_exceeded else R.color.limit_ok),
                     fontSize = 18.sp,

@@ -35,8 +35,8 @@
     <string name="delete_meal_title">Удалить трапезу?</string>
     <string name="meal_deleted">Трапеза удалена</string>
     <string name="meals_list_is_empty">Список трапез пуст</string>
-    <string name="eten_day_calories_left" formatted="true">Осталось <b>%s</b> ккал</string>
-    <string name="eten_day_calories_exceeded" formatted="true">Превышение на <b>%s</b> ккал</string>
+    <string name="eten_day_calories_left" formatted="true">Осталось %s ккал</string>
+    <string name="eten_day_calories_exceeded" formatted="true">Превышение на %s ккал</string>
     <string name="search_query_calorie" formatted="true">калорийность %s</string>
     <string name="common_calories">Калории</string>
     <string name="edit_dish_button_add_calories">Добавить калории</string>

@@ -2,6 +2,8 @@ package com.qwert2603.eten.util
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
 import com.qwert2603.eten.R
 import com.qwert2603.eten.domain.model.Dish
 import com.qwert2603.eten.domain.model.Meal
@@ -63,3 +65,27 @@ fun Int.toEditingString(): String = takeIf { it != 0 }?.toString() ?: ""
 fun String.toEditingInt(maxNumbers: Int = 4) = take(maxNumbers).toIntOrNull() ?: 0
 
 fun <T, R> Flow<List<T>>.mapList(mapper: (T) -> R): Flow<List<R>> = map { list -> list.map(mapper) }
+
+fun String.addSpans(
+    spanStyle: SpanStyle,
+    isAddSpan: (Char) -> Boolean,
+): AnnotatedString {
+    val builder = AnnotatedString.Builder(this)
+    var start: Int? = null
+    for (index in this.indices) {
+        if (isAddSpan(this[index])) {
+            if (start == null) {
+                start = index
+            }
+        } else {
+            if (start != null) {
+                builder.addStyle(spanStyle, start, index)
+                start = null
+            }
+        }
+    }
+    if (start != null) {
+        builder.addStyle(spanStyle, start, length)
+    }
+    return builder.toAnnotatedString()
+}
