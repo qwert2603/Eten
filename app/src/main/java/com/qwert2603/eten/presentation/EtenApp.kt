@@ -99,6 +99,7 @@ fun EtenApp(etenCallbacks: EtenCallbacks) {
                 ScreenDump(
                     navigateUp = { navController.navigateUp() },
                     sendDump = etenCallbacks::sendDump,
+                    openDump = etenCallbacks::openDump,
                 )
             }
             composable(
