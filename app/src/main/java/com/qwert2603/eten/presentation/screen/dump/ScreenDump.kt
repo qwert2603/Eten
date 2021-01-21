@@ -41,8 +41,9 @@ fun ScreenDump(
             .launchIn(this)
         vm.dumpRestoredEvents
             .onEach {
-                scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
-                scaffoldState.snackbarHostState.showSnackbar(dumpRestoredMessage)
+//                scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
+//                scaffoldState.snackbarHostState.showSnackbar(dumpRestoredMessage)
+                navigateUp()
             }
             .launchIn(this)
     }
