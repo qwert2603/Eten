@@ -13,7 +13,7 @@
     <string name="common_total">Всего</string>
     <string name="common_delete">Удалить</string>
     <string name="common_cancel">Отмена</string>
-    <string name="dish_title_format">%s в %s</string>
+    <string name="dish_title_format">%s в %s</string>
     <string name="edit_dish_button_add_product">Добавить продукт</string>
     <string name="edit_dish_button_add_dish">Добавить блюдо</string>
     <string name="delete_product_title">Удалить продукт?</string>
@@ -31,14 +31,14 @@
     <string name="bottom_menu_meals">Трапезы</string>
     <string name="edit_meal_screen_title">Редактирование трапезы</string>
     <string name="new_meal_screen_title">Новая трапеза</string>
-    <string name="meal_title_format">Трапеза в %s</string>
+    <string name="meal_title_format">Трапеза в %s</string>
     <string name="delete_meal_title">Удалить трапезу?</string>
     <string name="meal_deleted">Трапеза удалена</string>
     <string name="meals_list_is_empty">Список трапез пуст</string>
-    <string name="eten_day_calories_left" formatted="true">Осталось %s ккал</string>
-    <string name="eten_day_calories_exceeded" formatted="true">Превышение на %s ккал</string>
+    <string name="eten_day_calories_left" formatted="true">Осталось %s ккал</string>
+    <string name="eten_day_calories_exceeded" formatted="true">Превышение на %s ккал</string>
     <string name="search_query_calorie" formatted="true">калорийность %s</string>
     <string name="common_calories">Калории</string>
     <string name="edit_dish_button_add_calories">Добавить калории</string>
-    <string name="meal_title_format_with_name">%s в %s</string>
+    <string name="meal_title_format_with_name">%s в %s</string>
 </resources>
