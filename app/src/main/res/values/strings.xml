@@ -44,7 +44,7 @@
 
     <string name="autocomplete_text_field_nothing_found">Nothing found</string>
 
-    <string name="meals_list_is_empty">Meal list is empty</string>
+    <string name="meals_list_is_empty">Meals list is empty</string>
 
     <string name="meal_deleted">Meal deleted</string>
     <string name="dish_deleted">Dish deleted</string>
