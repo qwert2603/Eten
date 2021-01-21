@@ -11,13 +11,12 @@ import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
 class MigrationTest {
     private val dbName = "migration-test"
 
-    @Rule
+    @get:Rule
     val helper: MigrationTestHelper = MigrationTestHelper(
         InstrumentationRegistry.getInstrumentation(),
         EtenDataBase::class.java.canonicalName,
@@ -54,15 +53,17 @@ class MigrationTest {
 
             Assert.assertEquals(2, cursor.count)
 
+            cursor.moveToNext()
+
             Assert.assertEquals("uuid1", cursor.getString(cursor.getColumnIndex("uuid")))
             Assert.assertEquals(null, cursor.getString(cursor.getColumnIndex("name")))
-            Assert.assertEquals(1918, cursor.getString(cursor.getColumnIndex("time")))
+            Assert.assertEquals(1918, cursor.getLong(cursor.getColumnIndex("time")))
 
             cursor.moveToNext()
 
             Assert.assertEquals("uuid2", cursor.getString(cursor.getColumnIndex("uuid")))
             Assert.assertEquals(null, cursor.getString(cursor.getColumnIndex("name")))
-            Assert.assertEquals(1919, cursor.getString(cursor.getColumnIndex("time")))
+            Assert.assertEquals(1919, cursor.getLong(cursor.getColumnIndex("time")))
 
             cursor.close()
 
