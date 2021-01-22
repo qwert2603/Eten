@@ -5,21 +5,24 @@ import com.qwert2603.eten.data.db.result.DishWithParts
 import com.qwert2603.eten.data.db.result.EtenTables
 import com.qwert2603.eten.data.db.result.MealWithParts
 import com.qwert2603.eten.data.db.table.*
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface EtenDao {
 
     @Query("SELECT * FROM ProductTable")
-    fun getAllProducts(): List<ProductTable>
+    suspend fun getAllProducts(): List<ProductTable>
 
-    @Transaction
+    @Query("SELECT * FROM MealPartTable")
+    suspend fun getAllMealPartTables(): List<MealPartTable>
+
+    @Query("SELECT * FROM RawCaloriesTable")
+    suspend fun getAllRawCaloriesTables(): List<RawCaloriesTable>
+
     @Query("SELECT * FROM DishTable")
-    fun getAllDishes(): List<DishWithParts>
+    suspend fun getAllDishes(): List<DishTable>
 
-    @Transaction
     @Query("SELECT * FROM MealTable")
-    fun getAllMeals(): List<MealWithParts>
+    suspend fun getAllMeals(): List<MealTable>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveProduct(productTable: ProductTable)
@@ -57,17 +60,29 @@ interface EtenDao {
     @Query("SELECT COUNT(uuid) FROM MealPartTable WHERE dishUuid=:uuid")
     suspend fun getDishUsagesCount(uuid: String): Int
 
-    class Ignored(val ignored: Int)
-
-    @Query("SELECT 1918 as ignored FROM ProductTable, MealPartTable, DishTable, MealTable")
-    fun observeUpdates(): Flow<Ignored>
-
     @Transaction
-    fun getEtenTables() = EtenTables(
-        productTables = getAllProducts(),
-        dishTables = getAllDishes(),
-        mealTables = getAllMeals(),
-    )
+    suspend fun getEtenTables(): EtenTables {
+        // This is faster, than use @Query for mealPartTables and rawCaloriesTables and join tables in SQL.
+        val mealPartTables = getAllMealPartTables().groupBy { it.containerId }
+        val rawCaloriesTables = getAllRawCaloriesTables().groupBy { it.containerId }
+        return EtenTables(
+            productTables = getAllProducts(),
+            dishesWithParts = getAllDishes().map {
+                DishWithParts(
+                    dishTable = it,
+                    parts = mealPartTables[it.uuid] ?: emptyList(),
+                    rawCalories = rawCaloriesTables[it.uuid] ?: emptyList(),
+                )
+            },
+            mealsWithParts = getAllMeals().map {
+                MealWithParts(
+                    mealTable = it,
+                    parts = mealPartTables[it.uuid] ?: emptyList(),
+                    rawCalories = rawCaloriesTables[it.uuid] ?: emptyList(),
+                )
+            },
+        )
+    }
 
     @Transaction
     suspend fun saveDish(

@@ -11,7 +11,7 @@ private class EtenStateMapper(
     etenTables: EtenTables,
 ) {
     private val allParts =
-        (etenTables.dishTables.map { it.parts } + etenTables.mealTables.map { it.parts })
+        (etenTables.dishesWithParts.map { it.parts } + etenTables.mealsWithParts.map { it.parts })
             .flatten()
     private val usedProducts = allParts.mapNotNullTo(HashSet()) { it.productUuid }
     private val usedDishes = allParts.mapNotNullTo(HashSet()) { it.dishUuid }
@@ -19,7 +19,7 @@ private class EtenStateMapper(
     private val removableProductsUuids = etenTables.productTables
         .filterNot { it.uuid in usedProducts }
         .mapTo(HashSet()) { it.uuid }
-    private val removableDishesUuids = etenTables.dishTables
+    private val removableDishesUuids = etenTables.dishesWithParts
         .filterNot { it.dishTable.uuid in usedDishes }
         .mapTo(HashSet()) { it.dishTable.uuid }
 
@@ -27,7 +27,7 @@ private class EtenStateMapper(
         .map { it.toProduct() }
         .associateBy { it.uuid }
 
-    private val dishTablesByUuid = etenTables.dishTables
+    private val dishTablesByUuid = etenTables.dishesWithParts
         .associateBy { it.dishTable.uuid }
 
     private val dishes = mutableMapOf<String, Dish>()
@@ -48,10 +48,10 @@ private class EtenStateMapper(
     }
 
     init {
-        etenTables.dishTables.forEach { getDish(it.dishTable.uuid) }
+        etenTables.dishesWithParts.forEach { getDish(it.dishTable.uuid) }
     }
 
-    private val meals = etenTables.mealTables
+    private val meals = etenTables.mealsWithParts
         .map { mealWithParts ->
             val weightedMealPartsList = mealWithParts.parts.map { it.toWeightedMealPart() }
             val rawCaloriesList = mealWithParts.rawCalories.map { it.toCalories() }
