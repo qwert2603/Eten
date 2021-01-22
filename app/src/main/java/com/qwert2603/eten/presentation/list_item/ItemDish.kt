@@ -43,7 +43,10 @@ fun ItemDish(
             modifier = Modifier
                 .weight(1f),
         ) {
-            Text("${dish.formatTitle()} (${dish.caloriePer100g.formatCalorie()})")
+            Text(
+                "${dish.formatTitle()} (${dish.caloriePer100g.formatCalorie()})",
+                fontWeight = FontWeight.Bold,
+            )
             dish.partsList.forEachIndexed { index, weightedPart ->
                 Text(
                     "${index + 1}. ${weightedPart.name}: ${weightedPart.weight.formatWeight()}, ${weightedPart.calories.formatTotalCalories()}",

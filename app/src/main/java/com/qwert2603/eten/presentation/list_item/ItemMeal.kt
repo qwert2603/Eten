@@ -40,7 +40,10 @@ fun ItemMeal(
             modifier = Modifier
                 .weight(1f)
         ) {
-            Text(meal.formatTitle())
+            Text(
+                meal.formatTitle(),
+                fontWeight = FontWeight.Bold,
+            )
 
             meal.partsList.forEachIndexed { index, volumedPart ->
                 val formattedName = volumedPart.name?.let { "$it: " } ?: ""
