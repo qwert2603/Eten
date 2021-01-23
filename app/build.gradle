@@ -34,8 +34,8 @@ android {
         config {
             storeFile file('/home/alex/StudioProjects/key.jks')
             storePassword key_store_password
-            keyAlias 'spend'
-            keyPassword spend_signing_password
+            keyAlias 'eten'
+            keyPassword key_store_password
         }
     }
 
