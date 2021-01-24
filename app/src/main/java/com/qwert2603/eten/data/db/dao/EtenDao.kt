@@ -5,6 +5,7 @@ import com.qwert2603.eten.data.db.result.DishWithParts
 import com.qwert2603.eten.data.db.result.EtenTables
 import com.qwert2603.eten.data.db.result.MealWithParts
 import com.qwert2603.eten.data.db.table.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface EtenDao {
@@ -59,6 +60,11 @@ interface EtenDao {
 
     @Query("SELECT COUNT(uuid) FROM MealPartTable WHERE dishUuid=:uuid")
     suspend fun getDishUsagesCount(uuid: String): Int
+
+    class Ignored(val ignored: Int)
+
+    @Query("SELECT 1918 as ignored FROM ProductTable, MealPartTable, RawCaloriesTable, DishTable, MealTable LIMIT 1")
+    fun observeUpdates(): Flow<Ignored>
 
     @Transaction
     suspend fun getEtenTables(): EtenTables {

@@ -38,7 +38,6 @@ object DumpRepoImpl : DumpRepo {
             val serializableDump = Json.decodeFromString<SerializableDump>(dump)
             val dbDump = serializableDump.toDump()
             dumpDao.restoreEtenState(dbDump)
-            EtenRepoImpl.onDbUpdated() // todo: make normal dependencies.
         }
             .map { true }
             .getOrElse {
