@@ -10,6 +10,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -19,10 +20,7 @@ import com.qwert2603.eten.domain.model.Dish
 import com.qwert2603.eten.domain.model.calories
 import com.qwert2603.eten.domain.model.name
 import com.qwert2603.eten.domain.model.weight
-import com.qwert2603.eten.util.formatCalorie
-import com.qwert2603.eten.util.formatTitle
-import com.qwert2603.eten.util.formatTotalCalories
-import com.qwert2603.eten.util.formatWeight
+import com.qwert2603.eten.util.*
 import com.qwert2603.eten.view.DeleteButton
 
 @Composable
@@ -65,7 +63,7 @@ fun ItemDish(
             onClick = onSaveAsProductClick,
             modifier = Modifier.padding(start = 12.dp),
         ) {
-            Icon(vectorResource(R.drawable.ic_product))
+            Icon(painterResource(R.drawable.ic_product), noContentDescription)
         }
         DeleteButton(
             isEnabled = isDeletable,

@@ -15,6 +15,8 @@ import java.util.*
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 
+val noContentDescription: String? = null
+
 val <T> T.allCases get() = Unit
 
 fun LocalDate.format(): String = this.toString()

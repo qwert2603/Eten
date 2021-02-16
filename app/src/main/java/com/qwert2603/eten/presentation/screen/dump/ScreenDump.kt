@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.viewModel
 import com.qwert2603.eten.R
+import com.qwert2603.eten.util.noContentDescription
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -55,7 +56,7 @@ fun ScreenDump(
                 title = { Text(stringResource(R.string.dump_screen_title)) },
                 navigationIcon = {
                     IconButton(onClick = navigateUp) {
-                        Icon(Icons.Default.ArrowBack)
+                        Icon(Icons.Default.ArrowBack, noContentDescription)
                     }
                 },
             )

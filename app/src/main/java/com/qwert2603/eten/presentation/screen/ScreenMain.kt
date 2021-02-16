@@ -12,8 +12,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.navigation.compose.*
 import com.qwert2603.eten.E
 import com.qwert2603.eten.R
@@ -21,6 +21,7 @@ import com.qwert2603.eten.Route
 import com.qwert2603.eten.presentation.screen.lists.ScreenDishesList
 import com.qwert2603.eten.presentation.screen.lists.ScreenMealsList
 import com.qwert2603.eten.presentation.screen.lists.ScreenProductsList
+import com.qwert2603.eten.util.noContentDescription
 import com.qwert2603.eten.view.SnackbarHandler
 import kotlinx.coroutines.launch
 
@@ -92,16 +93,12 @@ fun ScreenMain(
                 title = {
                     Text(
                         stringResource(R.string.app_name),
-                        modifier = Modifier.clickable(
-                            onLongClick = navigateToDebug,
-                            onClick = {},
-                            indication = null,
-                        ),
+                        modifier = Modifier.clickable(onClick = navigateToDebug),
                     )
                 },
                 actions = {
                     IconButton(onClick = navigateToSettings) {
-                        Icon(Icons.Default.Settings)
+                        Icon(Icons.Default.Settings, noContentDescription)
                     }
                 },
             )
@@ -116,14 +113,14 @@ fun ScreenMain(
                         BottomMenuItem.Products.route.name -> navigateToAddProduct()
                     }
                 },
-                content = { Icon(Icons.Default.Add) }
+                content = { Icon(Icons.Default.Add, noContentDescription) }
             )
         },
         bottomBar = {
             BottomNavigation {
                 BottomMenuItem.values().forEach {
                     BottomNavigationItem(
-                        icon = { Icon(vectorResource(it.iconRes)) },
+                        icon = { Icon(painterResource(it.iconRes), noContentDescription) },
                         label = { Text(stringResource(it.labelRes)) },
                         selected = currentRoute == it.route.name,
                         onClick = {

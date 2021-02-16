@@ -23,6 +23,7 @@ import com.qwert2603.eten.domain.model.weight
 import com.qwert2603.eten.util.formatTitle
 import com.qwert2603.eten.util.formatTotalCalories
 import com.qwert2603.eten.util.formatWeight
+import com.qwert2603.eten.util.noContentDescription
 
 @Composable
 fun ItemMeal(
@@ -67,7 +68,7 @@ fun ItemMeal(
             onClick = onDeleteClick,
             modifier = Modifier.padding(start = 12.dp),
         ) {
-            Icon(Icons.Default.Delete)
+            Icon(Icons.Default.Delete, noContentDescription)
         }
     }
 }

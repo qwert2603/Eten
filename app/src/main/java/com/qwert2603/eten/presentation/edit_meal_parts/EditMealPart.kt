@@ -14,8 +14,8 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.qwert2603.eten.R
@@ -41,8 +41,10 @@ fun EditMealPart(
         ) {
             when (creatingMealPart) {
                 is CreatingCalories -> Text(stringResource(R.string.symbol_calorie))
-                is CreatingWeightedProduct -> Image(vectorResource(R.drawable.ic_product))
-                is CreatingWeightedDish -> Image(vectorResource(R.drawable.ic_dish))
+                is CreatingWeightedProduct -> Image(painterResource(R.drawable.ic_product),
+                    noContentDescription)
+                is CreatingWeightedDish -> Image(painterResource(R.drawable.ic_dish),
+                    noContentDescription)
             }.allCases
 
             val textFieldModifier = Modifier
@@ -67,7 +69,7 @@ fun EditMealPart(
                     onItemSelected = { selectedProduct ->
                         onPartChange(creatingMealPart.copy(product = selectedProduct))
                     },
-                    toggleModifier = textFieldModifier
+                    modifier = textFieldModifier
                 )
                 is CreatingWeightedDish -> AutocompleteTextField(
                     fieldId = creatingMealPart.uuid,
@@ -78,7 +80,7 @@ fun EditMealPart(
                     onItemSelected = { selectedDish ->
                         onPartChange(creatingMealPart.copy(dish = selectedDish))
                     },
-                    toggleModifier = textFieldModifier
+                    modifier = textFieldModifier
                 )
             }.allCases
         }
@@ -141,7 +143,7 @@ fun EditMealPart(
                 onClick = onDeleteClick,
                 modifier = Modifier.padding(start = 8.dp),
             ) {
-                Icon(Icons.Default.Delete)
+                Icon(Icons.Default.Delete, noContentDescription)
             }
         }
     }

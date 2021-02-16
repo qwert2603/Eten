@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.qwert2603.eten.util.Catch
+import com.qwert2603.eten.util.noContentDescription
 
 @Composable
 fun ScreenDebug(
@@ -22,7 +23,7 @@ fun ScreenDebug(
                 title = { Text("debug") },
                 navigationIcon = {
                     IconButton(onClick = navigateUp) {
-                        Icon(Icons.Default.ArrowBack)
+                        Icon(Icons.Default.ArrowBack, noContentDescription)
                     }
                 },
             )

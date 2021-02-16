@@ -12,12 +12,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.viewModel
 import com.qwert2603.eten.R
+import com.qwert2603.eten.util.noContentDescription
 import com.qwert2603.eten.util.toEditingInt
 import com.qwert2603.eten.util.toEditingString
 
@@ -35,7 +37,7 @@ fun ScreenSettings(
                 title = { Text(stringResource(R.string.settings_screen_title)) },
                 navigationIcon = {
                     IconButton(onClick = navigateUp) {
-                        Icon(Icons.Default.ArrowBack)
+                        Icon(Icons.Default.ArrowBack, noContentDescription)
                     }
                 },
                 actions = {
@@ -46,7 +48,7 @@ fun ScreenSettings(
                         },
                         enabled = settingsModel.canSave(),
                     ) {
-                        Icon(vectorResource(R.drawable.ic_save))
+                        Icon(painterResource(R.drawable.ic_save), noContentDescription)
                     }
                 },
             )

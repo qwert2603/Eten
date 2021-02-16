@@ -2,6 +2,7 @@ package com.qwert2603.eten.presentation.screen.lists
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Divider
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
@@ -29,7 +30,7 @@ fun ScreenDishesList(
     LazyColumn(
         contentPadding = PaddingValues(bottom = 112.dp),
     ) {
-        items(dishesUpdate.dishes) {
+        items(dishesUpdate.dishes, key = Dish::uuid) {
             ItemDish(
                 dish = it,
                 isDeletable = it.uuid in dishesUpdate.removableDishesUuids,

@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.qwert2603.eten.util.noContentDescription
 
 @Composable
 fun DeleteButton(
@@ -25,6 +26,7 @@ fun DeleteButton(
             imageVector = imageVector,
             tint = MaterialTheme.colors.onSurface
                 .copy(alpha = if (isEnabled) 1f else 0.5f),
+            contentDescription = noContentDescription,
         )
     }
 }

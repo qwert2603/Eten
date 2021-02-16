@@ -1,7 +1,7 @@
 package com.qwert2603.eten.data.repo_impl
 
+import androidx.datastore.preferences.core.doublePreferencesKey
 import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.preferencesKey
 import androidx.datastore.preferences.createDataStore
 import com.qwert2603.eten.EtenApplication
 import com.qwert2603.eten.domain.meals.MealsInteractor
@@ -16,7 +16,7 @@ object SettingsRepoImpl/*(
 
     private val dataStore = EtenApplication.APP.createDataStore("eten")
 
-    private val dailyLimitCalories = preferencesKey<Double>("dailyLimitCalories")
+    private val dailyLimitCalories = doublePreferencesKey("dailyLimitCalories")
 
     override fun dailyLimitCaloriesUpdates(): Flow<Double> = dataStore.data
         .map { it[dailyLimitCalories] ?: MealsInteractor.DEFAULT_DAILY_LIMIT_CALORIES }

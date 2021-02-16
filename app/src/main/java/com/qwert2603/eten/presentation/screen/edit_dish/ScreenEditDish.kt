@@ -11,12 +11,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.viewModel
 import com.qwert2603.eten.R
 import com.qwert2603.eten.presentation.edit_meal_parts.EditWeightedMealPartsList
+import com.qwert2603.eten.util.noContentDescription
 
 @Composable
 fun ScreenEditDish(dishUuid: String?, navigateUp: () -> Unit) {
@@ -38,7 +40,7 @@ fun ScreenEditDish(dishUuid: String?, navigateUp: () -> Unit) {
                 },
                 navigationIcon = {
                     IconButton(onClick = navigateUp) {
-                        Icon(Icons.Default.ArrowBack)
+                        Icon(Icons.Default.ArrowBack, noContentDescription)
                     }
                 },
                 actions = {
@@ -49,7 +51,7 @@ fun ScreenEditDish(dishUuid: String?, navigateUp: () -> Unit) {
                         },
                         enabled = dish.isValid(), // todo: show validation error in all "edit" screens.
                     ) {
-                        Icon(vectorResource(R.drawable.ic_save))
+                        Icon(painterResource(R.drawable.ic_save), noContentDescription)
                     }
                 }
             )
