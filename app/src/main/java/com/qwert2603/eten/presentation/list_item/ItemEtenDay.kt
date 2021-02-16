@@ -1,6 +1,9 @@
 package com.qwert2603.eten.presentation.list_item
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.Text

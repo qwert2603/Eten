@@ -13,9 +13,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.viewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.qwert2603.eten.R
 import com.qwert2603.eten.presentation.edit_meal_parts.EditVolumedMealPartsList
 import com.qwert2603.eten.util.noContentDescription

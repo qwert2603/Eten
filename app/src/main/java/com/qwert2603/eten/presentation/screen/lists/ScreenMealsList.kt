@@ -14,14 +14,13 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.viewinterop.viewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.qwert2603.eten.R
 import com.qwert2603.eten.domain.model.EtenDay
 import com.qwert2603.eten.domain.model.Meal
 import com.qwert2603.eten.presentation.EtenViewModel
 import com.qwert2603.eten.presentation.list_item.ItemEtenDay
 import com.qwert2603.eten.presentation.screen.delete.DialogDeleteMeal
-import com.qwert2603.eten.util.format
 import com.qwert2603.eten.view.SnackbarHandler
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atStartOfDayIn

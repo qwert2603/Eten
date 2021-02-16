@@ -7,7 +7,7 @@ import androidx.compose.material.Divider
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.viewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.qwert2603.eten.R
 import com.qwert2603.eten.domain.model.Product
 import com.qwert2603.eten.presentation.EtenViewModel
