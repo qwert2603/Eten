@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
@@ -20,6 +21,7 @@ import com.qwert2603.eten.presentation.list_item.ItemDish
 import com.qwert2603.eten.presentation.screen.delete.DialogDeleteDish
 import com.qwert2603.eten.util.noContentDescription
 import com.qwert2603.eten.view.SnackbarHandler
+import kotlinx.coroutines.launch
 
 @Composable
 fun ScreenDishesList(
@@ -31,17 +33,24 @@ fun ScreenDishesList(
     val dishesUpdateState by vm.dishesUpdates.collectAsState(initial = null)
     val search by vm.dishesSearch.collectAsState()
     var dishToDelete by remember { mutableStateOf<Dish?>(null) }
+    val listState = rememberLazyListState()
+    val scope = rememberCoroutineScope()
 
     val dishesUpdate = dishesUpdateState ?: return
+
+    fun onSearchChange(search: String) {
+        vm.onSearchDishChange(search)
+        scope.launch { listState.snapToItemIndex(0) }
+    }
 
     Column {
         TextField(
             value = search,
-            onValueChange = { vm.onSearchDishChange(it.take(100)) },
+            onValueChange = { onSearchChange(it.take(100)) },
             label = { Text(stringResource(R.string.common_search)) },
             modifier = Modifier.padding(12.dp),
             trailingIcon = {
-                IconButton(onClick = { vm.onSearchDishChange("") }) {
+                IconButton(onClick = { onSearchChange("") }) {
                     Icon(
                         Icons.Default.Clear,
                         contentDescription = noContentDescription,
@@ -53,6 +62,7 @@ fun ScreenDishesList(
 
         LazyColumn(
             contentPadding = PaddingValues(bottom = 112.dp),
+            state = listState,
         ) {
             items(dishesUpdate.dishes, key = Dish::uuid) {
                 ItemDish(
