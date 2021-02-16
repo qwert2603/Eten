@@ -8,7 +8,9 @@ import com.qwert2603.eten.domain.model.Dish
 import com.qwert2603.eten.domain.model.Meal
 import com.qwert2603.eten.domain.model.Product
 import com.qwert2603.eten.domain.repo.EtenRepo
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 
@@ -17,7 +19,16 @@ class EtenViewModel(
     private val mealsInteractor: MealsInteractor = MealsInteractor(),
 ) : ViewModel() {
 
+    val productsSearch = MutableStateFlow("")
+    val dishesSearch = MutableStateFlow("")
+
     val productsUpdates = etenRepo.productsUpdates()
+        .combine(productsSearch) { productsUpdate, search ->
+            val filteredProducts = productsUpdate.products.filter {
+                it.name.contains(search, ignoreCase = true)
+            }
+            productsUpdate.copy(products = filteredProducts)
+        }
         .shareIn(
             scope = viewModelScope,
             replay = 1,
@@ -25,6 +36,12 @@ class EtenViewModel(
         )
 
     val dishesUpdates = etenRepo.dishesUpdates()
+        .combine(dishesSearch) { dishesUpdate, search ->
+            val filteredDishes = dishesUpdate.dishes.filter {
+                it.name.contains(search, ignoreCase = true)
+            }
+            dishesUpdate.copy(dishes = filteredDishes)
+        }
         .shareIn(
             scope = viewModelScope,
             replay = 1,
@@ -72,5 +89,13 @@ class EtenViewModel(
         viewModelScope.launch {
             etenRepo.saveMeal(meal)
         }
+    }
+
+    fun onSearchProductChange(search: String) {
+        productsSearch.value = search
+    }
+
+    fun onSearchDishChange(search: String) {
+        dishesSearch.value = search
     }
 }

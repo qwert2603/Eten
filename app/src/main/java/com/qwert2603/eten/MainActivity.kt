@@ -3,9 +3,9 @@ package com.qwert2603.eten
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.setContent
 import com.qwert2603.eten.android.EtenCallbacksAndroid
 import com.qwert2603.eten.presentation.EtenApp
 
