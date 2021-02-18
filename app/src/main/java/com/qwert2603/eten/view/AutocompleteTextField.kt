@@ -33,15 +33,15 @@ fun <T : Any> AutocompleteTextField(
     onQueryChanged: ((String) -> Unit)? = null,
     label: @Composable (() -> Unit)? = null,
 ) {
-    var textFieldValue: TextFieldValue by rememberSaveable(
-        fieldId,
-        stateSaver = TextFieldValueSaver(),
-    ) {
+    // todo: rememberSaveable
+    // todo: fix usage fieldId for entered text without selected item, when product is deleted and items move up in the list.
+
+    var textFieldValue: TextFieldValue by remember(fieldId) {
         val text = selectedItem?.let(itemToString) ?: ""
         val textFieldValue = TextFieldValue(text = text, selection = TextRange(text.length))
         mutableStateOf(textFieldValue)
     }
-    var expanded by rememberSaveable { mutableStateOf(false) }
+    var expanded by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     var currentJob by remember { mutableStateOf<Job?>(null) }
     var items by remember { mutableStateOf<List<T>>(emptyList()) }
@@ -105,18 +105,17 @@ fun <T : Any> AutocompleteTextField(
 
 class TextFieldValueSaver : Saver<TextFieldValue, TextFieldValueSaver.SerializableTextFieldValue> {
 
+    // todo: save selection
     class SerializableTextFieldValue(
         val text: String,
-        val selection: Long,
     ) : Serializable // todo: remove import java.io.Serializable
 
     override fun SaverScope.save(value: TextFieldValue) = SerializableTextFieldValue(
         text = value.text,
-        selection = value.selection.packedValue,
     )
 
     override fun restore(value: SerializableTextFieldValue) = TextFieldValue(
         text = value.text,
-        selection = TextRange(value.selection),
+        selection = TextRange(value.text.length),
     )
 }
