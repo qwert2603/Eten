@@ -1,9 +1,10 @@
 package com.qwert2603.eten.presentation.screen.edit_dish
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.ScrollableColumn
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -56,8 +57,11 @@ fun ScreenEditDish(dishUuid: String?, navigateUp: () -> Unit) {
             )
         }
     ) {
-        ScrollableColumn(
-            contentPadding = PaddingValues(12.dp),
+
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(12.dp)
         ) {
             TextField(
                 value = dish.name,

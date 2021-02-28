@@ -1,10 +1,9 @@
 package com.qwert2603.eten.presentation.screen.settings
 
-import androidx.compose.foundation.ScrollableColumn
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -53,8 +52,10 @@ fun ScreenSettings(
             )
         }
     ) {
-        ScrollableColumn(
-            contentPadding = PaddingValues(12.dp),
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(12.dp)
         ) {
             TextField(
                 value = settingsModel.dailyLimitCalories.toEditingString(),

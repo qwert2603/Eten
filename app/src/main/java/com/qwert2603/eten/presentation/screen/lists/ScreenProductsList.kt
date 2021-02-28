@@ -39,7 +39,7 @@ fun ScreenProductsList(
 
     fun onSearchChange(search: String) {
         vm.onSearchProductChange(search)
-        scope.launch { listState.snapToItemIndex(0) }
+        scope.launch { listState.scrollToItem(0) }
     }
 
     Column {

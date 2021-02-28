@@ -136,7 +136,7 @@ fun ScreenMain(
                 }
             }
         },
-        bodyContent = {
+        content = {
             NavHost(navController, startDestination = BottomMenuItem.values().first().route.name) {
                 // todo: screens are recreated when switching bottom items
                 composable(BottomMenuItem.Meals.route.name) {

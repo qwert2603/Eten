@@ -1,9 +1,11 @@
 package com.qwert2603.eten.presentation.screen.dump
 
-import androidx.compose.foundation.ScrollableColumn
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -62,7 +64,11 @@ fun ScreenDump(
             )
         },
     ) {
-        ScrollableColumn(contentPadding = PaddingValues(16.dp)) {
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(16.dp)
+        ) {
             Button(onClick = { vm.onSaveDumpClick() }) {
                 Text(stringResource(R.string.dump_save_button))
             }

@@ -40,7 +40,7 @@ fun ScreenDishesList(
 
     fun onSearchChange(search: String) {
         vm.onSearchDishChange(search)
-        scope.launch { listState.snapToItemIndex(0) }
+        scope.launch { listState.scrollToItem(0) }
     }
 
     Column {
