@@ -86,8 +86,8 @@ private fun EditMealPartsList(
             )
         }
 
-        val totalWeightFormatted = parts.sumBy { it.weight ?: 0 }.toDouble().formatWeight()
-        val totalCaloriesFormatted = parts.sumByDouble { it.calories }.formatTotalCalories()
+        val totalWeightFormatted = parts.sumOf { it.weight ?: 0 }.toDouble().formatWeight()
+        val totalCaloriesFormatted = parts.sumOf { it.calories }.formatTotalCalories()
         Text(
             "${stringResource(R.string.common_total)}: $totalWeightFormatted, $totalCaloriesFormatted",
             fontWeight = FontWeight.Bold,

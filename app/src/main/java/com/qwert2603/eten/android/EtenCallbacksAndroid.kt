@@ -21,12 +21,12 @@ class EtenCallbacksAndroid(
         ActivityResultContracts.GetContent()
     ) { uri ->
         if (uri == null) {
-            openDumpResult.offer(null)
+            openDumpResult.trySend(null)
             return@registerForActivityResult
         }
         val dumpJson = activity.contentResolver.openInputStream(uri)!!
             .use { String(it.readBytes()) }
-        openDumpResult.offer(dumpJson)
+        openDumpResult.trySend(dumpJson)
     }
 
     override fun sendDump(file: File) {
