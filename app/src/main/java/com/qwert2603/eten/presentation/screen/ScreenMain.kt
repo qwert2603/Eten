@@ -14,6 +14,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.compose.*
 import com.qwert2603.eten.E
 import com.qwert2603.eten.R
@@ -68,7 +70,7 @@ fun ScreenMain(
     // fixme: bodyContent is under bottomBar
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.arguments?.getString(KEY_ROUTE)
+    val currentRoute = navBackStackEntry?.destination?.route
 
     val snackbarHandler = remember {
         object : SnackbarHandler {
@@ -127,7 +129,7 @@ fun ScreenMain(
                             snackbarHostState.currentSnackbarData?.dismiss()
 
                             // todo: check how it works
-                            navController.popBackStack(navController.graph.startDestination, false)
+                            navController.popBackStack(navController.graph.startDestinationId, false)
                             if (currentRoute != it.route.name) {
                                 navController.navigate(it.route.name)
                             }
